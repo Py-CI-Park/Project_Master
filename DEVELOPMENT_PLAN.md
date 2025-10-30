@@ -364,15 +364,80 @@ start_time, end_time, color, created_at
   - ✅ init_db.py 실행 테스트 통과
 
 #### 1.2 Pydantic 스키마 정의 (2일)
-- [ ] **1.2.1** Request/Response 스키마 작성
-  - `schemas/project.py` (Create, Update, Response)
-  - `schemas/task.py`
-  - `schemas/enabler.py`
-  - `schemas/dependency.py`
-  - `schemas/calendar.py`
-- [ ] **1.2.2** 데이터 검증 로직 구현
-  - 날짜 유효성 검증 (end_date >= start_date)
-  - 진행률 검증 (0 <= progress <= 100)
+- [x] **1.2.1** Request/Response 스키마 작성 ✅ 완료 (2025-10-30)
+  - ✅ `schemas/project.py` - Project 스키마 (Base, Create, Update, Response)
+    - ProjectBase: 공통 필드 (name, description, start_date, end_date, status)
+    - ProjectCreate: 생성 요청 스키마
+    - ProjectUpdate: 수정 요청 스키마 (모든 필드 Optional)
+    - ProjectResponse: 응답 스키마 (id, created_at, updated_at 포함)
+    - 상태 검증: planning, in_progress, on_hold, completed, cancelled
+    - 날짜 검증: end_date >= start_date
+
+  - ✅ `schemas/task.py` - Task 스키마 (Base, Create, Update, Response)
+    - TaskBase: 14개 필드 (name, description, dates, progress, status, priority, assignee, milestone, color)
+    - TaskCreate: project_id 포함 생성 스키마
+    - TaskUpdate: 모든 필드 Optional
+    - TaskResponse: id, project_id, timestamps 포함
+    - 상태 검증: not_started, in_progress, completed, blocked
+    - 우선순위 검증: low, medium, high, critical
+    - 진행률 검증: 0.0 <= progress <= 100.0
+    - 소요 기간 검증: duration_days >= 1
+    - 날짜 검증: end_date >= start_date
+
+  - ✅ `schemas/enabler.py` - Enabler 스키마 (Base, Create, Update, Response)
+    - EnablerBase: 9개 필드 (name, type, dates, status, criticality, responsible_person, notes)
+    - EnablerCreate: project_id 포함
+    - EnablerUpdate: 모든 필드 Optional
+    - EnablerResponse: id, project_id, timestamps 포함
+    - 타입 검증: document, equipment, approval, resource, license, training
+    - 상태 검증: requested, in_progress, delivered, delayed, cancelled
+    - 중요도 검증: low, medium, high, critical
+
+  - ✅ `schemas/dependency.py` - Dependency 스키마 (Base, Create, Update, Response)
+    - DependencyBase: 4개 필드 (predecessor_task_id, successor_task_id, dependency_type, lag_days)
+    - DependencyCreate: 생성 스키마
+    - DependencyUpdate: dependency_type, lag_days 수정 가능
+    - DependencyResponse: id, created_at 포함
+    - 의존성 타입 검증: FS, SS, FF, SF
+    - 순환 의존성 방지: predecessor ≠ successor
+
+  - ✅ `schemas/calendar.py` - CalendarEvent 스키마 (Base, Create, Update, Response)
+    - CalendarEventBase: 8개 필드 (event_type, title, description, date, time, color)
+    - CalendarEventCreate: project_id, task_id, enabler_id 포함
+    - CalendarEventUpdate: 모든 필드 Optional
+    - CalendarEventResponse: id, foreign keys, created_at 포함
+    - 이벤트 타입 검증: milestone, task_start, task_end, enabler_delivery, meeting, review
+    - 시간 검증: all_day=False 시 start_time, end_time 필수
+    - 시간 순서 검증: end_time > start_time
+
+  - ✅ `schemas/enabler_impact.py` - EnablerImpact 스키마 (Base, Create, Update, Response)
+    - EnablerImpactBase: 4개 필드 (enabler_id, task_id, impact_type, impact_description)
+    - EnablerImpactCreate: 생성 스키마
+    - EnablerImpactUpdate: impact_type, impact_description 수정 가능
+    - EnablerImpactResponse: id, created_at 포함
+    - 영향 타입 검증: blocking, required, optional, helpful
+
+  - ✅ `schemas/__init__.py` - 모든 스키마 export
+  - ✅ Black 포맷팅 적용 (6개 파일)
+  - ✅ 스키마 import 테스트 통과
+
+- [x] **1.2.2** 데이터 검증 로직 구현 ✅ 완료 (2025-10-30)
+  - ✅ 날짜 유효성 검증 (end_date >= start_date)
+    - Project, Task 스키마에 적용
+    - field_validator 사용
+  - ✅ 진행률 검증 (0.0 <= progress <= 100.0)
+    - Task 스키마에 적용
+    - Create, Update 모두 검증
+  - ✅ Enum 값 검증
+    - status, priority, type, criticality 등 모든 enum 필드
+    - 허용된 값 목록과 비교
+  - ✅ 관계 필드 검증
+    - Dependency: predecessor ≠ successor (순환 방지)
+    - CalendarEvent: all_day=False 시 시간 필수
+  - ✅ Pydantic v2 패턴 사용
+    - ConfigDict 사용 (from_attributes=True)
+    - field_validator 데코레이터 사용
+    - ValidationInfo 사용 (info.data)
 
 #### 1.3 기본 CRUD API 구현 (5일)
 - [ ] **1.3.1** Projects API
@@ -1042,13 +1107,13 @@ project-manager-v1.0.0.zip
 
 #### Phase별 진행률
 - **Phase 0**: 🟢 100% (5/5 완료, 1개 건너뛰기)
-- **Phase 1**: 🟡 15% (3/20 완료)
+- **Phase 1**: 🟡 25% (5/20 완료)
 - **Phase 2**: 🔴 0% (0/30 완료)
 - **Phase 3**: 🔴 0% (0/25 완료)
 - **Phase 4**: 🔴 0% (0/15 완료)
 - **Phase 5**: 🔴 0% (0/20 완료)
 
-**전체 진행률**: 🟡 7% (8/115 작업 항목 완료, 1개 건너뛰기)
+**전체 진행률**: 🟡 9% (10/115 작업 항목 완료, 1개 건너뛰기)
 
 ### 11.3 마일스톤 추적
 
@@ -1078,11 +1143,13 @@ project-manager-v1.0.0.zip
     - 1.1.1: SQLAlchemy 모델 정의 완료 (Project, Task, Enabler, Dependency, EnablerImpact, CalendarEvent)
     - 1.1.2: Alembic 마이그레이션 설정 완료 (초기 마이그레이션, 6개 테이블 생성, 29개 인덱스)
     - 1.1.3: 데이터베이스 초기화 스크립트 완료 (init_db.py, create_sample_data.py)
-- **진행률**: Phase 0 100% (5/5), Phase 1 15% (3/20), 전체 7% (8/115)
+    - 1.2.1: Pydantic Request/Response 스키마 작성 완료 (6개 모델, 18개 스키마 클래스)
+    - 1.2.2: 데이터 검증 로직 구현 완료 (날짜, 진행률, Enum, 관계 필드 검증)
+- **진행률**: Phase 0 100% (5/5), Phase 1 25% (5/20), 전체 9% (10/115)
 - **이슈**:
   - WSL2 환경에서 npm/pip 설치 시 일부 지연 발생, 재시도로 해결
   - Alembic 초기화 시 data 디렉토리 미생성 오류 → 디렉토리 생성 후 해결
-- **다음 작업**: Phase 1.2.1 (Pydantic Request/Response 스키마 작성)
+- **다음 작업**: Phase 1.3.1 (Projects CRUD API 구현)
 
 ---
 
