@@ -331,9 +331,17 @@ start_time, end_time, color, created_at
   - ✅ `models/__init__.py` - 모든 모델 export
   - ✅ Black 포맷팅 적용 (6개 파일)
   - ✅ 모델 import 테스트 통과
-- [ ] **1.1.2** Alembic 마이그레이션 설정
-  - 초기 마이그레이션 생성
-  - 인덱스 및 제약조건 추가
+- [x] **1.1.2** Alembic 마이그레이션 설정 ✅ 완료 (2025-10-30)
+  - ✅ `alembic init alembic` - Alembic 초기화 완료
+  - ✅ `alembic.ini` 설정 - SQLite 데이터베이스 URL 설정
+  - ✅ `alembic/env.py` 설정 - Base metadata 및 모델 import 추가
+  - ✅ 초기 마이그레이션 생성 (`777817938b66_initial_migration_create_all_tables.py`)
+    - 6개 테이블: projects, tasks, enablers, dependencies, enabler_impacts, calendar_events
+    - 모든 Foreign Key 제약조건 (CASCADE delete)
+    - 29개 인덱스 (ID, Name, Status, Date 등 검색 필드)
+  - ✅ 마이그레이션 적용 (`alembic upgrade head`)
+  - ✅ 데이터베이스 생성 확인 (data/project_manager.db, 160KB)
+  - ✅ Black 포맷팅 적용 (alembic/env.py, migration file)
 - [ ] **1.1.3** 데이터베이스 초기화 스크립트
   - `init_db.py` 작성
   - 샘플 데이터 생성 스크립트
@@ -1017,13 +1025,13 @@ project-manager-v1.0.0.zip
 
 #### Phase별 진행률
 - **Phase 0**: 🟢 100% (5/5 완료, 1개 건너뛰기)
-- **Phase 1**: 🟡 5% (1/20 완료)
+- **Phase 1**: 🟡 10% (2/20 완료)
 - **Phase 2**: 🔴 0% (0/30 완료)
 - **Phase 3**: 🔴 0% (0/25 완료)
 - **Phase 4**: 🔴 0% (0/15 완료)
 - **Phase 5**: 🔴 0% (0/20 완료)
 
-**전체 진행률**: 🟡 5% (6/115 작업 항목 완료, 1개 건너뛰기)
+**전체 진행률**: 🟡 6% (7/115 작업 항목 완료, 1개 건너뛰기)
 
 ### 11.3 마일스톤 추적
 
@@ -1051,9 +1059,12 @@ project-manager-v1.0.0.zip
     - 0.6: Docker 설정 건너뛰기 (선택사항, 로컬 환경 구축 완료)
   - **Phase 1 시작**: 백엔드 핵심 기능 개발
     - 1.1.1: SQLAlchemy 모델 정의 완료 (Project, Task, Enabler, Dependency, EnablerImpact, CalendarEvent)
-- **진행률**: Phase 0 100% (5/5), Phase 1 5% (1/20), 전체 5% (6/115)
-- **이슈**: WSL2 환경에서 npm/pip 설치 시 일부 지연 발생, 재시도로 해결
-- **다음 작업**: Phase 1.1.2 (Alembic 마이그레이션 설정)
+    - 1.1.2: Alembic 마이그레이션 설정 완료 (초기 마이그레이션, 6개 테이블 생성, 29개 인덱스)
+- **진행률**: Phase 0 100% (5/5), Phase 1 10% (2/20), 전체 6% (7/115)
+- **이슈**:
+  - WSL2 환경에서 npm/pip 설치 시 일부 지연 발생, 재시도로 해결
+  - Alembic 초기화 시 data 디렉토리 미생성 오류 → 디렉토리 생성 후 해결
+- **다음 작업**: Phase 1.1.3 (데이터베이스 초기화 스크립트)
 
 ---
 
