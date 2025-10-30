@@ -478,8 +478,26 @@ start_time, end_time, color, created_at
   - ✅ 문서화: OpenAPI 스키마 자동 생성
   - ✅ Black 포맷팅 완료 (1개 파일 재포맷)
   - ✅ Import 테스트 통과
-- [ ] **1.3.3** Enablers API
-  - 동일한 CRUD 패턴 적용
+- [x] **1.3.3** Enablers API ✅ (2025-10-30 완료)
+  - ✅ `POST /api/projects/{project_id}/enablers` - Enabler 생성
+  - ✅ `GET /api/projects/{project_id}/enablers` - 프로젝트별 Enabler 목록 조회 (pagination 지원)
+  - ✅ `GET /api/enablers/{id}` - Enabler 상세 조회
+  - ✅ `PUT /api/enablers/{id}` - Enabler 수정
+  - ✅ `DELETE /api/enablers/{id}` - Enabler 삭제
+  - ✅ 파일 생성:
+    - app/api/v1/endpoints/enablers.py (5개 엔드포인트, 242줄)
+  - ✅ 파일 업데이트:
+    - app/api/v1/endpoints/__init__.py (enablers_router export)
+    - app/api/v1/__init__.py (enablers 엔드포인트 등록)
+  - ✅ 프로젝트 관계 검증:
+    - 프로젝트 존재 여부 확인 (POST, GET list)
+    - project_id 일치 검증 (URL vs 요청 데이터)
+  - ✅ 에러 처리:
+    - 400 Bad Request (생성/수정 실패, project_id 불일치)
+    - 404 Not Found (프로젝트/Enabler 미존재)
+  - ✅ 문서화: OpenAPI 스키마 자동 생성
+  - ✅ Black 포맷팅 완료 (1개 파일 재포맷)
+  - ✅ Import 테스트 통과
 - [ ] **1.3.4** Dependencies API
   - `POST /api/dependencies` - 의존성 추가
   - `GET /api/projects/{id}/dependencies` - 의존성 조회
@@ -1133,13 +1151,13 @@ project-manager-v1.0.0.zip
 
 #### Phase별 진행률
 - **Phase 0**: 🟢 100% (5/5 완료, 1개 건너뛰기)
-- **Phase 1**: 🟡 35% (7/20 완료)
+- **Phase 1**: 🟡 40% (8/20 완료)
 - **Phase 2**: 🔴 0% (0/30 완료)
 - **Phase 3**: 🔴 0% (0/25 완료)
 - **Phase 4**: 🔴 0% (0/15 완료)
 - **Phase 5**: 🔴 0% (0/20 완료)
 
-**전체 진행률**: 🟡 10% (12/115 작업 항목 완료, 1개 건너뛰기)
+**전체 진행률**: 🟡 11% (13/115 작업 항목 완료, 1개 건너뛰기)
 
 ### 11.3 마일스톤 추적
 
@@ -1173,12 +1191,13 @@ project-manager-v1.0.0.zip
     - 1.2.2: 데이터 검증 로직 구현 완료 (날짜, 진행률, Enum, 관계 필드 검증)
     - 1.3.1: Projects CRUD API 구현 완료 (5개 엔드포인트, 4개 파일 생성)
     - 1.3.2: Tasks CRUD API 구현 완료 (5개 엔드포인트, 프로젝트 관계 검증)
-- **진행률**: Phase 0 100% (5/5), Phase 1 35% (7/20), 전체 10% (12/115)
+    - 1.3.3: Enablers CRUD API 구현 완료 (5개 엔드포인트, 프로젝트 관계 검증)
+- **진행률**: Phase 0 100% (5/5), Phase 1 40% (8/20), 전체 11% (13/115)
 - **이슈**:
   - WSL2 환경에서 npm/pip 설치 시 일부 지연 발생, 재시도로 해결
   - Alembic 초기화 시 data 디렉토리 미생성 오류 → 디렉토리 생성 후 해결
   - API 파일 생성 시 일부 인코딩 오류 → UTF-8 재작성으로 해결
-- **다음 작업**: Phase 1.3.3 (Enablers CRUD API 구현)
+- **다음 작업**: Phase 1.3.4 (Dependencies CRUD API 구현)
 
 ---
 
