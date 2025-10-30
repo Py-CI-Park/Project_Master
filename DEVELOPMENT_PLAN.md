@@ -321,13 +321,16 @@ start_time, end_time, color, created_at
 **시작일**: 2025-10-30
 
 #### 1.1 데이터베이스 설계 및 모델 구현 (3일)
-- [ ] **1.1.1** SQLAlchemy 모델 정의
-  - `models/project.py`
-  - `models/task.py`
-  - `models/enabler.py`
-  - `models/dependency.py`
-  - `models/enabler_impact.py`
-  - `models/calendar_event.py`
+- [x] **1.1.1** SQLAlchemy 모델 정의 ✅ 완료 (2025-10-30)
+  - ✅ `models/project.py` - 프로젝트 모델 (8개 필드, 3개 관계)
+  - ✅ `models/task.py` - 태스크 모델 (14개 필드, 5개 관계)
+  - ✅ `models/enabler.py` - Key Enabler 모델 (11개 필드, 3개 관계)
+  - ✅ `models/dependency.py` - 의존성 모델 (FS/SS/FF/SF 타입 지원)
+  - ✅ `models/enabler_impact.py` - Enabler 영향 모델 (blocking/required/optional/helpful)
+  - ✅ `models/calendar_event.py` - 캘린더 이벤트 모델 (6가지 이벤트 타입)
+  - ✅ `models/__init__.py` - 모든 모델 export
+  - ✅ Black 포맷팅 적용 (6개 파일)
+  - ✅ 모델 import 테스트 통과
 - [ ] **1.1.2** Alembic 마이그레이션 설정
   - 초기 마이그레이션 생성
   - 인덱스 및 제약조건 추가
@@ -1014,13 +1017,13 @@ project-manager-v1.0.0.zip
 
 #### Phase별 진행률
 - **Phase 0**: 🟢 100% (5/5 완료, 1개 건너뛰기)
-- **Phase 1**: 🟡 0% (0/20 완료)
+- **Phase 1**: 🟡 5% (1/20 완료)
 - **Phase 2**: 🔴 0% (0/30 완료)
 - **Phase 3**: 🔴 0% (0/25 완료)
 - **Phase 4**: 🔴 0% (0/15 완료)
 - **Phase 5**: 🔴 0% (0/20 완료)
 
-**전체 진행률**: 🟡 4% (5/115 작업 항목 완료, 1개 건너뛰기)
+**전체 진행률**: 🟡 5% (6/115 작업 항목 완료, 1개 건너뛰기)
 
 ### 11.3 마일스톤 추적
 
@@ -1047,9 +1050,10 @@ project-manager-v1.0.0.zip
     - 0.5: 코드 품질 도구 설정 완료 (Black, Prettier, ESLint, mypy, flake8)
     - 0.6: Docker 설정 건너뛰기 (선택사항, 로컬 환경 구축 완료)
   - **Phase 1 시작**: 백엔드 핵심 기능 개발
-- **진행률**: Phase 0 100% (5/5 완료, 1개 건너뛰기), 전체 4% (5/115)
+    - 1.1.1: SQLAlchemy 모델 정의 완료 (Project, Task, Enabler, Dependency, EnablerImpact, CalendarEvent)
+- **진행률**: Phase 0 100% (5/5), Phase 1 5% (1/20), 전체 5% (6/115)
 - **이슈**: WSL2 환경에서 npm/pip 설치 시 일부 지연 발생, 재시도로 해결
-- **다음 작업**: Phase 1.1.1 (SQLAlchemy 모델 정의)
+- **다음 작업**: Phase 1.1.2 (Alembic 마이그레이션 설정)
 
 ---
 
