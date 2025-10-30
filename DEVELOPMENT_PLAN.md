@@ -342,9 +342,26 @@ start_time, end_time, color, created_at
   - ✅ 마이그레이션 적용 (`alembic upgrade head`)
   - ✅ 데이터베이스 생성 확인 (data/project_manager.db, 160KB)
   - ✅ Black 포맷팅 적용 (alembic/env.py, migration file)
-- [ ] **1.1.3** 데이터베이스 초기화 스크립트
-  - `init_db.py` 작성
-  - 샘플 데이터 생성 스크립트
+- [x] **1.1.3** 데이터베이스 초기화 스크립트 ✅ 완료 (2025-10-30)
+  - ✅ `init_db.py` 작성 (데이터베이스 초기화 및 검증 스크립트)
+    - data 디렉토리 자동 생성
+    - 데이터베이스 파일 존재 확인
+    - 6개 테이블 존재 확인 (projects, tasks, enablers, dependencies, enabler_impacts, calendar_events)
+    - 데이터베이스 연결 테스트
+    - 상세한 초기화 진행 상황 출력
+    - 다음 단계 안내 기능
+  - ✅ `create_sample_data.py` 작성 (샘플 데이터 생성 스크립트)
+    - 1개 샘플 프로젝트: "신규 시스템 구축 프로젝트" (6개월 일정)
+    - 6개 샘플 태스크: 요구사항 분석, 시스템 설계, 백엔드/프론트엔드 개발, 통합 테스트, 배포
+    - 6개 태스크 의존성: FS(Finish-Start) 타입 의존성 체인
+    - 5개 Key Enabler: 클라우드 승인, 개발 서버, 보안 문서, DB 라이선스, 운영 교육
+    - 6개 Enabler 영향: blocking, required, optional 타입 영향 관계
+    - 6개 캘린더 이벤트: 킥오프 미팅, 마일스톤, 리뷰, 이벤트
+    - 기존 데이터 삭제 기능 (사용자 확인 후)
+    - 상세한 데이터 생성 로그
+  - ✅ Black 포맷팅 적용 (2개 파일)
+  - ✅ 실행 권한 설정 (chmod +x)
+  - ✅ init_db.py 실행 테스트 통과
 
 #### 1.2 Pydantic 스키마 정의 (2일)
 - [ ] **1.2.1** Request/Response 스키마 작성
@@ -1025,13 +1042,13 @@ project-manager-v1.0.0.zip
 
 #### Phase별 진행률
 - **Phase 0**: 🟢 100% (5/5 완료, 1개 건너뛰기)
-- **Phase 1**: 🟡 10% (2/20 완료)
+- **Phase 1**: 🟡 15% (3/20 완료)
 - **Phase 2**: 🔴 0% (0/30 완료)
 - **Phase 3**: 🔴 0% (0/25 완료)
 - **Phase 4**: 🔴 0% (0/15 완료)
 - **Phase 5**: 🔴 0% (0/20 완료)
 
-**전체 진행률**: 🟡 6% (7/115 작업 항목 완료, 1개 건너뛰기)
+**전체 진행률**: 🟡 7% (8/115 작업 항목 완료, 1개 건너뛰기)
 
 ### 11.3 마일스톤 추적
 
@@ -1060,11 +1077,12 @@ project-manager-v1.0.0.zip
   - **Phase 1 시작**: 백엔드 핵심 기능 개발
     - 1.1.1: SQLAlchemy 모델 정의 완료 (Project, Task, Enabler, Dependency, EnablerImpact, CalendarEvent)
     - 1.1.2: Alembic 마이그레이션 설정 완료 (초기 마이그레이션, 6개 테이블 생성, 29개 인덱스)
-- **진행률**: Phase 0 100% (5/5), Phase 1 10% (2/20), 전체 6% (7/115)
+    - 1.1.3: 데이터베이스 초기화 스크립트 완료 (init_db.py, create_sample_data.py)
+- **진행률**: Phase 0 100% (5/5), Phase 1 15% (3/20), 전체 7% (8/115)
 - **이슈**:
   - WSL2 환경에서 npm/pip 설치 시 일부 지연 발생, 재시도로 해결
   - Alembic 초기화 시 data 디렉토리 미생성 오류 → 디렉토리 생성 후 해결
-- **다음 작업**: Phase 1.1.3 (데이터베이스 초기화 스크립트)
+- **다음 작업**: Phase 1.2.1 (Pydantic Request/Response 스키마 작성)
 
 ---
 
