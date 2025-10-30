@@ -520,12 +520,44 @@ start_time, end_time, color, created_at
   - ✅ Import 테스트 통과
 
 #### 1.4 비즈니스 로직 구현 (5일)
-- [ ] **1.4.1** 크리티컬 패스 계산 (`services/critical_path.py`)
-  - Topological Sort 알고리즘 구현
-  - Forward Pass 구현
-  - Backward Pass 구현
-  - Slack 계산
-  - 크리티컬 패스 식별
+- [x] **1.4.1** 크리티컬 패스 계산 (`services/critical_path.py`) ✅ (2025-10-30 완료)
+  - ✅ 파일 생성: `app/services/critical_path.py` (약 400줄)
+  - ✅ 데이터 모델 정의:
+    - TaskSchedule: 태스크 일정 정보 (ES, EF, LS, LF, Slack, Critical 여부)
+    - CriticalPathResult: CPM 계산 결과 (태스크 목록, Critical Path, 프로젝트 소요 기간)
+  - ✅ Topological Sort 알고리즘 구현 (Kahn's Algorithm)
+    - In-degree 기반 위상 정렬
+    - 순환 의존성 검증 및 에러 처리
+    - 정렬된 태스크 순서로 Forward/Backward Pass 수행
+  - ✅ Forward Pass 구현 (최조 시작/완료 시간 계산)
+    - Earliest Start (ES), Earliest Finish (EF) 계산
+    - 모든 의존성 타입 지원:
+      - FS (Finish-Start): 선행 완료 후 후속 시작
+      - SS (Start-Start): 선행 시작과 동시에 후속 시작
+      - FF (Finish-Finish): 선행 완료와 동시에 후속 완료
+      - SF (Start-Finish): 선행 시작 후 후속 완료
+    - Lag/Lead 시간 반영 (양수: 지연, 음수: 앞당김)
+  - ✅ Backward Pass 구현 (최후 시작/완료 시간 계산)
+    - Latest Start (LS), Latest Finish (LF) 계산
+    - 역방향 그래프 순회
+    - 모든 의존성 타입에 대한 역방향 계산
+  - ✅ Slack 계산 구현
+    - Total Slack: LS - ES = LF - EF
+    - Free Slack: 후속 태스크 고려한 여유 시간
+  - ✅ 크리티컬 패스 식별
+    - Slack이 0인 태스크 체인 추출
+    - 프로젝트 지연에 직접 영향을 주는 태스크들
+  - ✅ 메인 함수 통합:
+    - calculate_critical_path(project_id, db) -> CriticalPathResult
+    - 프로젝트 조회, 태스크/의존성 로드
+    - 전체 CPM 알고리즘 실행
+    - 결과 데이터 구조화
+  - ✅ 에러 처리:
+    - 프로젝트 미존재: ValueError
+    - 태스크 없음: ValueError
+    - 순환 의존성: has_circular_dependency=True, error_message 반환
+  - ✅ Black 포맷팅 완료
+  - ✅ Import 테스트 통과
 - [ ] **1.4.2** 의존성 분석 (`services/dependency_analyzer.py`)
   - 의존성 그래프 생성
   - 순환 의존성 검증
@@ -1167,7 +1199,7 @@ project-manager-v1.0.0.zip
 
 #### Phase별 진행률
 - **Phase 0**: 🟢 100% (5/5 완료, 1개 건너뛰기)
-- **Phase 1**: 🟡 45% (9/20 완료)
+- **Phase 1**: 🟡 50% (10/20 완료)
 - **Phase 2**: 🔴 0% (0/30 완료)
 - **Phase 3**: 🔴 0% (0/25 완료)
 - **Phase 4**: 🔴 0% (0/15 완료)
@@ -1209,12 +1241,13 @@ project-manager-v1.0.0.zip
     - 1.3.2: Tasks CRUD API 구현 완료 (5개 엔드포인트, 프로젝트 관계 검증)
     - 1.3.3: Enablers CRUD API 구현 완료 (5개 엔드포인트, 프로젝트 관계 검증)
     - 1.3.4: Dependencies CRUD API 구현 완료 (3개 엔드포인트, 태스크 관계 검증)
-- **진행률**: Phase 0 100% (5/5), Phase 1 45% (9/20), 전체 12% (14/115)
+    - 1.4.1: 크리티컬 패스 계산 서비스 구현 완료 (CPM 알고리즘, Topological Sort, Forward/Backward Pass)
+- **진행률**: Phase 0 100% (5/5), Phase 1 50% (10/20), 전체 13% (15/115)
 - **이슈**:
   - WSL2 환경에서 npm/pip 설치 시 일부 지연 발생, 재시도로 해결
   - Alembic 초기화 시 data 디렉토리 미생성 오류 → 디렉토리 생성 후 해결
   - API 파일 생성 시 일부 인코딩 오류 → UTF-8 재작성으로 해결
-- **다음 작업**: Phase 1.4.1 (크리티컬 패스 계산 서비스 구현)
+- **다음 작업**: Phase 1.4.2 (의존성 분석 서비스 구현)
 
 ---
 
