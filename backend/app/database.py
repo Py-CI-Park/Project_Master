@@ -61,5 +61,6 @@ def init_db():
 if __name__ == "__main__":
     # 스크립트로 직접 실행 시 데이터베이스 초기화
     import os
+
     os.makedirs("data", exist_ok=True)
     init_db()

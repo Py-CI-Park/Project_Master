@@ -288,9 +288,20 @@ start_time, end_time, color, created_at
   - 데이터/로그 구조: `data`, `logs`
   - 기본 파일 생성: `app/main.py`, `app/database.py` + Python 패키지 `__init__.py`
   - FastAPI 앱 import 테스트 성공
-- [ ] **0.5** 코드 품질 도구 설정
-  - ESLint, Prettier (Frontend)
-  - Black, mypy, isort (Backend)
+- [x] **0.5** 코드 품질 도구 설정 ✅ 완료 (2025-10-30)
+  - 백엔드:
+    - `pyproject.toml` 설정 완료 (Black, isort, mypy, pytest)
+    - `.flake8` 설정 완료
+    - Black 24.1.1 포맷 적용 (line-length: 100)
+    - isort 검증 완료 (profile: black)
+    - flake8 린팅 통과 (max-complexity: 10)
+    - mypy 타입 체크 통과 (8개 파일)
+  - 프론트엔드:
+    - Prettier 3.6.2 설치 및 설정 완료 (.prettierrc, .prettierignore)
+    - ESLint-Prettier 통합 완료 (eslint-config-prettier, eslint-plugin-prettier)
+    - eslint.config.js 업데이트 (prettierConfig 추가)
+    - package.json 스크립트 추가: `lint:fix`, `format`, `format:check`, `typecheck`
+    - 모든 코드 품질 도구 테스트 통과
 - [ ] **0.6** Docker 개발 환경 설정 (선택)
   - `docker-compose.yml` 작성
   - 개발용 컨테이너 구성
@@ -1000,14 +1011,14 @@ project-manager-v1.0.0.zip
 ### 11.2 진행 상황 지표
 
 #### Phase별 진행률
-- **Phase 0**: 🟡 67% (4/6 완료)
+- **Phase 0**: 🟡 83% (5/6 완료)
 - **Phase 1**: 🔴 0% (0/20 완료)
 - **Phase 2**: 🔴 0% (0/30 완료)
 - **Phase 3**: 🔴 0% (0/25 완료)
 - **Phase 4**: 🔴 0% (0/15 완료)
 - **Phase 5**: 🔴 0% (0/20 완료)
 
-**전체 진행률**: 🟡 3% (4/116 작업 항목 완료)
+**전체 진행률**: 🟡 4% (5/116 작업 항목 완료)
 
 ### 11.3 마일스톤 추적
 
@@ -1026,13 +1037,15 @@ project-manager-v1.0.0.zip
 - **계획**: Phase 0 완료
 - **실제**:
   - 개발 계획서 작성 완료 (DEVELOPMENT_PLAN.md, README.md, GETTING_STARTED.md)
-  - Phase 0 시작: 작업 0.1, 0.2, 0.3 완료
+  - Phase 0 진행: 작업 0.1 ~ 0.5 완료
     - 0.1: Git 저장소 초기화 및 .gitignore 설정 완료
     - 0.2: 백엔드 Python 가상환경 설정 완료 (Python 3.10.12, FastAPI, SQLAlchemy 등)
     - 0.3: 프론트엔드 프로젝트 초기화 완료 (Node.js 20, React 19, Vite, MUI 7 등)
-- **진행률**: Phase 0 50% (3/6), 전체 3% (3/116)
+    - 0.4: 프로젝트 디렉토리 구조 생성 완료 (백엔드/프론트엔드/배포 구조 57개 디렉토리)
+    - 0.5: 코드 품질 도구 설정 완료 (Black, Prettier, ESLint, mypy, flake8)
+- **진행률**: Phase 0 83% (5/6), 전체 4% (5/116)
 - **이슈**: WSL2 환경에서 npm/pip 설치 시 일부 지연 발생, 재시도로 해결
-- **다음 작업**: Phase 0 작업 0.4 (프로젝트 디렉토리 구조 생성)
+- **다음 작업**: Phase 0 작업 0.6 (Docker 개발 환경 설정 - 선택사항)
 
 ---
 
