@@ -589,10 +589,44 @@ start_time, end_time, color, created_at
     - DFS로 전체 체인 추적
   - ✅ 타입 수정 (Any import 추가)
   - ✅ Import 테스트 통과
-- [ ] **1.4.3** Gantt 데이터 생성 (`services/gantt_service.py`)
-  - 태스크 데이터 변환
-  - Enabler 마커 데이터 생성
-  - 의존성 선 데이터 생성
+- [x] **1.4.3** Gantt 데이터 생성 (`services/gantt_service.py`) ✅ (2025-10-30 완료)
+  - ✅ 파일 생성: `app/services/gantt_service.py` (약 400줄)
+  - ✅ 데이터 모델 정의:
+    - GanttTask: Frappe Gantt 형식 태스크 (id, name, start, end, progress, dependencies, custom_class)
+    - GanttMarker: Enabler 전달 일정 마커 (id, name, date, marker_type)
+    - GanttDependency: 의존성 선 데이터 (id, source, target, dependency_type, lag_days)
+    - GanttChartData: 전체 Gantt 차트 데이터 (tasks, markers, dependencies, view_mode)
+  - ✅ 태스크 데이터 변환 구현:
+    - _convert_tasks_to_gantt(tasks, dependencies) -> List[GanttTask]
+    - Frappe Gantt 라이브러리 호환 형식으로 변환
+    - 의존성 문자열 생성: "task-1, task-2" (comma-separated)
+    - Custom CSS 클래스 자동 설정 (상태, 우선순위, 마일스톤 기반)
+    - 기본 색상 할당 (우선순위, 상태 기반)
+  - ✅ Enabler 마커 데이터 생성 구현:
+    - _convert_enablers_to_markers(enablers) -> List[GanttMarker]
+    - 전달 예정일이 있는 Enabler만 마커로 생성
+    - 마커 타입: "enabler", "milestone", "event"
+    - 상태 및 중요도 기반 색상 할당
+  - ✅ 의존성 선 데이터 생성 구현:
+    - _convert_dependencies_to_gantt(dependencies) -> List[GanttDependency]
+    - source, target ID 형식 변환 (task-{id})
+    - 의존성 타입 (FS, SS, FF, SF) 및 lag_days 포함
+  - ✅ 메인 함수 구현:
+    - generate_gantt_data(project_id, db, include_markers) -> GanttChartData
+    - 프로젝트의 모든 태스크, 의존성, Enabler 로드
+    - 각 데이터를 Gantt 형식으로 변환
+    - 통합 데이터 구조 생성
+  - ✅ 뷰 모드 지원:
+    - get_gantt_view_data(project_id, db, view_mode, date_range) -> GanttChartData
+    - 뷰 모드: Day, Week, Month, Year
+    - 날짜 범위 필터링 (start, end)
+    - 태스크 및 마커 필터링
+  - ✅ 색상 및 스타일 로직:
+    - _get_task_custom_class(task): CSS 클래스 결정
+    - _get_default_task_color(task): 우선순위/상태 기반 색상
+    - _get_enabler_marker_color(enabler): 상태/중요도 기반 색상
+  - ✅ Black 포맷팅 완료
+  - ✅ Import 테스트 통과
 - [ ] **1.4.4** 캘린더 서비스 (`services/calendar_service.py`)
   - 이벤트 자동 생성 (태스크 시작/종료, 마일스톤, Enabler 전달)
   - 기간별 이벤트 조회
@@ -1226,7 +1260,7 @@ project-manager-v1.0.0.zip
 
 #### Phase별 진행률
 - **Phase 0**: 🟢 100% (5/5 완료, 1개 건너뛰기)
-- **Phase 1**: 🟡 55% (11/20 완료)
+- **Phase 1**: 🟡 60% (12/20 완료)
 - **Phase 2**: 🔴 0% (0/30 완료)
 - **Phase 3**: 🔴 0% (0/25 완료)
 - **Phase 4**: 🔴 0% (0/15 완료)
@@ -1270,13 +1304,14 @@ project-manager-v1.0.0.zip
     - 1.3.4: Dependencies CRUD API 구현 완료 (3개 엔드포인트, 태스크 관계 검증)
     - 1.4.1: 크리티컬 패스 계산 서비스 구현 완료 (CPM 알고리즘, Topological Sort, Forward/Backward Pass)
     - 1.4.2: 의존성 분석 서비스 구현 완료 (그래프 생성, 순환 검증, 영향 분석 BFS/DFS)
-- **진행률**: Phase 0 100% (5/5), Phase 1 55% (11/20), 전체 14% (16/115)
+    - 1.4.3: Gantt 데이터 생성 서비스 구현 완료 (Frappe Gantt 형식 변환, 마커, 의존성 선)
+- **진행률**: Phase 0 100% (5/5), Phase 1 60% (12/20), 전체 15% (17/115)
 - **이슈**:
   - WSL2 환경에서 npm/pip 설치 시 일부 지연 발생, 재시도로 해결
   - Alembic 초기화 시 data 디렉토리 미생성 오류 → 디렉토리 생성 후 해결
   - API 파일 생성 시 일부 인코딩 오류 → UTF-8 재작성으로 해결
   - Pydantic 타입 에러 (any → Any) → typing.Any import 추가로 해결
-- **다음 작업**: Phase 1.4.3 (Gantt 데이터 생성 서비스 구현)
+- **다음 작업**: Phase 1.4.4 (캘린더 서비스 구현)
 
 ---
 
