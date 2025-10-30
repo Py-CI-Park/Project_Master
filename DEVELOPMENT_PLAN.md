@@ -265,8 +265,9 @@ start_time, end_time, color, created_at
 ### Phase 0: 개발 환경 구축 및 기본 구조 (1주)
 **기간**: 1주차
 **목표**: 프로젝트 초기 설정 및 개발 환경 구성
-**상태**: 🟡 진행 중
+**상태**: 🟢 완료
 **시작일**: 2025-10-30
+**완료일**: 2025-10-30
 
 #### 작업 항목
 - [x] **0.1** Git 저장소 초기화 및 `.gitignore` 설정 ✅ 완료 (2025-10-30)
@@ -302,9 +303,9 @@ start_time, end_time, color, created_at
     - eslint.config.js 업데이트 (prettierConfig 추가)
     - package.json 스크립트 추가: `lint:fix`, `format`, `format:check`, `typecheck`
     - 모든 코드 품질 도구 테스트 통과
-- [ ] **0.6** Docker 개발 환경 설정 (선택)
-  - `docker-compose.yml` 작성
-  - 개발용 컨테이너 구성
+- [-] **0.6** Docker 개발 환경 설정 ⏭️ 건너뛰기 (선택사항)
+  - 사유: 로컬 환경 구축 완료, 폐쇄망 특성상 네이티브 설치 우선
+  - 향후 필요시 Phase 5에서 추가 가능
 
 #### 완료 기준
 - ✅ 백엔드 서버 실행 가능 (`uvicorn app.main:app --reload`)
@@ -316,7 +317,8 @@ start_time, end_time, color, created_at
 ### Phase 1: 백엔드 핵심 기능 (2-3주)
 **기간**: 2-4주차
 **목표**: FastAPI 기반 RESTful API 및 데이터베이스 구축
-**상태**: 🔴 미시작
+**상태**: 🟡 진행 중
+**시작일**: 2025-10-30
 
 #### 1.1 데이터베이스 설계 및 모델 구현 (3일)
 - [ ] **1.1.1** SQLAlchemy 모델 정의
@@ -1011,14 +1013,14 @@ project-manager-v1.0.0.zip
 ### 11.2 진행 상황 지표
 
 #### Phase별 진행률
-- **Phase 0**: 🟡 83% (5/6 완료)
-- **Phase 1**: 🔴 0% (0/20 완료)
+- **Phase 0**: 🟢 100% (5/5 완료, 1개 건너뛰기)
+- **Phase 1**: 🟡 0% (0/20 완료)
 - **Phase 2**: 🔴 0% (0/30 완료)
 - **Phase 3**: 🔴 0% (0/25 완료)
 - **Phase 4**: 🔴 0% (0/15 완료)
 - **Phase 5**: 🔴 0% (0/20 완료)
 
-**전체 진행률**: 🟡 4% (5/116 작업 항목 완료)
+**전체 진행률**: 🟡 4% (5/115 작업 항목 완료, 1개 건너뛰기)
 
 ### 11.3 마일스톤 추적
 
@@ -1037,15 +1039,17 @@ project-manager-v1.0.0.zip
 - **계획**: Phase 0 완료
 - **실제**:
   - 개발 계획서 작성 완료 (DEVELOPMENT_PLAN.md, README.md, GETTING_STARTED.md)
-  - Phase 0 진행: 작업 0.1 ~ 0.5 완료
+  - **Phase 0 완료**: 작업 0.1 ~ 0.5 완료 ✅
     - 0.1: Git 저장소 초기화 및 .gitignore 설정 완료
     - 0.2: 백엔드 Python 가상환경 설정 완료 (Python 3.10.12, FastAPI, SQLAlchemy 등)
     - 0.3: 프론트엔드 프로젝트 초기화 완료 (Node.js 20, React 19, Vite, MUI 7 등)
     - 0.4: 프로젝트 디렉토리 구조 생성 완료 (백엔드/프론트엔드/배포 구조 57개 디렉토리)
     - 0.5: 코드 품질 도구 설정 완료 (Black, Prettier, ESLint, mypy, flake8)
-- **진행률**: Phase 0 83% (5/6), 전체 4% (5/116)
+    - 0.6: Docker 설정 건너뛰기 (선택사항, 로컬 환경 구축 완료)
+  - **Phase 1 시작**: 백엔드 핵심 기능 개발
+- **진행률**: Phase 0 100% (5/5 완료, 1개 건너뛰기), 전체 4% (5/115)
 - **이슈**: WSL2 환경에서 npm/pip 설치 시 일부 지연 발생, 재시도로 해결
-- **다음 작업**: Phase 0 작업 0.6 (Docker 개발 환경 설정 - 선택사항)
+- **다음 작업**: Phase 1.1.1 (SQLAlchemy 모델 정의)
 
 ---
 
