@@ -281,9 +281,13 @@ start_time, end_time, color, created_at
   - 핵심 의존성 설치 완료:
     - Material-UI 7.3.4, React Router 7.9.5, Axios 1.13.1, Zustand 5.0.8
   - 빌드 테스트 성공 (1.77초, 취약점 0개)
-- [ ] **0.4** 프로젝트 디렉토리 구조 생성
-  - `/backend`, `/frontend`, `/deployment`, `/docs` 폴더 생성
-  - 각 폴더 내 하위 구조 생성
+- [x] **0.4** 프로젝트 디렉토리 구조 생성 ✅ 완료 (2025-10-30)
+  - 백엔드 구조: `app/{models,schemas,api,services,utils}`, `tests`, `alembic`
+  - 프론트엔드 구조: `src/{components,services,hooks,contexts,types,utils}`, `tests`
+  - 배포 구조: `deployment/{windows,linux,packages,database}`
+  - 데이터/로그 구조: `data`, `logs`
+  - 기본 파일 생성: `app/main.py`, `app/database.py` + Python 패키지 `__init__.py`
+  - FastAPI 앱 import 테스트 성공
 - [ ] **0.5** 코드 품질 도구 설정
   - ESLint, Prettier (Frontend)
   - Black, mypy, isort (Backend)
@@ -996,14 +1000,14 @@ project-manager-v1.0.0.zip
 ### 11.2 진행 상황 지표
 
 #### Phase별 진행률
-- **Phase 0**: 🟡 50% (3/6 완료)
+- **Phase 0**: 🟡 67% (4/6 완료)
 - **Phase 1**: 🔴 0% (0/20 완료)
 - **Phase 2**: 🔴 0% (0/30 완료)
 - **Phase 3**: 🔴 0% (0/25 완료)
 - **Phase 4**: 🔴 0% (0/15 완료)
 - **Phase 5**: 🔴 0% (0/20 완료)
 
-**전체 진행률**: 🟡 3% (3/116 작업 항목 완료)
+**전체 진행률**: 🟡 3% (4/116 작업 항목 완료)
 
 ### 11.3 마일스톤 추적
 
