@@ -4,7 +4,7 @@ Pytest Configuration and Fixtures
 테스트 공통 설정 및 재사용 가능한 fixtures 정의
 """
 
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 
 import pytest
 from sqlalchemy import create_engine
@@ -26,7 +26,12 @@ def db_session():
     테스트 종료 후 자동으로 정리됨
     """
     # 인메모리 SQLite 데이터베이스 생성
-    engine = create_engine("sqlite:///:memory:", echo=False)
+    # check_same_thread=False: FastAPI TestClient와 함께 사용 시 필요
+    engine = create_engine(
+        "sqlite:///:memory:",
+        echo=False,
+        connect_args={"check_same_thread": False}
+    )
     Base.metadata.create_all(engine)
 
     # 세션 생성
@@ -51,8 +56,8 @@ def sample_project(db_session):
     project = Project(
         name="테스트 프로젝트",
         description="단위 테스트용 샘플 프로젝트",
-        start_date=date.today(),
-        end_date=date.today() + timedelta(days=30),
+        start_date=datetime.now(),
+        end_date=datetime.now() + timedelta(days=30),
         status="in_progress",
     )
     db_session.add(project)
