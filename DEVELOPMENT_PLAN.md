@@ -270,10 +270,11 @@ start_time, end_time, color, created_at
 
 #### 작업 항목
 - [x] **0.1** Git 저장소 초기화 및 `.gitignore` 설정 ✅ 완료 (2025-10-30)
-- [ ] **0.2** 백엔드 Python 가상환경 설정
-  - Python 3.11+ 설치 확인
-  - `venv` 생성: `python -m venv backend/venv`
-  - `requirements.txt` 작성
+- [x] **0.2** 백엔드 Python 가상환경 설정 ✅ 완료 (2025-10-30)
+  - Python 3.10.12 설치 확인 완료
+  - `venv` 생성 완료: `python -m venv backend/venv`
+  - `requirements.txt` 및 `requirements-dev.txt` 작성 완료
+  - 모든 패키지 설치 및 검증 완료
 - [ ] **0.3** 프론트엔드 프로젝트 초기화
   - Node.js 18+ 설치 확인
   - Vite + React + TypeScript 프로젝트 생성
@@ -993,14 +994,14 @@ project-manager-v1.0.0.zip
 ### 11.2 진행 상황 지표
 
 #### Phase별 진행률
-- **Phase 0**: 🟡 17% (1/6 완료)
+- **Phase 0**: 🟡 33% (2/6 완료)
 - **Phase 1**: 🔴 0% (0/20 완료)
 - **Phase 2**: 🔴 0% (0/30 완료)
 - **Phase 3**: 🔴 0% (0/25 완료)
 - **Phase 4**: 🔴 0% (0/15 완료)
 - **Phase 5**: 🔴 0% (0/20 완료)
 
-**전체 진행률**: 🟡 1% (1/116 작업 항목 완료)
+**전체 진행률**: 🟡 2% (2/116 작업 항목 완료)
 
 ### 11.3 마일스톤 추적
 
@@ -1019,10 +1020,12 @@ project-manager-v1.0.0.zip
 - **계획**: Phase 0 완료
 - **실제**:
   - 개발 계획서 작성 완료 (DEVELOPMENT_PLAN.md, README.md, GETTING_STARTED.md)
-  - Phase 0 시작: 작업 0.1 완료 (.gitignore 설정)
-- **진행률**: Phase 0 17% (1/6), 전체 1% (1/116)
-- **이슈**: -
-- **다음 작업**: Phase 0 작업 0.2 (백엔드 Python 가상환경 설정)
+  - Phase 0 시작: 작업 0.1, 0.2 완료
+    - 0.1: Git 저장소 초기화 및 .gitignore 설정 완료
+    - 0.2: 백엔드 Python 가상환경 설정 완료 (Python 3.10.12, FastAPI, SQLAlchemy 등 모든 의존성 설치)
+- **진행률**: Phase 0 33% (2/6), 전체 2% (2/116)
+- **이슈**: WSL2 환경에서 pip 설치 시 일부 지연 발생, 재시도로 해결
+- **다음 작업**: Phase 0 작업 0.3 (프론트엔드 프로젝트 초기화)
 
 ---
 
