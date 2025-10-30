@@ -558,10 +558,37 @@ start_time, end_time, color, created_at
     - 순환 의존성: has_circular_dependency=True, error_message 반환
   - ✅ Black 포맷팅 완료
   - ✅ Import 테스트 통과
-- [ ] **1.4.2** 의존성 분석 (`services/dependency_analyzer.py`)
-  - 의존성 그래프 생성
-  - 순환 의존성 검증
-  - 영향 분석 (DFS)
+- [x] **1.4.2** 의존성 분석 (`services/dependency_analyzer.py`) ✅ (2025-10-30 완료)
+  - ✅ 파일 생성: `app/services/dependency_analyzer.py` (약 360줄)
+  - ✅ 데이터 모델 정의:
+    - DependencyNode: 의존성 그래프 노드 (task_id, task_name, predecessors, successors)
+    - DependencyGraphResult: 그래프 결과 (nodes, edges 포함)
+    - CircularDependencyCheck: 순환 의존성 검증 결과 (has_circular, circular_path)
+    - ImpactAnalysisResult: 영향 분석 결과 (impacted_tasks, impact_depth)
+  - ✅ 의존성 그래프 생성 구현:
+    - generate_dependency_graph(project_id, db) -> DependencyGraphResult
+    - 노드: 각 태스크의 선행/후속 관계 정보
+    - 엣지: 시각화용 의존성 연결 정보 (source, target, type, lag_days)
+    - React-Flow 등 그래프 라이브러리 호환 형식
+  - ✅ 순환 의존성 검증 구현 (DFS):
+    - check_circular_dependency(predecessor_id, successor_id, db) -> CircularDependencyCheck
+    - 새로운 의존성 추가 전 순환 여부 검증
+    - DFS 알고리즘으로 순환 경로 탐지
+    - 순환 경로 추적 및 태스크 이름 포함 에러 메시지
+    - 동일 프로젝트 검증
+  - ✅ 영향 분석 구현 (BFS):
+    - analyze_task_impact(task_id, db) -> ImpactAnalysisResult
+    - 특정 태스크 변경 시 영향받는 모든 후속 태스크 추적
+    - BFS 방식으로 의존성 체인 순회
+    - 영향 깊이 계산 (depth level)
+    - 영향받는 태스크 상세 정보 (status, dates)
+  - ✅ 의존성 체인 조회 구현:
+    - get_dependency_chain(task_id, db, direction) -> List[int]
+    - Forward 체인: 후속 태스크들
+    - Backward 체인: 선행 태스크들
+    - DFS로 전체 체인 추적
+  - ✅ 타입 수정 (Any import 추가)
+  - ✅ Import 테스트 통과
 - [ ] **1.4.3** Gantt 데이터 생성 (`services/gantt_service.py`)
   - 태스크 데이터 변환
   - Enabler 마커 데이터 생성
@@ -1199,7 +1226,7 @@ project-manager-v1.0.0.zip
 
 #### Phase별 진행률
 - **Phase 0**: 🟢 100% (5/5 완료, 1개 건너뛰기)
-- **Phase 1**: 🟡 50% (10/20 완료)
+- **Phase 1**: 🟡 55% (11/20 완료)
 - **Phase 2**: 🔴 0% (0/30 완료)
 - **Phase 3**: 🔴 0% (0/25 완료)
 - **Phase 4**: 🔴 0% (0/15 완료)
@@ -1242,12 +1269,14 @@ project-manager-v1.0.0.zip
     - 1.3.3: Enablers CRUD API 구현 완료 (5개 엔드포인트, 프로젝트 관계 검증)
     - 1.3.4: Dependencies CRUD API 구현 완료 (3개 엔드포인트, 태스크 관계 검증)
     - 1.4.1: 크리티컬 패스 계산 서비스 구현 완료 (CPM 알고리즘, Topological Sort, Forward/Backward Pass)
-- **진행률**: Phase 0 100% (5/5), Phase 1 50% (10/20), 전체 13% (15/115)
+    - 1.4.2: 의존성 분석 서비스 구현 완료 (그래프 생성, 순환 검증, 영향 분석 BFS/DFS)
+- **진행률**: Phase 0 100% (5/5), Phase 1 55% (11/20), 전체 14% (16/115)
 - **이슈**:
   - WSL2 환경에서 npm/pip 설치 시 일부 지연 발생, 재시도로 해결
   - Alembic 초기화 시 data 디렉토리 미생성 오류 → 디렉토리 생성 후 해결
   - API 파일 생성 시 일부 인코딩 오류 → UTF-8 재작성으로 해결
-- **다음 작업**: Phase 1.4.2 (의존성 분석 서비스 구현)
+  - Pydantic 타입 에러 (any → Any) → typing.Any import 추가로 해결
+- **다음 작업**: Phase 1.4.3 (Gantt 데이터 생성 서비스 구현)
 
 ---
 
