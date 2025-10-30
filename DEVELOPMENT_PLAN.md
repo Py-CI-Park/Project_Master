@@ -498,10 +498,26 @@ start_time, end_time, color, created_at
   - ✅ 문서화: OpenAPI 스키마 자동 생성
   - ✅ Black 포맷팅 완료 (1개 파일 재포맷)
   - ✅ Import 테스트 통과
-- [ ] **1.3.4** Dependencies API
-  - `POST /api/dependencies` - 의존성 추가
-  - `GET /api/projects/{id}/dependencies` - 의존성 조회
-  - `DELETE /api/dependencies/{id}` - 의존성 삭제
+- [x] **1.3.4** Dependencies API ✅ (2025-10-30 완료)
+  - ✅ `POST /api/dependencies` - 의존성 추가
+  - ✅ `GET /api/projects/{project_id}/dependencies` - 프로젝트별 의존성 목록 조회 (pagination 지원)
+  - ✅ `DELETE /api/dependencies/{dependency_id}` - 의존성 삭제
+  - ✅ 파일 생성:
+    - app/api/v1/endpoints/dependencies.py (3개 엔드포인트, 190줄)
+  - ✅ 파일 업데이트:
+    - app/api/v1/endpoints/__init__.py (dependencies_router export)
+    - app/api/v1/__init__.py (dependencies 엔드포인트 등록)
+  - ✅ 태스크 관계 검증:
+    - 선행 태스크 존재 여부 확인
+    - 후속 태스크 존재 여부 확인
+    - 동일 프로젝트 소속 검증 (선행/후속 태스크)
+    - 중복 의존성 검증 (동일 predecessor-successor 조합)
+  - ✅ 에러 처리:
+    - 400 Bad Request (생성/삭제 실패, 프로젝트 불일치, 중복 의존성)
+    - 404 Not Found (선행/후속 태스크/의존성 미존재)
+  - ✅ 문서화: OpenAPI 스키마 자동 생성
+  - ✅ Black 포맷팅 완료 (1개 파일 재포맷)
+  - ✅ Import 테스트 통과
 
 #### 1.4 비즈니스 로직 구현 (5일)
 - [ ] **1.4.1** 크리티컬 패스 계산 (`services/critical_path.py`)
@@ -1151,7 +1167,7 @@ project-manager-v1.0.0.zip
 
 #### Phase별 진행률
 - **Phase 0**: 🟢 100% (5/5 완료, 1개 건너뛰기)
-- **Phase 1**: 🟡 40% (8/20 완료)
+- **Phase 1**: 🟡 45% (9/20 완료)
 - **Phase 2**: 🔴 0% (0/30 완료)
 - **Phase 3**: 🔴 0% (0/25 완료)
 - **Phase 4**: 🔴 0% (0/15 완료)
@@ -1192,12 +1208,13 @@ project-manager-v1.0.0.zip
     - 1.3.1: Projects CRUD API 구현 완료 (5개 엔드포인트, 4개 파일 생성)
     - 1.3.2: Tasks CRUD API 구현 완료 (5개 엔드포인트, 프로젝트 관계 검증)
     - 1.3.3: Enablers CRUD API 구현 완료 (5개 엔드포인트, 프로젝트 관계 검증)
-- **진행률**: Phase 0 100% (5/5), Phase 1 40% (8/20), 전체 11% (13/115)
+    - 1.3.4: Dependencies CRUD API 구현 완료 (3개 엔드포인트, 태스크 관계 검증)
+- **진행률**: Phase 0 100% (5/5), Phase 1 45% (9/20), 전체 12% (14/115)
 - **이슈**:
   - WSL2 환경에서 npm/pip 설치 시 일부 지연 발생, 재시도로 해결
   - Alembic 초기화 시 data 디렉토리 미생성 오류 → 디렉토리 생성 후 해결
   - API 파일 생성 시 일부 인코딩 오류 → UTF-8 재작성으로 해결
-- **다음 작업**: Phase 1.3.4 (Dependencies CRUD API 구현)
+- **다음 작업**: Phase 1.4.1 (크리티컬 패스 계산 서비스 구현)
 
 ---
 
