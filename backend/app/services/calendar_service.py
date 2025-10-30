@@ -201,12 +201,12 @@ def _generate_enabler_events(enablers: List[Enabler]) -> List[CalendarEvent]:
 
     for enabler in enablers:
         # 전달 예정일이 있는 경우에만 이벤트 생성
-        if enabler.delivery_date:
+        if enabler.planned_delivery_date:
             events.append(
                 CalendarEvent(
                     id=f"event-enabler-{enabler.id}",
                     title=f"📦 {enabler.name}",
-                    date=enabler.delivery_date.isoformat(),
+                    date=enabler.planned_delivery_date.date().isoformat(),
                     event_type="enabler_delivery",
                     color=_get_enabler_color(enabler),
                     description=f"Enabler 전달: {enabler.name} ({enabler.type})",

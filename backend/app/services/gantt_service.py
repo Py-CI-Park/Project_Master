@@ -193,7 +193,7 @@ def _convert_enablers_to_markers(enablers: List[Enabler]) -> List[GanttMarker]:
 
     for enabler in enablers:
         # 전달 예정일이 있는 경우에만 마커 생성
-        if enabler.delivery_date:
+        if enabler.planned_delivery_date:
             # 색상 결정 (상태 및 중요도 기반)
             color = _get_enabler_marker_color(enabler)
 
@@ -201,7 +201,7 @@ def _convert_enablers_to_markers(enablers: List[Enabler]) -> List[GanttMarker]:
                 GanttMarker(
                     id=f"marker-{enabler.id}",
                     name=enabler.name,
-                    date=enabler.delivery_date.isoformat(),
+                    date=enabler.planned_delivery_date.date().isoformat(),
                     marker_type="enabler",
                     enabler_id=enabler.id,
                     enabler_type=enabler.type,
