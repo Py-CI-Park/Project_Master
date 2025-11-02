@@ -9,33 +9,6 @@ FastAPI TestClient를 사용한 Dependencies API 엔드포인트 테스트
 
 import pytest
 from fastapi import status
-from fastapi.testclient import TestClient
-
-from app.api import api_router
-from app.database import get_db
-from app.main import app
-
-
-@pytest.fixture(scope="function")
-def test_app(db_session):
-    """테스트용 FastAPI 애플리케이션"""
-    app.include_router(api_router, prefix="/api/v1")
-
-    def override_get_db():
-        try:
-            yield db_session
-        finally:
-            pass
-
-    app.dependency_overrides[get_db] = override_get_db
-    yield app
-    app.dependency_overrides.clear()
-
-
-@pytest.fixture(scope="function")
-def client(test_app):
-    """TestClient 인스턴스"""
-    return TestClient(test_app)
 
 
 class TestDependenciesAPI:
@@ -92,20 +65,20 @@ class TestDependenciesAPI:
 
     def test_create_dependency_different_projects(self, client, db_session):
         """다른 프로젝트의 태스크 간 의존성 생성 시 400 에러"""
-        from datetime import date, timedelta
+        from datetime import datetime, timedelta
         from app.models.project import Project
         from app.models.task import Task
 
         # 두 개의 프로젝트 생성
         project1 = Project(
             name="프로젝트 1",
-            start_date=date.today(),
-            end_date=date.today() + timedelta(days=30),
+            start_date=datetime.now(),
+            end_date=datetime.now() + timedelta(days=30),
         )
         project2 = Project(
             name="프로젝트 2",
-            start_date=date.today(),
-            end_date=date.today() + timedelta(days=30),
+            start_date=datetime.now(),
+            end_date=datetime.now() + timedelta(days=30),
         )
         db_session.add(project1)
         db_session.add(project2)
@@ -117,14 +90,14 @@ class TestDependenciesAPI:
         task1 = Task(
             name="태스크 1",
             project_id=project1.id,
-            start_date=date.today(),
-            end_date=date.today() + timedelta(days=5),
+            start_date=datetime.now(),
+            end_date=datetime.now() + timedelta(days=5),
         )
         task2 = Task(
             name="태스크 2",
             project_id=project2.id,
-            start_date=date.today(),
-            end_date=date.today() + timedelta(days=5),
+            start_date=datetime.now(),
+            end_date=datetime.now() + timedelta(days=5),
         )
         db_session.add(task1)
         db_session.add(task2)

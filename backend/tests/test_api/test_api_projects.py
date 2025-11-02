@@ -7,58 +7,10 @@ FastAPI TestClient를 사용한 Projects API 엔드포인트 테스트
 - 요청/응답 스키마 검증
 """
 
-from datetime import date, timedelta
+from datetime import datetime, timedelta
 
 import pytest
 from fastapi import status
-from fastapi.testclient import TestClient
-
-from app.api import api_router
-from app.database import Base, get_db
-from app.main import app
-
-
-@pytest.fixture(scope="function")
-def test_app(db_session):
-    """
-    테스트용 FastAPI 애플리케이션
-
-    Args:
-        db_session: 테스트 데이터베이스 세션 (conftest.py에서 제공)
-
-    Returns:
-        FastAPI app instance with test database
-    """
-    # API 라우터를 앱에 등록
-    app.include_router(api_router, prefix="/api/v1")
-
-    # 의존성 오버라이드: 실제 DB 대신 테스트 DB 사용
-    def override_get_db():
-        try:
-            yield db_session
-        finally:
-            pass
-
-    app.dependency_overrides[get_db] = override_get_db
-
-    yield app
-
-    # 테스트 후 오버라이드 초기화
-    app.dependency_overrides.clear()
-
-
-@pytest.fixture(scope="function")
-def client(test_app):
-    """
-    TestClient 인스턴스 생성
-
-    Args:
-        test_app: 테스트용 FastAPI 앱
-
-    Returns:
-        TestClient instance
-    """
-    return TestClient(test_app)
 
 
 class TestProjectsAPI:
@@ -69,9 +21,9 @@ class TestProjectsAPI:
         project_data = {
             "name": "신규 프로젝트",
             "description": "테스트 프로젝트입니다",
-            "start_date": date.today().isoformat(),
-            "end_date": (date.today() + timedelta(days=30)).isoformat(),
-            "status": "planned",
+            "start_date": datetime.now().isoformat(),
+            "end_date": (datetime.now() + timedelta(days=30)).isoformat(),
+            "status": "planning",
         }
 
         response = client.post("/api/v1/projects/", json=project_data)
@@ -127,9 +79,9 @@ class TestProjectsAPI:
             project = Project(
                 name=f"프로젝트 {i}",
                 description=f"설명 {i}",
-                start_date=date.today(),
-                end_date=date.today() + timedelta(days=30),
-                status="planned",
+                start_date=datetime.now(),
+                end_date=datetime.now() + timedelta(days=30),
+                status="planning",
             )
             db_session.add(project)
         db_session.commit()

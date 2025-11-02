@@ -7,37 +7,10 @@ FastAPI TestClient를 사용한 Tasks API 엔드포인트 테스트
 - 에러 케이스 테스트
 """
 
-from datetime import date, timedelta
+from datetime import datetime, timedelta
 
 import pytest
 from fastapi import status
-from fastapi.testclient import TestClient
-
-from app.api import api_router
-from app.database import get_db
-from app.main import app
-
-
-@pytest.fixture(scope="function")
-def test_app(db_session):
-    """테스트용 FastAPI 애플리케이션"""
-    app.include_router(api_router, prefix="/api/v1")
-
-    def override_get_db():
-        try:
-            yield db_session
-        finally:
-            pass
-
-    app.dependency_overrides[get_db] = override_get_db
-    yield app
-    app.dependency_overrides.clear()
-
-
-@pytest.fixture(scope="function")
-def client(test_app):
-    """TestClient 인스턴스"""
-    return TestClient(test_app)
 
 
 class TestTasksAPI:
@@ -49,8 +22,8 @@ class TestTasksAPI:
             "name": "새로운 태스크",
             "description": "테스트 태스크입니다",
             "project_id": sample_project.id,
-            "start_date": date.today().isoformat(),
-            "end_date": (date.today() + timedelta(days=5)).isoformat(),
+            "start_date": datetime.now().isoformat(),
+            "end_date": (datetime.now() + timedelta(days=5)).isoformat(),
             "duration_days": 5,
             "status": "not_started",
             "priority": "high",
@@ -75,8 +48,8 @@ class TestTasksAPI:
         task_data = {
             "name": "태스크",
             "project_id": 99999,
-            "start_date": date.today().isoformat(),
-            "end_date": (date.today() + timedelta(days=5)).isoformat(),
+            "start_date": datetime.now().isoformat(),
+            "end_date": (datetime.now() + timedelta(days=5)).isoformat(),
         }
 
         response = client.post("/api/v1/projects/99999/tasks", json=task_data)
@@ -88,8 +61,8 @@ class TestTasksAPI:
         task_data = {
             "name": "태스크",
             "project_id": sample_project.id + 1000,  # 다른 ID
-            "start_date": date.today().isoformat(),
-            "end_date": (date.today() + timedelta(days=5)).isoformat(),
+            "start_date": datetime.now().isoformat(),
+            "end_date": (datetime.now() + timedelta(days=5)).isoformat(),
         }
 
         response = client.post(
@@ -256,8 +229,8 @@ class TestTasksAPI:
         task_data = {
             "name": "중요 마일스톤",
             "project_id": sample_project.id,
-            "start_date": (date.today() + timedelta(days=30)).isoformat(),
-            "end_date": (date.today() + timedelta(days=30)).isoformat(),
+            "start_date": (datetime.now() + timedelta(days=30)).isoformat(),
+            "end_date": (datetime.now() + timedelta(days=30)).isoformat(),
             "duration_days": 1,
             "is_milestone": True,
             "priority": "critical",

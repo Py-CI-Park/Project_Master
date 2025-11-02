@@ -7,12 +7,19 @@ Pytest Configuration and Fixtures
 from datetime import date, datetime, timedelta
 
 import pytest
+from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from app.database import Base
+from app.api import api_router
+from app.database import Base, get_db
+from app.main import app
+
+# 모델을 먼저 import하여 Base.metadata에 등록
+from app.models.calendar_event import CalendarEvent
 from app.models.dependency import Dependency
 from app.models.enabler import Enabler
+from app.models.enabler_impact import EnablerImpact
 from app.models.project import Project
 from app.models.task import Task
 
@@ -43,6 +50,68 @@ def db_session():
     # 테스트 후 정리
     session.close()
     Base.metadata.drop_all(engine)
+
+
+@pytest.fixture(scope="function")
+def test_app(db_session):
+    """
+    테스트용 FastAPI 애플리케이션
+
+    Args:
+        db_session: 테스트 데이터베이스 세션
+
+    Returns:
+        FastAPI app instance with test database
+    """
+    from fastapi import FastAPI
+    from fastapi.middleware.cors import CORSMiddleware
+
+    # 각 테스트마다 새로운 앱 인스턴스 생성
+    test_app_instance = FastAPI(
+        title="Project Manager API",
+        description="프로젝트 관리 시스템 API",
+        version="1.0.0",
+    )
+
+    # CORS 설정
+    test_app_instance.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
+    # API 라우터 등록
+    test_app_instance.include_router(api_router, prefix="/api/v1")
+
+    # 의존성 오버라이드: 실제 DB 대신 테스트 DB 사용
+    def override_get_db():
+        try:
+            yield db_session
+        finally:
+            pass
+
+    test_app_instance.dependency_overrides[get_db] = override_get_db
+
+    yield test_app_instance
+
+    # 테스트 후 정리
+    test_app_instance.dependency_overrides.clear()
+
+
+@pytest.fixture(scope="function")
+def client(test_app):
+    """
+    TestClient 인스턴스 생성
+
+    Args:
+        test_app: 테스트용 FastAPI 앱
+
+    Returns:
+        TestClient instance
+    """
+    return TestClient(test_app)
 
 
 @pytest.fixture
