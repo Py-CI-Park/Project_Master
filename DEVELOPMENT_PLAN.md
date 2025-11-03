@@ -852,14 +852,15 @@ start_time, end_time, color, created_at
   - ✅ `contexts/ProjectContext.tsx` - 현재 프로젝트 전역 상태
   - ✅ `contexts/ThemeContext.tsx` - 테마 설정 및 다크모드
 
-#### 2.7 테스트 작성 (3일)
-- [ ] **2.7.1** 컴포넌트 테스트 (Jest + React Testing Library)
-  - 주요 컴포넌트 렌더링 테스트
-  - 사용자 인터랙션 테스트
-  - 스냅샷 테스트
-- [ ] **2.7.2** 통합 테스트
-  - API 연동 테스트 (MSW 사용)
-  - 라우팅 테스트
+#### 2.7 테스트 작성 (3일) ✅
+- [x] **2.7.1** 컴포넌트 테스트 (Vitest + React Testing Library)
+  - ✅ 테스트 프레임워크 설정 (Vitest, @testing-library/react)
+  - ✅ ProjectList 컴포넌트 렌더링 및 인터랙션 테스트
+  - ✅ 테스트 유틸리티 및 헬퍼 함수 작성
+- [x] **2.7.2** 통합 테스트
+  - ✅ MSW 설정 및 API 모킹
+  - ✅ useProjects Hook 테스트 (CRUD 기능)
+  - ✅ 라우팅 통합 테스트
 
 #### 완료 기준
 - ✅ 프로젝트 및 태스크 CRUD 기능 정상 작동
