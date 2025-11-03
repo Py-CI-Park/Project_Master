@@ -6,7 +6,11 @@
 
 import { useParams } from 'react-router-dom';
 import { Box, Typography, Container, Tabs, Tab } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { GanttChart } from '../../components/Gantt';
+import { useTasks } from '../../hooks';
+import { transformTasksToGantt } from '../../utils/ganttTransformer';
+import type { GanttTask } from '../../types';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -33,9 +37,53 @@ const TabPanel = (props: TabPanelProps) => {
 const ProjectDetail = () => {
   const { projectId } = useParams<{ projectId: string }>();
   const [tabValue, setTabValue] = useState(0);
+  const { tasks, fetchTasks, modifyTask } = useTasks(Number(projectId));
+  const [ganttTasks, setGanttTasks] = useState<GanttTask[]>([]);
+
+  useEffect(() => {
+    if (projectId) {
+      fetchTasks(Number(projectId));
+    }
+  }, [projectId, fetchTasks]);
+
+  useEffect(() => {
+    if (tasks.length > 0) {
+      const transformedTasks = transformTasksToGantt(tasks);
+      setGanttTasks(transformedTasks);
+    }
+  }, [tasks]);
 
   const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
+  };
+
+  const handleGanttDateChange = async (task: GanttTask, start: Date, end: Date) => {
+    if (!projectId) return;
+
+    try {
+      await modifyTask(Number(projectId), Number(task.id), {
+        start_date: start.toISOString().split('T')[0],
+        end_date: end.toISOString().split('T')[0],
+      });
+      // Refresh tasks
+      fetchTasks(Number(projectId));
+    } catch (err) {
+      console.error('Failed to update task dates:', err);
+    }
+  };
+
+  const handleGanttProgressChange = async (task: GanttTask, progress: number) => {
+    if (!projectId) return;
+
+    try {
+      await modifyTask(Number(projectId), Number(task.id), {
+        progress,
+      });
+      // Refresh tasks
+      fetchTasks(Number(projectId));
+    } catch (err) {
+      console.error('Failed to update task progress:', err);
+    }
   };
 
   return (
@@ -62,7 +110,11 @@ const ProjectDetail = () => {
           <Typography>태스크 목록</Typography>
         </TabPanel>
         <TabPanel value={tabValue} index={2}>
-          <Typography>간트 차트</Typography>
+          <GanttChart
+            tasks={ganttTasks}
+            onDateChange={handleGanttDateChange}
+            onProgressChange={handleGanttProgressChange}
+          />
         </TabPanel>
         <TabPanel value={tabValue} index={3}>
           <Typography>캘린더</Typography>
