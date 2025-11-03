@@ -10,6 +10,7 @@ import Dashboard from '../pages/Dashboard';
 import { ProjectList, ProjectForm } from '../pages/Projects';
 import ProjectDetail from '../pages/ProjectDetail';
 import { TaskList, TaskForm, TaskDetail } from '../pages/Tasks';
+import { EnablerList, EnablerForm, EnablerDetail } from '../pages/Enablers';
 
 /**
  * 라우터 설정
@@ -74,6 +75,22 @@ export const router = createBrowserRouter([
       {
         path: 'projects/:projectId/tasks/:taskId/edit',
         element: <TaskForm />,
+      },
+      {
+        path: 'projects/:projectId/enablers',
+        element: <EnablerList />,
+      },
+      {
+        path: 'projects/:projectId/enablers/new',
+        element: <EnablerForm />,
+      },
+      {
+        path: 'projects/:projectId/enablers/:enablerId',
+        element: <EnablerDetail />,
+      },
+      {
+        path: 'projects/:projectId/enablers/:enablerId/edit',
+        element: <EnablerForm />,
       },
       {
         path: '*',

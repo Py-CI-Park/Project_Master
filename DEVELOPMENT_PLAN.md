@@ -797,19 +797,44 @@ start_time, end_time, color, created_at
   - ✅ `/projects/:projectId/tasks/:taskId` - 태스크 상세
   - ✅ `/projects/:projectId/tasks/:taskId/edit` - 태스크 수정
 
-#### 2.5 Enabler 관리 UI (3일)
-- [ ] **2.5.1** Enabler 목록 (`EnablerList.tsx`)
-  - 카드 레이아웃
-  - 상태별 필터
-  - 긴급도 표시
-- [ ] **2.5.2** Enabler 생성/수정 폼 (`EnablerForm.tsx`)
-  - 전달 예정일 설정
-  - 실제 전달일 기록
-  - 영향받는 태스크 선택
-- [ ] **2.5.3** 영향 분석 뷰 (`ImpactAnalysis.tsx`)
-  - 영향받는 태스크 목록
-  - 지연 영향도 시각화
-  - 경고 표시
+#### 2.5 Enabler 관리 UI (3일) ✅ 완료 (2025-11-03)
+- [x] **2.5.1** Enabler 목록 (`EnablerList.tsx`)
+  - ✅ 카드 레이아웃
+  - ✅ 상태별 필터
+  - ✅ 긴급도 표시 (Chip)
+  - ✅ 지연 경고 표시 (WarningIcon)
+  - ✅ 타입, 상태, 중요도 Chip
+  - ✅ 전달 예정일/실제 전달일 표시
+  - ✅ CRUD 작업
+- [x] **2.5.2** Enabler 생성/수정 폼 (`EnablerForm.tsx`)
+  - ✅ 생성/수정 모드 자동 감지
+  - ✅ 전달 예정일 설정
+  - ✅ 실제 전달일 기록
+  - ✅ 타입 선택 (6가지)
+  - ✅ 중요도 선택
+  - ✅ 상태 선택
+  - ✅ 담당자 입력
+  - ✅ 비고 입력
+  - ⏸️ 영향받는 태스크 선택 (향후 구현)
+- [x] **2.5.3** Enabler 상세 (`EnablerDetail.tsx`)
+  - ✅ 상세 정보 표시
+  - ✅ 지연 경고 Alert
+  - ✅ 상태 및 중요도 표시
+  - ✅ 메타데이터 (생성/수정일시)
+  - ⏸️ 영향받는 태스크 목록 (향후 구현)
+  - ⏸️ 지연 영향도 시각화 (향후 구현)
+- [x] **2.5.4** TypeScript 타입 정의
+  - ✅ `types/enabler.ts` - Enabler, EnablerCreate, EnablerUpdate
+  - ✅ EnablerType, EnablerStatus, EnablerCriticality 타입
+  - ✅ 타입/상태/중요도 레이블 및 색상 상수
+- [x] **2.5.5** API 서비스
+  - ✅ `services/enablerService.ts` - CRUD API 함수
+  - ✅ getEnablers, getEnabler, createEnabler, updateEnabler, deleteEnabler
+- [x] **2.5.6** 라우팅
+  - ✅ `/projects/:projectId/enablers` - Enabler 목록
+  - ✅ `/projects/:projectId/enablers/new` - Enabler 생성
+  - ✅ `/projects/:projectId/enablers/:enablerId` - Enabler 상세
+  - ✅ `/projects/:projectId/enablers/:enablerId/edit` - Enabler 수정
 
 #### 2.6 API 연동 및 상태 관리 (4일)
 - [ ] **2.6.1** API Service 클래스 작성
