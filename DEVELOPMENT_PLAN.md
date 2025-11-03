@@ -977,12 +977,30 @@ start_time, end_time, color, created_at
 **상태**: 🔴 미시작
 
 #### 4.1 통합 테스트 (3일)
-- [ ] **4.1.1** 엔드투엔드 테스트 시나리오
-  - 프로젝트 생성 → 태스크 추가 → 의존성 설정 → 간트 차트 확인
-  - Enabler 추가 → 영향 분석 → 지연 시뮬레이션
-  - 캘린더 이벤트 확인 → 리포트 생성 → 익스포트
+- [x] **4.1.1** 엔드투엔드 테스트 시나리오 ✅
+  - Playwright 설치 및 환경 구성 (v1.x)
+  - 멀티 브라우저 설정 (Chromium, Firefox, Webkit)
+  - E2E 테스트 시나리오 구현:
+    - `01-navigation.spec.ts`: 기본 UI 네비게이션
+      - 홈 페이지 로드
+      - 프로젝트 목록 페이지 이동
+      - 네비게이션 접근성 확인
+    - `02-project-flow.spec.ts`: 프로젝트 생성부터 간트 차트까지 전체 플로우
+      - 프로젝트 생성 → 태스크 추가
+      - 의존성 설정 → 간트 차트 확인
+      - Enabler 추가 및 관리
+    - `03-calendar-reports.spec.ts`: 캘린더 및 리포트
+      - 캘린더 이벤트 확인
+      - 리포트 생성 (크리티컬 패스, 진행 현황, 지연 분석)
+      - 익스포트 기능 검증
+  - 테스트 스크립트 추가:
+    - `npm run test:e2e`: E2E 테스트 실행
+    - `npm run test:e2e:ui`: UI 모드로 테스트 실행
+    - `npm run test:e2e:report`: HTML 리포트 표시
+  - .gitignore 업데이트 (Playwright 아티팩트 제외)
 - [ ] **4.1.2** 크로스 브라우저 테스트
-  - Chrome, Edge, Firefox에서 동작 확인
+  - Chromium, Firefox, Webkit 설정 완료
+  - 실제 테스트 실행 예정
 - [ ] **4.1.3** 에러 시나리오 테스트
   - 네트워크 오류 처리
   - 잘못된 입력 처리
