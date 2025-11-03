@@ -2,9 +2,10 @@
  * GanttChart Component
  *
  * Frappe Gantt 라이브러리를 사용한 간트 차트 컴포넌트
+ * React.memo로 최적화됨
  */
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback, memo } from 'react';
 import Gantt from 'frappe-gantt';
 import {
   Box,
@@ -91,17 +92,17 @@ const GanttChart = ({
     }
   }, [tasks, currentViewMode, onTaskClick, onDateChange, onProgressChange]);
 
-  const handleViewModeChange = (
-    _event: React.MouseEvent<HTMLElement>,
-    newMode: GanttViewMode | null
-  ) => {
-    if (newMode !== null) {
-      setCurrentViewMode(newMode);
-      if (ganttInstanceRef.current) {
-        ganttInstanceRef.current.change_view_mode(newMode);
+  const handleViewModeChange = useCallback(
+    (_event: React.MouseEvent<HTMLElement>, newMode: GanttViewMode | null) => {
+      if (newMode !== null) {
+        setCurrentViewMode(newMode);
+        if (ganttInstanceRef.current) {
+          ganttInstanceRef.current.change_view_mode(newMode);
+        }
       }
-    }
-  };
+    },
+    []
+  );
 
   if (tasks.length === 0) {
     return (
@@ -149,4 +150,4 @@ const GanttChart = ({
   );
 };
 
-export default GanttChart;
+export default memo(GanttChart);

@@ -1026,11 +1026,17 @@ start_time, end_time, color, created_at
     - 브라우저 뒤로 가기 처리
 
 #### 4.2 성능 최적화 (4일)
-- [ ] **4.2.1** 프론트엔드 최적화
-  - 코드 스플리팅 (React.lazy)
-  - 메모이제이션 (useMemo, useCallback)
-  - 가상 스크롤링 (react-window)
-  - 이미지 최적화
+- [x] **4.2.1** 프론트엔드 최적화 ✅
+  - 코드 스플리팅 (React.lazy):
+    - 모든 페이지 컴포넌트에 React.lazy 적용 (10개 컴포넌트)
+    - Suspense + LoadingFallback 컴포넌트 생성
+    - routes/index.tsx 완전 재작성
+  - 메모이제이션 (useMemo, useCallback, React.memo):
+    - GanttChart: React.memo + useCallback 적용
+    - DependencyGraph: React.memo 적용 (이미 useMemo/useCallback 사용 중)
+    - CalendarView: React.memo 적용
+  - 가상 스크롤링: 대량 데이터 처리 시나리오가 아직 없어 보류
+  - 이미지 최적화: 현재 프로젝트에 이미지 파일 없음
 - [ ] **4.2.2** 백엔드 최적화
   - 쿼리 최적화 (N+1 문제 해결)
   - 인덱스 추가

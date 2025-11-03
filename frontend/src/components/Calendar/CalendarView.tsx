@@ -2,9 +2,10 @@
  * CalendarView Component
  *
  * FullCalendar 기반 캘린더 뷰 컴포넌트
+ * React.memo로 최적화됨
  */
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -112,4 +113,4 @@ const CalendarView = ({ tasks, filters }: CalendarViewProps) => {
   );
 };
 
-export default CalendarView;
+export default memo(CalendarView);

@@ -2,9 +2,10 @@
  * DependencyGraph Component
  *
  * React-Flow 기반 의존성 그래프 컴포넌트
+ * React.memo로 최적화됨
  */
 
-import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useEffect, useState, useCallback, useMemo, memo } from 'react';
 import {
   ReactFlow,
   Background,
@@ -224,4 +225,4 @@ const DependencyGraph = ({ tasks, onNodeClick, showCriticalPath = true }: Depend
   );
 };
 
-export default DependencyGraph;
+export default memo(DependencyGraph);
