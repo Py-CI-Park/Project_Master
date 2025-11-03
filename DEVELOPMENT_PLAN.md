@@ -836,21 +836,21 @@ start_time, end_time, color, created_at
   - ✅ `/projects/:projectId/enablers/:enablerId` - Enabler 상세
   - ✅ `/projects/:projectId/enablers/:enablerId/edit` - Enabler 수정
 
-#### 2.6 API 연동 및 상태 관리 (4일)
-- [ ] **2.6.1** API Service 클래스 작성
-  - `projectService.ts`
-  - `taskService.ts`
-  - `enablerService.ts`
-  - `dependencyService.ts`
-  - `calendarService.ts`
-- [ ] **2.6.2** Custom Hooks 작성
-  - `useProjects.ts` - 프로젝트 CRUD 훅
-  - `useTasks.ts` - 태스크 CRUD 훅
-  - `useEnablers.ts` - Enabler CRUD 훅
-  - `useDependencies.ts` - 의존성 훅
-- [ ] **2.6.3** React Context 구성 (또는 Zustand)
-  - `ProjectContext.tsx` - 현재 프로젝트 상태
-  - `ThemeContext.tsx` - 테마 설정
+#### 2.6 API 연동 및 상태 관리 (4일) ✅
+- [x] **2.6.1** API Service 클래스 작성
+  - ✅ `projectService.ts` (Phase 2.1에서 완료)
+  - ✅ `taskService.ts` (Phase 2.3에서 완료)
+  - ✅ `enablerService.ts` (Phase 2.5에서 완료)
+  - ✅ `dependencyService.ts` - 의존성 CRUD API 함수
+  - ⏸️ `calendarService.ts` (Phase 3에서 구현 예정)
+- [x] **2.6.2** Custom Hooks 작성
+  - ✅ `hooks/useProjects.ts` - 프로젝트 데이터 페칭 및 상태 관리
+  - ✅ `hooks/useTasks.ts` - 태스크 데이터 페칭 및 상태 관리
+  - ✅ `hooks/useEnablers.ts` - Enabler 데이터 페칭 및 상태 관리
+  - ✅ `hooks/useDependencies.ts` - 의존성 데이터 페칭 및 상태 관리
+- [x] **2.6.3** React Context 구성
+  - ✅ `contexts/ProjectContext.tsx` - 현재 프로젝트 전역 상태
+  - ✅ `contexts/ThemeContext.tsx` - 테마 설정 및 다크모드
 
 #### 2.7 테스트 작성 (3일)
 - [ ] **2.7.1** 컴포넌트 테스트 (Jest + React Testing Library)
