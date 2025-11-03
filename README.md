@@ -4,9 +4,9 @@
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Python](https://img.shields.io/badge/python-3.11+-blue)
+![Python](https://img.shields.io/badge/python-3.10+-blue)
 ![React](https://img.shields.io/badge/react-18+-61dafb)
-![TypeScript](https://img.shields.io/badge/typescript-5.0+-3178c6)
+![FastAPI](https://img.shields.io/badge/fastapi-0.109+-009688)
 
 **완전 오픈소스 기반, 100% 오프라인 동작하는 프로젝트/일정 관리 시스템**
 
@@ -95,21 +95,22 @@
 
 ### Frontend
 ```
-React 18 + TypeScript 5.0
-├── UI: Material-UI (MUI) v6
-├── 간트 차트: Frappe Gantt
-├── 캘린더: FullCalendar
-├── 그래프: React-Flow + Recharts
+React 18 + JavaScript (ES6+)
+├── UI: Material-UI (MUI) v5
+├── 간트 차트: DHTMLX Gantt (계획)
+├── 캘린더: FullCalendar (계획)
+├── 그래프: React-Flow + Recharts (계획)
 ├── 빌드: Vite
-└── 상태 관리: React Context / Zustand
+├── 상태 관리: Zustand
+└── HTTP 클라이언트: Axios
 ```
 
 ### Backend
 ```
-Python 3.11+ + FastAPI
+Python 3.10+ + FastAPI 0.109+
 ├── ORM: SQLAlchemy 2.0
 ├── 검증: Pydantic v2
-├── DB: SQLite 3.4+
+├── DB: SQLite 3.x
 ├── 서버: Uvicorn
 └── 마이그레이션: Alembic
 ```
@@ -128,11 +129,11 @@ Python 3.11+ + FastAPI
 
 ### 시스템 요구사항
 
-- **운영체제**: Windows 10/11 또는 Linux (Ubuntu 20.04+)
-- **Python**: 3.11 이상
-- **Node.js**: 18 이상
+- **운영체제**: Windows 10/11 또는 Linux (Ubuntu 20.04+, CentOS 8+)
+- **Python**: 3.10 이상
 - **메모리**: 최소 4GB RAM (8GB 권장)
-- **디스크**: 최소 2GB 여유 공간
+- **디스크**: 최소 2GB 여유 공간 (프로그램 + 데이터)
+- **네트워크**: 필요 없음 (폐쇄망 지원)
 
 ### 개발 환경 설정
 
@@ -198,42 +199,58 @@ Project_Master/
 ├── backend/                     # 🐍 Python FastAPI 백엔드
 │   ├── app/
 │   │   ├── main.py              # FastAPI 진입점
-│   │   ├── models/              # SQLAlchemy 모델
+│   │   ├── database.py          # 데이터베이스 설정
+│   │   ├── models/              # SQLAlchemy ORM 모델
 │   │   ├── schemas/             # Pydantic 스키마
-│   │   ├── api/                 # REST API 엔드포인트
-│   │   ├── services/            # 비즈니스 로직
-│   │   └── utils/               # 유틸리티
+│   │   ├── api/v1/              # REST API 엔드포인트 (v1)
+│   │   └── crud/                # CRUD 작업
+│   ├── migrations/              # Alembic 마이그레이션
 │   ├── tests/                   # 백엔드 테스트
-│   └── requirements.txt         # Python 의존성
+│   ├── requirements.txt         # Python 운영 의존성
+│   ├── requirements-dev.txt     # Python 개발 의존성
+│   ├── project_master.db        # SQLite 데이터베이스 (런타임 생성)
+│   └── SECURITY.md              # 보안 취약점 분석
 │
-├── frontend/                    # ⚛️ React TypeScript 프론트엔드
+├── frontend/                    # ⚛️ React 프론트엔드
 │   ├── src/
 │   │   ├── components/          # React 컴포넌트
-│   │   │   ├── Gantt/           # 간트 차트
-│   │   │   ├── Calendar/        # 캘린더
-│   │   │   ├── Dependency/      # 의존성 그래프
-│   │   │   └── ...
-│   │   ├── services/            # API 클라이언트
-│   │   ├── hooks/               # Custom Hooks
-│   │   ├── contexts/            # React Context
-│   │   └── types/               # TypeScript 타입
-│   ├── tests/                   # 프론트엔드 테스트
-│   └── package.json             # npm 의존성
+│   │   │   ├── common/          # 공통 컴포넌트
+│   │   │   ├── projects/        # 프로젝트 관련
+│   │   │   ├── tasks/           # 태스크 관련
+│   │   │   └── enablers/        # Enabler 관련
+│   │   ├── services/            # API 서비스 (Axios)
+│   │   ├── stores/              # 상태 관리 (Zustand)
+│   │   ├── utils/               # 유틸리티 함수
+│   │   └── main.jsx             # React 진입점
+│   ├── dist/                    # 프로덕션 빌드 (빌드 시 생성)
+│   ├── package.json             # npm 의존성
+│   └── vite.config.js           # Vite 설정
 │
 ├── deployment/                  # 🚀 폐쇄망 배포 자료
-│   ├── windows/                 # Windows 설치 스크립트
-│   ├── linux/                   # Linux 설치 스크립트
-│   └── packages/                # 오프라인 패키지
+│   ├── packages/
+│   │   └── python-wheels/       # Python 패키지 wheel 파일 (28개)
+│   ├── frontend-build/          # React 프로덕션 빌드
+│   ├── database/
+│   │   ├── init_db.py           # DB 초기화 스크립트
+│   │   └── README.md            # DB 초기화 안내
+│   ├── windows/
+│   │   ├── install.bat          # Windows 설치 스크립트
+│   │   └── start.bat            # Windows 실행 스크립트
+│   ├── linux/
+│   │   ├── install.sh           # Linux 설치 스크립트
+│   │   ├── start.sh             # Linux 실행 스크립트
+│   │   └── stop.sh              # Linux 종료 스크립트
+│   └── README.md                # 배포 가이드
 │
 └── docs/                        # 📚 문서
-    ├── 01_Idea/project-manager/ # 초기 아이디어 문서
-    ├── installation-guide.md    # 설치 가이드
-    ├── user-manual.md           # 사용자 매뉴얼
-    ├── api-documentation.md     # API 문서
-    └── architecture.md          # 시스템 아키텍처
+    ├── 01_Idea/                 # 초기 아이디어 및 기획 문서
+    ├── installation-guide.md    # 설치 가이드 (Windows/Linux)
+    ├── api-documentation.md     # API 레퍼런스 문서
+    ├── architecture.md          # 시스템 아키텍처 문서
+    └── development-guide.md     # 개발 가이드
 ```
 
-자세한 구조는 [`docs/01_Idea/project-manager/PROJECT_STRUCTURE.md`](docs/01_Idea/project-manager/PROJECT_STRUCTURE.md)를 참고하세요.
+자세한 아키텍처는 [아키텍처 문서](docs/architecture.md)를 참고하세요.
 
 ---
 
@@ -320,15 +337,18 @@ main (또는 master)
 
 ### 개발 문서
 - [개발 계획서](DEVELOPMENT_PLAN.md) - **가장 중요!** 전체 개발 계획 및 진행 상황
-- [프로젝트 구조](docs/01_Idea/project-manager/PROJECT_STRUCTURE.md) - 디렉토리 및 파일 구조
-- [시스템 아키텍처](docs/01_Idea/project-manager/docs/architecture.md) - 시스템 설계
-- [데이터베이스 스키마](docs/01_Idea/project-manager/docs/database-schema.md) - DB 설계
+- [아키텍처 문서](docs/architecture.md) - 시스템 아키텍처 및 기술 스택
+- [개발 가이드](docs/development-guide.md) - 개발 환경 설정 및 기여 방법
+- [API 문서](docs/api-documentation.md) - REST API 레퍼런스
 
-### 사용자 문서 (개발 예정)
-- 설치 가이드 - 폐쇄망 환경 설치 방법
+### 사용자 문서
+- [설치 가이드](docs/installation-guide.md) - Windows/Linux 설치 방법 및 문제 해결
+- [배포 가이드](deployment/README.md) - 폐쇄망 배포 상세 정보
+- [보안 문서](backend/SECURITY.md) - 보안 취약점 분석 및 대응 방안
+
+### 추가 문서 (개발 예정)
 - 사용자 매뉴얼 - 기능별 사용 방법
 - 문제 해결 가이드 - FAQ 및 트러블슈팅
-- API 문서 - REST API 명세
 
 ---
 
@@ -375,50 +395,57 @@ npm test -- --watch
 
 ### 폐쇄망 환경 배포
 
-#### Windows
+이 시스템은 외부 네트워크 없이 완전히 오프라인으로 동작하도록 설계되었습니다.
+
+#### Windows 설치 및 실행
 ```batch
 # 1. 배포 패키지 압축 해제
-unzip project-manager-v1.0.0.zip
+# (Project_Master 디렉토리)
 
-# 2. 설치 (관리자 권한)
-cd project-manager-v1.0.0
+# 2. 설치
+cd Project_Master
 deployment\windows\install.bat
 
-# 3. 실행
+# 3. 서버 실행
 deployment\windows\start.bat
 
 # 4. 브라우저에서 접속
-http://localhost:8000
+# 프론트엔드: http://localhost:5173
+# 백엔드 API: http://localhost:8000
+# API 문서: http://localhost:8000/docs
 ```
 
-#### Linux
+#### Linux 설치 및 실행
 ```bash
 # 1. 배포 패키지 압축 해제
-unzip project-manager-v1.0.0.zip
+# (Project_Master 디렉토리)
 
-# 2. 설치
-cd project-manager-v1.0.0
+# 2. 설치 스크립트 실행 권한 부여
+cd Project_Master
 chmod +x deployment/linux/*.sh
-sudo ./deployment/linux/install.sh
 
-# 3. 실행
+# 3. 설치
+./deployment/linux/install.sh
+
+# 4. 서버 실행 (백그라운드)
 ./deployment/linux/start.sh
 
-# 4. 브라우저에서 접속
-http://localhost:8000
+# 5. 브라우저에서 접속
+# 프론트엔드: http://localhost:5173
+# 백엔드 API: http://localhost:8000
+
+# 서버 종료 (필요 시)
+./deployment/linux/stop.sh
 ```
 
-자세한 내용은 [설치 가이드](docs/installation-guide.md)를 참고하세요.
+자세한 내용은 [설치 가이드](docs/installation-guide.md) 및 [배포 가이드](deployment/README.md)를 참고하세요.
 
-### Docker 배포 (선택)
+### 배포 패키지 구성
 
-```bash
-# Docker Compose 실행
-docker-compose up -d
-
-# 브라우저에서 접속
-http://localhost:8000
-```
+- **Python 패키지**: 28개의 wheel 파일 (오프라인 설치용)
+- **데이터베이스**: SQLite (별도 서버 불필요)
+- **프론트엔드**: 정적 빌드 파일
+- **스크립트**: 자동 설치 및 실행 스크립트 (Windows/Linux)
 
 ---
 
