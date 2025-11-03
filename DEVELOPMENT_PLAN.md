@@ -756,25 +756,46 @@ start_time, end_time, color, created_at
   - ✅ `services/projectService.ts` - CRUD API 함수 구현
   - ✅ getProjects, getProject, createProject, updateProject, deleteProject
 
-#### 2.4 태스크 관리 UI (5일)
-- [ ] **2.4.1** 태스크 목록 (`TaskList.tsx`)
-  - 테이블 뷰
-  - 인라인 편집
-  - 진행률 표시
-  - 우선순위 표시
-- [ ] **2.4.2** 태스크 생성/수정 폼 (`TaskForm.tsx`)
-  - 폼 검증
-  - 날짜 범위 선택
-  - 담당자 할당
-  - 마일스톤 플래그
-- [ ] **2.4.3** 태스크 상세 (`TaskDetail.tsx`)
-  - 상세 정보
-  - 의존성 목록
-  - 연결된 Enabler
-  - 활동 이력
-- [ ] **2.4.4** 칸반 보드 (`TaskBoard.tsx`) - 선택사항
+#### 2.4 태스크 관리 UI (5일) ✅ 완료 (2025-11-03)
+- [x] **2.4.1** 태스크 목록 (`TaskList.tsx`)
+  - ✅ 테이블 뷰
+  - ✅ 진행률 표시 (LinearProgress)
+  - ✅ 우선순위 표시 (색상 코딩 Chip)
+  - ✅ 상태 표시 (Chip)
+  - ✅ 태스크 삭제 기능
+  - ✅ 로딩 및 에러 상태 처리
+- [x] **2.4.2** 태스크 생성/수정 폼 (`TaskForm.tsx`)
+  - ✅ 생성/수정 모드 자동 감지
+  - ✅ 폼 검증
+  - ✅ 날짜 범위 선택
+  - ✅ 담당자 할당
+  - ✅ 마일스톤 플래그
+  - ✅ 진행률 Slider
+  - ✅ 우선순위 및 상태 선택
+  - ✅ 색상 지정
+- [x] **2.4.3** 태스크 상세 (`TaskDetail.tsx`)
+  - ✅ 상세 정보 표시
+  - ✅ 진행률 시각화
+  - ✅ 상태 및 우선순위 표시
+  - ✅ 메타데이터 (생성일, 수정일)
+  - ⏸️ 의존성 목록 (향후 구현 예정)
+  - ⏸️ 연결된 Enabler (향후 구현 예정)
+  - ⏸️ 활동 이력 (향후 구현 예정)
+- [ ] **2.4.4** 칸반 보드 (`TaskBoard.tsx`) - 선택사항 (Phase 3에서 고려)
   - 드래그 앤 드롭
   - 상태별 컬럼
+- [x] **2.4.5** TypeScript 타입 정의
+  - ✅ `types/task.ts` - Task, TaskCreate, TaskUpdate 인터페이스
+  - ✅ TaskStatus, TaskPriority 타입
+  - ✅ 상태/우선순위 레이블 및 색상 상수
+- [x] **2.4.6** API 서비스
+  - ✅ `services/taskService.ts` - CRUD API 함수 구현
+  - ✅ getTasks, getTask, createTask, updateTask, deleteTask
+- [x] **2.4.7** 라우팅
+  - ✅ `/projects/:projectId/tasks` - 태스크 목록
+  - ✅ `/projects/:projectId/tasks/new` - 태스크 생성
+  - ✅ `/projects/:projectId/tasks/:taskId` - 태스크 상세
+  - ✅ `/projects/:projectId/tasks/:taskId/edit` - 태스크 수정
 
 #### 2.5 Enabler 관리 UI (3일)
 - [ ] **2.5.1** Enabler 목록 (`EnablerList.tsx`)

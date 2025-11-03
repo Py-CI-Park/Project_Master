@@ -9,6 +9,7 @@ import { MainLayout } from '../components/layout';
 import Dashboard from '../pages/Dashboard';
 import { ProjectList, ProjectForm } from '../pages/Projects';
 import ProjectDetail from '../pages/ProjectDetail';
+import { TaskList, TaskForm, TaskDetail } from '../pages/Tasks';
 
 /**
  * 라우터 설정
@@ -57,6 +58,22 @@ export const router = createBrowserRouter([
       {
         path: 'projects/:projectId/dependencies',
         element: <ProjectDetail />, // 탭으로 처리될 예정
+      },
+      {
+        path: 'projects/:projectId/tasks',
+        element: <TaskList />,
+      },
+      {
+        path: 'projects/:projectId/tasks/new',
+        element: <TaskForm />,
+      },
+      {
+        path: 'projects/:projectId/tasks/:taskId',
+        element: <TaskDetail />,
+      },
+      {
+        path: 'projects/:projectId/tasks/:taskId/edit',
+        element: <TaskForm />,
       },
       {
         path: '*',
