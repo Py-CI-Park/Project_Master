@@ -7,3 +7,4 @@ export * from './task';
 export * from './enabler';
 export * from './dependency';
 export * from './gantt';
+export * from './graph';

@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import { Box, Typography, Container, Tabs, Tab } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { GanttChart } from '../../components/Gantt';
+import { DependencyGraph, DependencyMatrix } from '../../components/Graph';
 import { useTasks } from '../../hooks';
 import { transformTasksToGantt } from '../../utils/ganttTransformer';
 import type { GanttTask } from '../../types';
@@ -120,7 +121,10 @@ const ProjectDetail = () => {
           <Typography>캘린더</Typography>
         </TabPanel>
         <TabPanel value={tabValue} index={4}>
-          <Typography>의존성 그래프</Typography>
+          <Box sx={{ mb: 3 }}>
+            <DependencyGraph tasks={tasks} />
+          </Box>
+          <DependencyMatrix tasks={tasks} />
         </TabPanel>
       </Box>
     </Container>
