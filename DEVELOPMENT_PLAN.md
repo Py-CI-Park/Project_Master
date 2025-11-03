@@ -1210,32 +1210,30 @@ start_time, end_time, color, created_at
 ### Phase 5: 배포 패키지 및 문서화 (1-2주)
 **기간**: 14-15주차
 **목표**: 폐쇄망 배포 준비 및 사용자 문서 작성
-**상태**: 🔴 미시작
+**상태**: 🟡 진행 중
 
-#### 5.1 폐쇄망 배포 패키지 준비 (4일)
-- [ ] **5.1.1** Python 패키지 수집
-  - `pip download -r requirements.txt -d deployment/packages/python-wheels`
-  - 모든 의존성 wheel 파일 수집
-- [ ] **5.1.2** Node.js 패키지 수집
-  - `npm pack` 또는 `npm-offline-packager` 사용
-  - 프론트엔드 빌드 파일 생성 (`npm run build`)
-- [ ] **5.1.3** 데이터베이스 초기화 스크립트
-  - `deployment/database/init.sql` 작성
-  - 샘플 데이터 SQL 작성
-- [ ] **5.1.4** 설치 스크립트 작성
-  - **Windows**: `deployment/windows/install.bat`
-    - Python/Node.js 설치 확인
-    - 의존성 설치
+#### 5.1 폐쇄망 배포 패키지 준비 (4일) ✅
+- [x] **5.1.1** Python 패키지 수집
+  - ✅ `pip download -r requirements.txt -d deployment/packages/python-wheels` 실행
+  - ✅ 28개 wheel 파일 수집 완료
+- [x] **5.1.2** Node.js 패키지 및 프론트엔드 빌드
+  - ✅ `npm run build` 실행
+  - ✅ 빌드 파일 `deployment/frontend-build/`에 복사
+- [x] **5.1.3** 데이터베이스 초기화 스크립트
+  - ✅ `deployment/database/init_db.py` 작성 (Alembic 마이그레이션 기반)
+  - ✅ `deployment/database/README.md` 작성 (초기화 안내)
+- [x] **5.1.4** 설치 스크립트 작성
+  - ✅ **Windows**: `deployment/windows/install.bat`
+    - Python 설치 확인
+    - 가상 환경 생성
+    - 의존성 설치 (폐쇄망 모드)
     - 데이터베이스 초기화
-    - 환경 변수 설정
-  - **Linux**: `deployment/linux/install.sh`
+  - ✅ **Linux**: `deployment/linux/install.sh`
     - 동일한 작업 수행
-- [ ] **5.1.5** 실행 스크립트 작성
-  - **Windows**: `start.bat` (백엔드 + 프론트엔드 동시 실행)
-  - **Linux**: `start.sh`
-- [ ] **5.1.6** 제거 스크립트 작성
-  - **Windows**: `uninstall.bat`
-  - **Linux**: `uninstall.sh`
+- [x] **5.1.5** 실행 스크립트 작성
+  - ✅ **Windows**: `deployment/windows/start.bat` (백엔드 + 프론트엔드 동시 실행)
+  - ✅ **Linux**: `deployment/linux/start.sh` + `stop.sh` (백그라운드 실행/종료)
+- [ ] **5.1.6** 제거 스크립트 작성 (선택사항 - 스킵)
 
 #### 5.2 PyInstaller 실행 파일 생성 (선택) (2일)
 - [ ] **5.2.1** PyInstaller 설정

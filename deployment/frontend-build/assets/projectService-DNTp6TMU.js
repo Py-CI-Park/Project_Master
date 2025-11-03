@@ -1,0 +1,1 @@
+import{a as t}from"./axiosConfig-C_yeBslf.js";const r=async(s=0,e=100)=>(await t.get("/projects/",{params:{skip:s,limit:e}})).data,n=async s=>(await t.get(`/projects/${s}`)).data,c=async s=>(await t.post("/projects/",s)).data,p=async(s,e)=>(await t.put(`/projects/${s}`,e)).data,j=async s=>{await t.delete(`/projects/${s}`)};export{n as a,c,j as d,r as g,p as u};

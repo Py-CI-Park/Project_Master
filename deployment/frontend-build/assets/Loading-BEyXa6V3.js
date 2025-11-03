@@ -1,0 +1,1 @@
+import{j as r,B as e,aj as n,T as o}from"./index-DmF5MeAd.js";const i=({message:s="로딩 중...",size:t=40})=>r.jsxs(e,{sx:{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"200px",gap:2},children:[r.jsx(n,{size:t}),s&&r.jsx(o,{variant:"body2",color:"text.secondary",children:s})]});export{i as L};
