@@ -7,7 +7,7 @@
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 import { MainLayout } from '../components/layout';
 import Dashboard from '../pages/Dashboard';
-import { ProjectList } from '../pages/Projects';
+import { ProjectList, ProjectForm } from '../pages/Projects';
 import ProjectDetail from '../pages/ProjectDetail';
 
 /**
@@ -35,8 +35,16 @@ export const router = createBrowserRouter([
         element: <ProjectList />,
       },
       {
+        path: 'projects/new',
+        element: <ProjectForm />,
+      },
+      {
         path: 'projects/:projectId',
         element: <ProjectDetail />,
+      },
+      {
+        path: 'projects/:projectId/edit',
+        element: <ProjectForm />,
       },
       {
         path: 'projects/:projectId/gantt',

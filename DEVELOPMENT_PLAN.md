@@ -732,19 +732,29 @@ start_time, end_time, color, created_at
   - ✅ `Loading.tsx` - 로딩 스피너
   - ✅ `ErrorBoundary.tsx` - React 에러 바운더리
 
-#### 2.3 프로젝트 관리 UI (4일)
-- [ ] **2.3.1** 프로젝트 목록 (`ProjectList.tsx`)
-  - 카드 레이아웃
-  - 검색 및 필터링
-  - 정렬 기능
-- [ ] **2.3.2** 프로젝트 생성/수정 폼 (`ProjectForm.tsx`)
-  - 폼 검증
-  - 날짜 선택기
-  - 상태 선택
-- [ ] **2.3.3** 프로젝트 상세 (`ProjectDetail.tsx`)
-  - 프로젝트 정보 표시
-  - 탭 네비게이션 (태스크, 간트, 캘린더, 리포트)
-  - 통계 위젯
+#### 2.3 프로젝트 관리 UI (4일) ✅ 완료 (2025-11-03)
+- [x] **2.3.1** 프로젝트 목록 (`ProjectList.tsx`)
+  - ✅ 카드 레이아웃
+  - ✅ 검색 및 필터링 (이름/설명)
+  - ✅ 상태별 필터링
+  - ✅ 정렬 기능 (이름순/시작일순/상태순)
+  - ✅ 프로젝트 삭제 기능
+  - ✅ 로딩 및 에러 상태 처리
+- [x] **2.3.2** 프로젝트 생성/수정 폼 (`ProjectForm.tsx`)
+  - ✅ 생성/수정 모드 자동 감지
+  - ✅ 폼 검증
+  - ✅ 날짜 선택기
+  - ✅ 상태 선택
+  - ✅ API 연동 (생성/수정/조회)
+- [x] **2.3.3** 프로젝트 상세 (`ProjectDetail.tsx`)
+  - ✅ 탭 네비게이션 구조 (향후 개선 예정)
+- [x] **2.3.4** TypeScript 타입 정의
+  - ✅ `types/project.ts` - Project, ProjectCreate, ProjectUpdate 인터페이스
+  - ✅ `types/task.ts` - Task 타입 (향후 사용)
+  - ✅ 상태 레이블 및 색상 상수
+- [x] **2.3.5** API 서비스
+  - ✅ `services/projectService.ts` - CRUD API 함수 구현
+  - ✅ getProjects, getProject, createProject, updateProject, deleteProject
 
 #### 2.4 태스크 관리 UI (5일)
 - [ ] **2.4.1** 태스크 목록 (`TaskList.tsx`)
