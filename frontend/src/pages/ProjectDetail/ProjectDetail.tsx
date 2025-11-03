@@ -9,6 +9,7 @@ import { Box, Typography, Container, Tabs, Tab } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { GanttChart } from '../../components/Gantt';
 import { DependencyGraph, DependencyMatrix } from '../../components/Graph';
+import { CalendarView } from '../../components/Calendar';
 import { useTasks } from '../../hooks';
 import { transformTasksToGantt } from '../../utils/ganttTransformer';
 import type { GanttTask } from '../../types';
@@ -118,7 +119,7 @@ const ProjectDetail = () => {
           />
         </TabPanel>
         <TabPanel value={tabValue} index={3}>
-          <Typography>캘린더</Typography>
+          <CalendarView tasks={tasks} />
         </TabPanel>
         <TabPanel value={tabValue} index={4}>
           <Box sx={{ mb: 3 }}>
