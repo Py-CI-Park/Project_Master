@@ -1,7 +1,9 @@
 # FastAPI and Server
-fastapi==0.109.0
+# Note: FastAPI 0.115.12 depends on starlette <0.47.0, which has known vulnerabilities
+# Keeping current version for stability, monitoring for compatible FastAPI update
+fastapi==0.115.12  # Updated from 0.109.0 (Security: PYSEC-2024-38)
 uvicorn[standard]==0.27.0
-python-multipart==0.0.6
+python-multipart==0.0.18  # Updated from 0.0.6 (Security: GHSA-2jv5-9r88-3w3p, GHSA-59g5-xgcq-4qw3)
 
 # Database
 sqlalchemy==2.0.25
