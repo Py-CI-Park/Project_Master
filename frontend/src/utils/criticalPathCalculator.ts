@@ -31,15 +31,15 @@ export const calculateCriticalPath = (
   const predecessorsMap = new Map<number, number[]>();
 
   dependencies.forEach((dep) => {
-    if (!successorsMap.has(dep.predecessor_id)) {
-      successorsMap.set(dep.predecessor_id, []);
+    if (!successorsMap.has(dep.predecessor_task_id)) {
+      successorsMap.set(dep.predecessor_task_id, []);
     }
-    successorsMap.get(dep.predecessor_id)!.push(dep.successor_id);
+    successorsMap.get(dep.predecessor_task_id)!.push(dep.successor_task_id);
 
-    if (!predecessorsMap.has(dep.successor_id)) {
-      predecessorsMap.set(dep.successor_id, []);
+    if (!predecessorsMap.has(dep.successor_task_id)) {
+      predecessorsMap.set(dep.successor_task_id, []);
     }
-    predecessorsMap.get(dep.successor_id)!.push(dep.predecessor_id);
+    predecessorsMap.get(dep.successor_task_id)!.push(dep.predecessor_task_id);
   });
 
   // Forward Pass: Early Start/Finish 계산
@@ -47,7 +47,7 @@ export const calculateCriticalPath = (
   const earlyFinish = new Map<number, Date>();
 
   // 시작 태스크 찾기 (predecessor가 없는 태스크)
-  const startTasks = tasks.filter((task) => !predecessorsMap.has(task.id));
+  // const startTasks = tasks.filter((task) => !predecessorsMap.has(task.id));
 
   // 모든 태스크를 토폴로지컬 정렬
   const sorted = topologicalSort(tasks, predecessorsMap);
@@ -214,7 +214,7 @@ const analyzeRisks = (criticalTasks: CriticalPathTask[]): RiskItem[] => {
       let impact = '';
 
       // 우선순위가 높고 진행률이 낮으면 리스크 증가
-      if (task.priority === 'urgent' || task.priority === 'high') {
+      if (task.priority === 'critical' || task.priority === 'high') {
         if (task.progress < 50) {
           riskLevel = 'high';
           description = '높은 우선순위의 크리티컬 태스크가 진행이 느립니다.';

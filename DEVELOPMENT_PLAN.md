@@ -1099,9 +1099,28 @@ start_time, end_time, color, created_at
     - 결과 기반 추가 최적화
 
 #### 4.3 버그 수정 및 리팩토링 (3일)
-- [ ] **4.3.1** 발견된 버그 수정
-  - 이슈 트래킹 및 우선순위 지정
-  - 버그 수정 및 테스트
+- [x] **4.3.1** 발견된 버그 수정 ✅
+  - ✅ TypeScript 빌드 오류 조사 (약 120개 오류 발견)
+  - ✅ 우선순위 지정 (Critical/High/Low)
+  - ✅ **Type-only imports 수정** (verbatimModuleSyntax 호환성)
+    - Button, DatePicker, ErrorBoundary, Input, Select, theme, utils 파일 수정
+  - ✅ **TaskStatus/TaskPriority enum 수정**
+    - 'on_hold', 'cancelled' 상태 추가
+    - 'urgent'를 'critical'로 변경
+  - ✅ **Dependency 타입 수정**
+    - predecessor_id → predecessor_task_id
+    - successor_id → successor_task_id
+  - ✅ **Task 타입에 dependencies 속성 추가**
+  - ✅ **React Flow Graph 타입 수정**
+    - GraphNodeData/GraphEdgeData에 index signature 추가
+  - ✅ **frappe-gantt 타입 선언 추가**
+    - src/types/frappe-gantt.d.ts 생성
+  - ✅ **파일명 대소문자 불일치 수정**
+    - layout → Layout import 경로 통일
+  - ✅ **미사용 변수 제거**
+    - startTasks, CRITICAL_PATH_CLASS 제거
+  - ✅ **calendar.ts에 blocked 상태 추가**
+  - ⚠️ **남은 이슈** (MUI Grid v6, 테스트 타입) - Phase 4.3.2에서 처리
 - [ ] **4.3.2** 코드 리팩토링
   - 중복 코드 제거
   - 함수 분리 및 모듈화

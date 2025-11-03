@@ -10,8 +10,8 @@ import {
   Select as MuiSelect,
   MenuItem,
   FormHelperText,
-  SelectProps as MuiSelectProps,
 } from '@mui/material';
+import type { SelectProps as MuiSelectProps } from '@mui/material';
 
 export interface SelectOption {
   value: string | number;

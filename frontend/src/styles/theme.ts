@@ -4,7 +4,8 @@
  * 다크 모드를 지원하는 커스텀 테마 설정
  */
 
-import { createTheme, ThemeOptions } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
+import type { ThemeOptions } from '@mui/material/styles';
 
 // 공통 테마 설정
 const commonTheme: ThemeOptions = {

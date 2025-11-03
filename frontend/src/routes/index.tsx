@@ -6,7 +6,7 @@
 
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
-import { MainLayout } from '../components/layout';
+import { MainLayout } from '../components/Layout';
 import { LoadingFallback } from '../components/Common';
 
 // Lazy-loaded page components

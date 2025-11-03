@@ -4,7 +4,8 @@
  * 재사용 가능한 버튼 컴포넌트 (Material-UI Button 래퍼)
  */
 
-import { Button as MuiButton, ButtonProps as MuiButtonProps } from '@mui/material';
+import { Button as MuiButton } from '@mui/material';
+import type { ButtonProps as MuiButtonProps } from '@mui/material';
 
 // Material-UI ButtonProps를 그대로 사용
 type ButtonProps = MuiButtonProps;

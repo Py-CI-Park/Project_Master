@@ -10,7 +10,7 @@ import type { Task } from './task';
 /**
  * 그래프 노드 데이터
  */
-export interface GraphNodeData {
+export interface GraphNodeData extends Record<string, unknown> {
   label: string;
   taskId: number;
   status: Task['status'];
@@ -31,7 +31,7 @@ export type GraphNode = Node<GraphNodeData>;
 /**
  * 그래프 엣지 데이터
  */
-export interface GraphEdgeData {
+export interface GraphEdgeData extends Record<string, unknown> {
   dependencyType?: 'FS' | 'SS' | 'FF' | 'SF'; // Finish-to-Start, Start-to-Start, Finish-to-Finish, Start-to-Finish
   lag?: number; // 지연 시간 (일)
   isCriticalPath?: boolean;
@@ -90,7 +90,7 @@ export const GRAPH_NODE_PRIORITY_CLASSES: Record<string, string> = {
   low: 'graph-node-priority-low',
   medium: 'graph-node-priority-medium',
   high: 'graph-node-priority-high',
-  urgent: 'graph-node-priority-urgent',
+  critical: 'graph-node-priority-critical',
 };
 
 /**

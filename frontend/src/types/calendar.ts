@@ -97,13 +97,17 @@ export const EVENT_STATUS_COLORS: Record<Task['status'], { bg: string; border: s
     bg: '#4caf50',
     border: '#388e3c',
   },
+  blocked: {
+    bg: '#f44336',
+    border: '#d32f2f',
+  },
   on_hold: {
     bg: '#ff9800',
     border: '#f57c00',
   },
   cancelled: {
-    bg: '#f44336',
-    border: '#d32f2f',
+    bg: '#757575',
+    border: '#616161',
   },
 };
 

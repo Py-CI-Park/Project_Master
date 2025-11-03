@@ -4,7 +4,8 @@
  * 재사용 가능한 입력 필드 컴포넌트
  */
 
-import { TextField, TextFieldProps } from '@mui/material';
+import { TextField } from '@mui/material';
+import type { TextFieldProps } from '@mui/material';
 
 // Material-UI TextFieldProps를 그대로 사용
 type InputProps = TextFieldProps;

@@ -4,7 +4,8 @@
  * 재사용 가능한 날짜 선택기 컴포넌트
  */
 
-import { TextField, TextFieldProps } from '@mui/material';
+import { TextField } from '@mui/material';
+import type { TextFieldProps } from '@mui/material';
 
 interface DatePickerProps extends Omit<TextFieldProps, 'type'> {
   value?: string;

@@ -13,7 +13,7 @@ import type {
   DependencyMatrixRow,
   DependencyMatrixCell,
 } from '../types/graph';
-import { GRAPH_NODE_STATUS_CLASSES, GRAPH_NODE_PRIORITY_CLASSES, CRITICAL_PATH_CLASS } from '../types/graph';
+import { GRAPH_NODE_STATUS_CLASSES, GRAPH_NODE_PRIORITY_CLASSES } from '../types/graph';
 import ELK from 'elkjs/lib/elk.bundled.js';
 
 const elk = new ELK();

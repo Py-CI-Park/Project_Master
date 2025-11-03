@@ -7,7 +7,7 @@
 /**
  * 태스크 상태
  */
-export type TaskStatus = 'not_started' | 'in_progress' | 'completed' | 'blocked';
+export type TaskStatus = 'not_started' | 'in_progress' | 'completed' | 'blocked' | 'on_hold' | 'cancelled';
 
 /**
  * 태스크 우선순위
@@ -33,6 +33,7 @@ export interface Task {
   color?: string;
   created_at: string;
   updated_at: string;
+  dependencies?: number[]; // 의존하는 선행 태스크 ID 목록 (optional, UI에서 사용)
 }
 
 /**
@@ -78,6 +79,8 @@ export const TaskStatusLabels: Record<TaskStatus, string> = {
   in_progress: '진행 중',
   completed: '완료',
   blocked: '차단됨',
+  on_hold: '보류',
+  cancelled: '취소됨',
 };
 
 /**
@@ -88,6 +91,8 @@ export const TaskStatusColors: Record<TaskStatus, string> = {
   in_progress: '#2196f3',
   completed: '#4caf50',
   blocked: '#f44336',
+  on_hold: '#ff9800',
+  cancelled: '#757575',
 };
 
 /**
