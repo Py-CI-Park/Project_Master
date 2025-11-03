@@ -718,19 +718,19 @@ start_time, end_time, color, created_at
   - ✅ 인터셉터 구성 (에러 핸들링, 인증 토큰, 로깅)
   - ✅ 에러 타입 정의 및 사용자 친화적 에러 메시지 변환
 
-#### 2.2 공통 컴포넌트 개발 (3일)
-- [ ] **2.2.1** Layout 컴포넌트
-  - `Header.tsx` - 앱 바, 네비게이션
-  - `Sidebar.tsx` - 사이드 메뉴
-  - `MainLayout.tsx` - 레이아웃 컨테이너
-- [ ] **2.2.2** 재사용 컴포넌트
-  - `Button.tsx`
-  - `Input.tsx`
-  - `Select.tsx`
-  - `DatePicker.tsx`
-  - `Modal.tsx`
-  - `Loading.tsx`
-  - `ErrorBoundary.tsx`
+#### 2.2 공통 컴포넌트 개발 (3일) ✅ 완료 (2025-11-03)
+- [x] **2.2.1** Layout 컴포넌트
+  - ✅ `Header.tsx` - 앱 바, 네비게이션, 다크 모드 토글
+  - ✅ `Sidebar.tsx` - 사이드 메뉴 (데스크톱/모바일 대응)
+  - ✅ `MainLayout.tsx` - 레이아웃 컨테이너 (Header + Sidebar + Content)
+- [x] **2.2.2** 재사용 컴포넌트
+  - ✅ `Button.tsx` - Material-UI Button 래퍼
+  - ✅ `Input.tsx` - Material-UI TextField 래퍼
+  - ✅ `Select.tsx` - 사용하기 쉬운 Select 컴포넌트
+  - ✅ `DatePicker.tsx` - HTML5 date input 기반
+  - ✅ `Modal.tsx` - 재사용 가능한 다이얼로그
+  - ✅ `Loading.tsx` - 로딩 스피너
+  - ✅ `ErrorBoundary.tsx` - React 에러 바운더리
 
 #### 2.3 프로젝트 관리 UI (4일)
 - [ ] **2.3.1** 프로젝트 목록 (`ProjectList.tsx`)
