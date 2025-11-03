@@ -5,7 +5,8 @@
  */
 
 /* Frappe Gantt 기본 스타일 import */
-@import 'frappe-gantt/dist/frappe-gantt.css';
+/* Note: Using absolute path due to Vite 7 strict package exports validation */
+@import '/node_modules/frappe-gantt/dist/frappe-gantt.css';
 
 /* Gantt 컨테이너 */
 .gantt-container {

@@ -4,7 +4,7 @@
  * 태스크 의존성 관련 API 호출 함수
  */
 
-import axiosInstance from './api';
+import axiosInstance from '../config/axiosConfig';
 import type { Dependency, DependencyCreate } from '../types';
 
 /**
