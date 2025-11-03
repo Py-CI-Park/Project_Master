@@ -700,22 +700,23 @@ start_time, end_time, color, created_at
 ### Phase 2: 프론트엔드 기본 UI (3-4주)
 **기간**: 5-8주차
 **목표**: React 기반 사용자 인터페이스 구축
-**상태**: 🔴 미시작
+**상태**: 🟡 진행 중
 
-#### 2.1 프로젝트 구조 및 기본 설정 (2일)
-- [ ] **2.1.1** 라우팅 설정 (React Router)
-  - `/` - 대시보드
-  - `/projects` - 프로젝트 목록
-  - `/projects/:id` - 프로젝트 상세
-  - `/projects/:id/gantt` - 간트 차트
-  - `/projects/:id/calendar` - 캘린더
-  - `/projects/:id/dependencies` - 의존성 그래프
-- [ ] **2.1.2** Material-UI 테마 설정
-  - 커스텀 테마 정의 (`styles/theme.ts`)
-  - 다크 모드 지원
-- [ ] **2.1.3** Axios 인스턴스 설정
-  - Base URL 설정
-  - 인터셉터 구성 (에러 핸들링)
+#### 2.1 프로젝트 구조 및 기본 설정 (2일) ✅ 완료 (2025-11-03)
+- [x] **2.1.1** 라우팅 설정 (React Router)
+  - ✅ `/` - 대시보드
+  - ✅ `/projects` - 프로젝트 목록
+  - ✅ `/projects/:id` - 프로젝트 상세
+  - ✅ `/projects/:id/gantt` - 간트 차트
+  - ✅ `/projects/:id/calendar` - 캘린더
+  - ✅ `/projects/:id/dependencies` - 의존성 그래프
+- [x] **2.1.2** Material-UI 테마 설정
+  - ✅ 커스텀 테마 정의 (`styles/theme.ts`)
+  - ✅ 다크 모드 지원 (ThemeContext 구현)
+- [x] **2.1.3** Axios 인스턴스 설정
+  - ✅ Base URL 설정 (환경 변수 사용)
+  - ✅ 인터셉터 구성 (에러 핸들링, 인증 토큰, 로깅)
+  - ✅ 에러 타입 정의 및 사용자 친화적 에러 메시지 변환
 
 #### 2.2 공통 컴포넌트 개발 (3일)
 - [ ] **2.2.1** Layout 컴포넌트
