@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 import {
   Paper,
   Typography,
-  Box,
   Grid,
   Card,
   CardContent,
@@ -103,8 +102,9 @@ const ProgressReport = ({ tasks }: ProgressReportProps) => {
     not_started: '#9e9e9e',
     in_progress: '#2196f3',
     completed: '#4caf50',
+    blocked: '#f44336',
     on_hold: '#ff9800',
-    cancelled: '#f44336',
+    cancelled: '#757575',
   };
 
   // 우선순위별 색상
@@ -112,7 +112,7 @@ const ProgressReport = ({ tasks }: ProgressReportProps) => {
     low: '#4caf50',
     medium: '#2196f3',
     high: '#ff9800',
-    urgent: '#f44336',
+    critical: '#f44336',
   };
 
   const getStatusLabel = (status: Task['status']): string => {
@@ -120,6 +120,7 @@ const ProgressReport = ({ tasks }: ProgressReportProps) => {
       not_started: '미시작',
       in_progress: '진행중',
       completed: '완료',
+      blocked: '차단됨',
       on_hold: '보류',
       cancelled: '취소',
     };
@@ -131,7 +132,7 @@ const ProgressReport = ({ tasks }: ProgressReportProps) => {
       low: '낮음',
       medium: '보통',
       high: '높음',
-      urgent: '긴급',
+      critical: '긴급',
     };
     return labels[priority];
   };
@@ -144,7 +145,7 @@ const ProgressReport = ({ tasks }: ProgressReportProps) => {
 
       {/* 전체 통계 카드 */}
       <Grid container spacing={2} sx={{ mb: 4 }}>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <Card>
             <CardContent>
               <Typography color="text.secondary" gutterBottom>
@@ -154,7 +155,7 @@ const ProgressReport = ({ tasks }: ProgressReportProps) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <Card>
             <CardContent>
               <Typography color="text.secondary" gutterBottom>
@@ -166,7 +167,7 @@ const ProgressReport = ({ tasks }: ProgressReportProps) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <Card>
             <CardContent>
               <Typography color="text.secondary" gutterBottom>
@@ -178,7 +179,7 @@ const ProgressReport = ({ tasks }: ProgressReportProps) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <Card>
             <CardContent>
               <Typography color="text.secondary" gutterBottom>
@@ -195,7 +196,7 @@ const ProgressReport = ({ tasks }: ProgressReportProps) => {
       {/* 차트 */}
       <Grid container spacing={3}>
         {/* 상태별 분포 파이 차트 */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Typography variant="subtitle1" gutterBottom>
             상태별 태스크 분포
           </Typography>
@@ -225,7 +226,7 @@ const ProgressReport = ({ tasks }: ProgressReportProps) => {
         </Grid>
 
         {/* 우선순위별 분포 바 차트 */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Typography variant="subtitle1" gutterBottom>
             우선순위별 태스크 분포
           </Typography>

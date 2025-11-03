@@ -4,7 +4,8 @@
  * 현재 선택된 프로젝트 전역 상태 관리
  */
 
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState } from 'react';
+import type { ReactNode } from 'react';
 import type { Project } from '../types';
 
 interface ProjectContextType {

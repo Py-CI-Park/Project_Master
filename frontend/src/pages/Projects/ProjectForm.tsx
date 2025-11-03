@@ -16,9 +16,9 @@ import {
   Alert,
 } from '@mui/material';
 import { Save as SaveIcon, Cancel as CancelIcon } from '@mui/icons-material';
-import { Loading } from '../../components/common';
+import { Loading } from '../../components/Common';
 import { getProject, createProject, updateProject } from '../../services/projectService';
-import type { ProjectCreate, ProjectUpdate, ProjectStatus } from '../../types';
+import type { ProjectCreate, ProjectUpdate } from '../../types';
 
 const ProjectForm = () => {
   const navigate = useNavigate();

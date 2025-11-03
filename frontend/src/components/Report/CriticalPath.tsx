@@ -54,18 +54,6 @@ const CriticalPath = ({ tasks, dependencies }: CriticalPathProps) => {
     });
   };
 
-  const getRiskColor = (level: 'high' | 'medium' | 'low') => {
-    switch (level) {
-      case 'high':
-        return 'error';
-      case 'medium':
-        return 'warning';
-      case 'low':
-        return 'success';
-      default:
-        return 'default';
-    }
-  };
 
   return (
     <Paper sx={{ p: 3 }}>
@@ -161,6 +149,7 @@ const getStatusLabel = (status: Task['status']): string => {
     not_started: '미시작',
     in_progress: '진행중',
     completed: '완료',
+    blocked: '차단됨',
     on_hold: '보류',
     cancelled: '취소',
   };

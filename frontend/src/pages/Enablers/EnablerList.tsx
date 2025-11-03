@@ -27,7 +27,7 @@ import {
   Visibility as ViewIcon,
   Warning as WarningIcon,
 } from '@mui/icons-material';
-import { Loading } from '../../components/common';
+import { Loading } from '../../components/Common';
 import { getEnablers, deleteEnabler } from '../../services/enablerService';
 import type { Enabler, EnablerStatus } from '../../types';
 import {
@@ -170,7 +170,7 @@ const EnablerList = () => {
       ) : (
         <Grid container spacing={3}>
           {filteredEnablers.map((enabler) => (
-            <Grid item xs={12} sm={6} md={4} key={enabler.id}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={enabler.id}>
               <Card
                 sx={{
                   height: '100%',

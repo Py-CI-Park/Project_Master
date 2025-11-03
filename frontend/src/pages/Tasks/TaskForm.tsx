@@ -20,9 +20,9 @@ import {
   Checkbox,
 } from '@mui/material';
 import { Save as SaveIcon, Cancel as CancelIcon } from '@mui/icons-material';
-import { Loading } from '../../components/common';
+import { Loading } from '../../components/Common';
 import { getTask, createTask, updateTask } from '../../services/taskService';
-import type { TaskCreate, TaskUpdate, TaskStatus, TaskPriority } from '../../types';
+import type { TaskCreate, TaskUpdate } from '../../types';
 
 const TaskForm = () => {
   const navigate = useNavigate();
@@ -159,7 +159,7 @@ const TaskForm = () => {
       <Paper sx={{ p: 3 }}>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <TextField
                 label="태스크 이름"
                 required
@@ -170,7 +170,7 @@ const TaskForm = () => {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <TextField
                 label="설명"
                 multiline
@@ -182,7 +182,7 @@ const TaskForm = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 label="시작일"
                 type="date"
@@ -195,7 +195,7 @@ const TaskForm = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 label="종료일"
                 type="date"
@@ -208,7 +208,7 @@ const TaskForm = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 label="소요 기간 (일)"
                 type="number"
@@ -220,7 +220,7 @@ const TaskForm = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 select
                 label="상태"
@@ -236,7 +236,7 @@ const TaskForm = () => {
               </TextField>
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 select
                 label="우선순위"
@@ -252,7 +252,7 @@ const TaskForm = () => {
               </TextField>
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 label="담당자"
                 fullWidth
@@ -263,7 +263,7 @@ const TaskForm = () => {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <Typography gutterBottom>진행률: {formData.progress}%</Typography>
               <Slider
                 value={formData.progress}
@@ -277,7 +277,7 @@ const TaskForm = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 label="색상 (hex 코드)"
                 fullWidth
@@ -288,7 +288,7 @@ const TaskForm = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -301,7 +301,7 @@ const TaskForm = () => {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
                 <Button
                   variant="outlined"

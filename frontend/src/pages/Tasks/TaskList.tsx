@@ -30,7 +30,7 @@ import {
   Visibility as ViewIcon,
   Flag as FlagIcon,
 } from '@mui/icons-material';
-import { Loading } from '../../components/common';
+import { Loading } from '../../components/Common';
 import { getTasks, deleteTask } from '../../services/taskService';
 import type { Task, TaskStatus, TaskPriority } from '../../types';
 import { TaskStatusLabels, TaskStatusColors, TaskPriorityLabels, TaskPriorityColors } from '../../types';

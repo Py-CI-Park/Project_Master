@@ -17,7 +17,7 @@ import {
   Grid,
 } from '@mui/material';
 import { Save as SaveIcon, Cancel as CancelIcon } from '@mui/icons-material';
-import { Loading } from '../../components/common';
+import { Loading } from '../../components/Common';
 import { getEnabler, createEnabler, updateEnabler } from '../../services/enablerService';
 import type { EnablerCreate, EnablerUpdate } from '../../types';
 
@@ -140,7 +140,7 @@ const EnablerForm = () => {
       <Paper sx={{ p: 3 }}>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <TextField
                 label="Enabler 이름"
                 required
@@ -151,7 +151,7 @@ const EnablerForm = () => {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <TextField
                 label="설명"
                 multiline
@@ -163,7 +163,7 @@ const EnablerForm = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 select
                 label="타입"
@@ -182,7 +182,7 @@ const EnablerForm = () => {
               </TextField>
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 select
                 label="중요도"
@@ -199,7 +199,7 @@ const EnablerForm = () => {
               </TextField>
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 label="전달 예정일"
                 type="date"
@@ -212,7 +212,7 @@ const EnablerForm = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 label="실제 전달일"
                 type="date"
@@ -224,7 +224,7 @@ const EnablerForm = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 select
                 label="상태"
@@ -242,7 +242,7 @@ const EnablerForm = () => {
               </TextField>
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 label="담당자"
                 fullWidth
@@ -253,7 +253,7 @@ const EnablerForm = () => {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <TextField
                 label="비고"
                 multiline
@@ -265,7 +265,7 @@ const EnablerForm = () => {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
                 <Button
                   variant="outlined"

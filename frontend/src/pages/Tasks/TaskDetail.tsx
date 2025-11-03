@@ -25,7 +25,7 @@ import {
   CalendarToday as CalendarIcon,
   Person as PersonIcon,
 } from '@mui/icons-material';
-import { Loading } from '../../components/common';
+import { Loading } from '../../components/Common';
 import { getTask, deleteTask } from '../../services/taskService';
 import type { Task } from '../../types';
 import { TaskStatusLabels, TaskStatusColors, TaskPriorityLabels, TaskPriorityColors } from '../../types';
@@ -147,7 +147,7 @@ const TaskDetail = () => {
 
       <Grid container spacing={3}>
         {/* 기본 정보 */}
-        <Grid item xs={12} md={8}>
+        <Grid size={{ xs: 12, md: 8 }}>
           <Paper sx={{ p: 3 }}>
             <Typography variant="h6" gutterBottom>
               태스크 정보
@@ -164,7 +164,7 @@ const TaskDetail = () => {
             )}
 
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Typography variant="subtitle2" color="text.secondary" gutterBottom>
                   <CalendarIcon sx={{ fontSize: 16, mr: 0.5, verticalAlign: 'middle' }} />
                   시작일
@@ -172,7 +172,7 @@ const TaskDetail = () => {
                 <Typography variant="body1">{formatDate(task.start_date)}</Typography>
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Typography variant="subtitle2" color="text.secondary" gutterBottom>
                   <CalendarIcon sx={{ fontSize: 16, mr: 0.5, verticalAlign: 'middle' }} />
                   종료일
@@ -180,14 +180,14 @@ const TaskDetail = () => {
                 <Typography variant="body1">{formatDate(task.end_date)}</Typography>
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Typography variant="subtitle2" color="text.secondary" gutterBottom>
                   소요 기간
                 </Typography>
                 <Typography variant="body1">{task.duration_days}일</Typography>
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Typography variant="subtitle2" color="text.secondary" gutterBottom>
                   <PersonIcon sx={{ fontSize: 16, mr: 0.5, verticalAlign: 'middle' }} />
                   담당자
@@ -201,7 +201,7 @@ const TaskDetail = () => {
                 </Typography>
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <Typography variant="subtitle2" color="text.secondary" gutterBottom>
                   진행률
                 </Typography>
@@ -231,7 +231,7 @@ const TaskDetail = () => {
         </Grid>
 
         {/* 상태 정보 */}
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Paper sx={{ p: 3, mb: 2 }}>
             <Typography variant="h6" gutterBottom>
               상태
@@ -308,7 +308,7 @@ const TaskDetail = () => {
         </Grid>
 
         {/* 향후 확장: 의존성, Enabler, 활동 이력 등 */}
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Paper sx={{ p: 3 }}>
             <Typography variant="h6" gutterBottom>
               의존성 및 연결된 항목

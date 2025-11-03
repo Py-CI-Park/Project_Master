@@ -4,7 +4,8 @@
  * 테마 설정 전역 상태 관리
  */
 
-import { createContext, useContext, useState, useMemo, ReactNode } from 'react';
+import { createContext, useContext, useState, useMemo } from 'react';
+import type { ReactNode } from 'react';
 import { ThemeProvider as MUIThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 

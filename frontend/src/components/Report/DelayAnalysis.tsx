@@ -59,6 +59,7 @@ const DelayAnalysis = ({ tasks }: DelayAnalysisProps) => {
       not_started: '미시작',
       in_progress: '진행중',
       completed: '완료',
+      blocked: '차단됨',
       on_hold: '보류',
       cancelled: '취소',
     };
@@ -90,7 +91,7 @@ const DelayAnalysis = ({ tasks }: DelayAnalysisProps) => {
 
       {/* 전체 통계 */}
       <Grid container spacing={2} sx={{ mb: 4 }}>
-        <Grid item xs={12} sm={4}>
+        <Grid size={{ xs: 12, sm: 4 }}>
           <Card>
             <CardContent>
               <Typography color="text.secondary" gutterBottom>
@@ -102,7 +103,7 @@ const DelayAnalysis = ({ tasks }: DelayAnalysisProps) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid size={{ xs: 12, sm: 4 }}>
           <Card>
             <CardContent>
               <Typography color="text.secondary" gutterBottom>
@@ -114,7 +115,7 @@ const DelayAnalysis = ({ tasks }: DelayAnalysisProps) => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid size={{ xs: 12, sm: 4 }}>
           <Card>
             <CardContent>
               <Typography color="text.secondary" gutterBottom>

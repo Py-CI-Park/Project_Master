@@ -19,7 +19,6 @@ import {
 import {
   Dashboard as DashboardIcon,
   Folder as ProjectIcon,
-  CalendarToday as CalendarIcon,
 } from '@mui/icons-material';
 
 const DRAWER_WIDTH = 240;

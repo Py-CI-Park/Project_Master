@@ -24,7 +24,7 @@ import {
   Person as PersonIcon,
   Warning as WarningIcon,
 } from '@mui/icons-material';
-import { Loading } from '../../components/common';
+import { Loading } from '../../components/Common';
 import { getEnabler, deleteEnabler } from '../../services/enablerService';
 import type { Enabler } from '../../types';
 import {
@@ -167,7 +167,7 @@ const EnablerDetail = () => {
 
       <Grid container spacing={3}>
         {/* 기본 정보 */}
-        <Grid item xs={12} md={8}>
+        <Grid size={{ xs: 12, md: 8 }}>
           <Paper sx={{ p: 3 }}>
             <Typography variant="h6" gutterBottom>
               Enabler 정보
@@ -184,7 +184,7 @@ const EnablerDetail = () => {
             )}
 
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Typography variant="subtitle2" color="text.secondary" gutterBottom>
                   타입
                 </Typography>
@@ -194,7 +194,7 @@ const EnablerDetail = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Typography variant="subtitle2" color="text.secondary" gutterBottom>
                   중요도
                 </Typography>
@@ -207,7 +207,7 @@ const EnablerDetail = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Typography variant="subtitle2" color="text.secondary" gutterBottom>
                   <CalendarIcon sx={{ fontSize: 16, mr: 0.5, verticalAlign: 'middle' }} />
                   전달 예정일
@@ -216,7 +216,7 @@ const EnablerDetail = () => {
               </Grid>
 
               {enabler.actual_delivery_date && (
-                <Grid item xs={12} sm={6}>
+                <Grid size={{ xs: 12, sm: 6 }}>
                   <Typography variant="subtitle2" color="text.secondary" gutterBottom>
                     <CalendarIcon sx={{ fontSize: 16, mr: 0.5, verticalAlign: 'middle' }} />
                     실제 전달일
@@ -225,7 +225,7 @@ const EnablerDetail = () => {
                 </Grid>
               )}
 
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Typography variant="subtitle2" color="text.secondary" gutterBottom>
                   <PersonIcon sx={{ fontSize: 16, mr: 0.5, verticalAlign: 'middle' }} />
                   담당자
@@ -256,7 +256,7 @@ const EnablerDetail = () => {
         </Grid>
 
         {/* 상태 정보 */}
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Paper sx={{ p: 3, mb: 2 }}>
             <Typography variant="h6" gutterBottom>
               상태
@@ -299,7 +299,7 @@ const EnablerDetail = () => {
         </Grid>
 
         {/* 향후 확장: 영향받는 태스크 등 */}
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Paper sx={{ p: 3 }}>
             <Typography variant="h6" gutterBottom>
               영향받는 태스크

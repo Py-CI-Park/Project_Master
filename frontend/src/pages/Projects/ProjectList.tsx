@@ -26,7 +26,7 @@ import {
   Delete as DeleteIcon,
   Visibility as ViewIcon,
 } from '@mui/icons-material';
-import { Loading } from '../../components/common';
+import { Loading } from '../../components/Common';
 import { getProjects, deleteProject } from '../../services/projectService';
 import type { Project, ProjectStatus } from '../../types';
 import { ProjectStatusLabels, ProjectStatusColors } from '../../types';
@@ -197,7 +197,7 @@ const ProjectList = () => {
       ) : (
         <Grid container spacing={3}>
           {filteredProjects.map((project) => (
-            <Grid item xs={12} sm={6} md={4} key={project.id}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={project.id}>
               <Card
                 sx={{
                   height: '100%',
