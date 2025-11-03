@@ -1155,10 +1155,19 @@ start_time, end_time, color, created_at
     - 모든 컴포넌트 정상 컴파일 확인
 
 #### 4.4 보안 강화 (2일)
-- [ ] **4.4.1** 입력 검증 강화
-  - SQL Injection 방지
-  - XSS 방지
-  - CSRF 보호 (선택)
+- [x] **4.4.1** 입력 검증 강화 ✅
+  - ✅ **의존성 취약점 점검**: npm audit 실행 → 0건 확인
+  - ✅ **SQL Injection 방지 검증**: SQLAlchemy ORM 사용으로 기본 방어 완료
+  - ✅ **입력 길이 제한 추가**: Pydantic Field 사용
+    - project.py: name (1-200자), description (최대 2000자)
+    - task.py: name (1-200자), description (최대 2000자), assignee (최대 100자)
+    - task.py: duration_days (1-3650일), progress (0.0-100.0%), color (HEX 형식)
+  - ✅ **쿼리 파라미터 검증**: FastAPI Query 사용
+    - skip (0-10000), limit (1-1000) 범위 제한
+  - ✅ **에러 메시지 정보 노출 방지**: 내부 예외 메시지 숨김 처리
+    - projects.py, tasks.py 모든 Exception 핸들러 수정
+    - 일반적인 안내 메시지로 대체
+  - ✅ **코드 검증**: Python 문법 검사 통과
 - [ ] **4.4.2** 데이터 보호
   - SQLite DB 파일 권한 설정
   - 민감 정보 암호화 (선택)

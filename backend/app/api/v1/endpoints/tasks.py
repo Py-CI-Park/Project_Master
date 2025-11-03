@@ -4,9 +4,9 @@ Tasks API Endpoints
 태스크 관리 CRUD API
 """
 
-from typing import List
+from typing import Annotated, List
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from app.database import get_db
@@ -67,12 +67,12 @@ def create_task(
         db.commit()
         db.refresh(task)
         return task
-    except Exception as e:
+    except Exception:
         db.rollback()
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"태스크 생성 실패: {str(e)}",
-        ) from e
+            detail="태스크 생성에 실패했습니다. 입력 데이터를 확인해주세요.",
+        )
 
 
 @router.get(
@@ -83,8 +83,8 @@ def create_task(
 )
 def list_project_tasks(
     project_id: int,
-    skip: int = 0,
-    limit: int = 100,
+    skip: Annotated[int, Query(ge=0, le=10000, description="건너뛸 레코드 수")] = 0,
+    limit: Annotated[int, Query(ge=1, le=1000, description="최대 조회 레코드 수")] = 100,
     db: Session = Depends(get_db),
 ) -> List[TaskResponse]:
     """
@@ -193,12 +193,12 @@ def update_task(
         db.commit()
         db.refresh(task)
         return task
-    except Exception as e:
+    except Exception:
         db.rollback()
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"태스크 수정 실패: {str(e)}",
-        ) from e
+            detail="태스크 수정에 실패했습니다. 입력 데이터를 확인해주세요.",
+        )
 
 
 @router.delete(
@@ -233,9 +233,9 @@ def delete_task(
     try:
         db.delete(task)
         db.commit()
-    except Exception as e:
+    except Exception:
         db.rollback()
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"태스크 삭제 실패: {str(e)}",
-        ) from e
+            detail="태스크 삭제에 실패했습니다. 연관된 데이터가 있는지 확인해주세요.",
+        )

@@ -7,17 +7,17 @@ Project Schemas
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 class ProjectBase(BaseModel):
     """프로젝트 기본 스키마"""
 
-    name: str
-    description: Optional[str] = None
-    start_date: datetime
-    end_date: datetime
-    status: str = "planning"
+    name: str = Field(..., min_length=1, max_length=200, description="프로젝트 이름 (1-200자)")
+    description: Optional[str] = Field(None, max_length=2000, description="프로젝트 설명 (최대 2000자)")
+    start_date: datetime = Field(..., description="프로젝트 시작일")
+    end_date: datetime = Field(..., description="프로젝트 종료일")
+    status: str = Field(default="planning", description="프로젝트 상태")
 
     @field_validator("status")
     @classmethod
@@ -54,11 +54,11 @@ class ProjectCreate(ProjectBase):
 class ProjectUpdate(BaseModel):
     """프로젝트 수정 요청 스키마"""
 
-    name: Optional[str] = None
-    description: Optional[str] = None
-    start_date: Optional[datetime] = None
-    end_date: Optional[datetime] = None
-    status: Optional[str] = None
+    name: Optional[str] = Field(None, min_length=1, max_length=200, description="프로젝트 이름 (1-200자)")
+    description: Optional[str] = Field(None, max_length=2000, description="프로젝트 설명 (최대 2000자)")
+    start_date: Optional[datetime] = Field(None, description="프로젝트 시작일")
+    end_date: Optional[datetime] = Field(None, description="프로젝트 종료일")
+    status: Optional[str] = Field(None, description="프로젝트 상태")
 
     @field_validator("status")
     @classmethod

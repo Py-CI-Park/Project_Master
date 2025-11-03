@@ -4,9 +4,9 @@ Projects API Endpoints
 프로젝트 관리 CRUD API
 """
 
-from typing import List
+from typing import Annotated, List
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from app.database import get_db
@@ -48,12 +48,12 @@ def create_project(
         db.commit()
         db.refresh(project)
         return project
-    except Exception as e:
+    except Exception:
         db.rollback()
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"프로젝트 생성 실패: {str(e)}",
-        ) from e
+            detail="프로젝트 생성에 실패했습니다. 입력 데이터를 확인해주세요.",
+        )
 
 
 @router.get(
@@ -63,8 +63,8 @@ def create_project(
     description="모든 프로젝트 목록을 조회합니다.",
 )
 def list_projects(
-    skip: int = 0,
-    limit: int = 100,
+    skip: Annotated[int, Query(ge=0, le=10000, description="건너뛸 레코드 수")] = 0,
+    limit: Annotated[int, Query(ge=1, le=1000, description="최대 조회 레코드 수")] = 100,
     db: Session = Depends(get_db),
 ) -> List[ProjectResponse]:
     """
@@ -159,12 +159,12 @@ def update_project(
         db.commit()
         db.refresh(project)
         return project
-    except Exception as e:
+    except Exception:
         db.rollback()
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"프로젝트 수정 실패: {str(e)}",
-        ) from e
+            detail="프로젝트 수정에 실패했습니다. 입력 데이터를 확인해주세요.",
+        )
 
 
 @router.delete(
@@ -199,9 +199,9 @@ def delete_project(
     try:
         db.delete(project)
         db.commit()
-    except Exception as e:
+    except Exception:
         db.rollback()
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"프로젝트 삭제 실패: {str(e)}",
-        ) from e
+            detail="프로젝트 삭제에 실패했습니다. 연관된 데이터가 있는지 확인해주세요.",
+        )
