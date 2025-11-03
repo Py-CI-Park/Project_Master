@@ -937,24 +937,29 @@ start_time, end_time, color, created_at
   - 이벤트 타입별 (필터 유틸리티 구현)
   - 담당자별 (예정)
 
-#### 3.4 리포트 기능 (3일)
-- [ ] **3.4.1** 크리티컬 패스 리포트 (`CriticalPath.tsx`)
+#### 3.4 리포트 기능 (3일) ✅
+- [x] **3.4.1** 크리티컬 패스 리포트 (`CriticalPath.tsx`)
   - 크리티컬 태스크 목록
   - 여유 시간(Slack) 표시
   - 리스크 분석
-- [ ] **3.4.2** 진행 현황 리포트 (`ProgressReport.tsx`)
+  - CPM(Critical Path Method) 알고리즘 구현
+  - Early Start/Finish, Late Start/Finish 계산
+  - Slack 계산 및 크리티컬 태스크 식별
+- [x] **3.4.2** 진행 현황 리포트 (`ProgressReport.tsx`)
   - 전체 진행률
-  - 상태별 태스크 분포
-  - 담당자별 작업량
-  - 차트 시각화 (Recharts)
-- [ ] **3.4.3** 지연 분석 리포트 (`DelayAnalysis.tsx`)
+  - 상태별 태스크 분포 (파이 차트)
+  - 우선순위별 분포 (바 차트)
+  - 차트 시각화 (Recharts v3.3.0)
+  - 전체 통계 카드 (총 태스크, 완료, 진행중, 전체 진행률)
+- [x] **3.4.3** 지연 분석 리포트 (`DelayAnalysis.tsx`)
   - 지연된 태스크 목록
-  - 지연 원인 분석
-  - Enabler 지연 영향
-- [ ] **3.4.4** 익스포트 기능 (`ExportDialog.tsx`)
-  - CSV 익스포트
-  - Excel 익스포트 (선택)
-  - PDF 리포트 (선택)
+  - 지연 일수 계산
+  - 평균 지연 일수
+  - Enabler 지연 영향 (구조 구현, 데이터 연동 예정)
+- [x] **3.4.4** 익스포트 기능 (`ExportDialog.tsx`)
+  - CSV 익스포트 (UTF-8 BOM, 한글 지원)
+  - Excel 익스포트 (예정)
+  - PDF 리포트 (예정)
 
 #### 완료 기준
 - ✅ 간트 차트 정상 렌더링 및 인터랙션 작동

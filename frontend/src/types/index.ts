@@ -9,3 +9,4 @@ export * from './dependency';
 export * from './gantt';
 export * from './graph';
 export * from './calendar';
+export * from './report';

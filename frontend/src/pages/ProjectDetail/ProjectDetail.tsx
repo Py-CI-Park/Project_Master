@@ -5,13 +5,15 @@
  */
 
 import { useParams } from 'react-router-dom';
-import { Box, Typography, Container, Tabs, Tab } from '@mui/material';
+import { Box, Typography, Container, Tabs, Tab, Button } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { GanttChart } from '../../components/Gantt';
 import { DependencyGraph, DependencyMatrix } from '../../components/Graph';
 import { CalendarView } from '../../components/Calendar';
-import { useTasks } from '../../hooks';
+import { CriticalPath, ProgressReport, DelayAnalysis, ExportDialog } from '../../components/Report';
+import { useTasks, useDependencies } from '../../hooks';
 import { transformTasksToGantt } from '../../utils/ganttTransformer';
+import DownloadIcon from '@mui/icons-material/Download';
 import type { GanttTask } from '../../types';
 
 interface TabPanelProps {
@@ -40,13 +42,16 @@ const ProjectDetail = () => {
   const { projectId } = useParams<{ projectId: string }>();
   const [tabValue, setTabValue] = useState(0);
   const { tasks, fetchTasks, modifyTask } = useTasks(Number(projectId));
+  const { dependencies, fetchDependencies } = useDependencies(Number(projectId));
   const [ganttTasks, setGanttTasks] = useState<GanttTask[]>([]);
+  const [exportDialogOpen, setExportDialogOpen] = useState(false);
 
   useEffect(() => {
     if (projectId) {
       fetchTasks(Number(projectId));
+      fetchDependencies(Number(projectId));
     }
-  }, [projectId, fetchTasks]);
+  }, [projectId, fetchTasks, fetchDependencies]);
 
   useEffect(() => {
     if (tasks.length > 0) {
@@ -91,9 +96,18 @@ const ProjectDetail = () => {
   return (
     <Container maxWidth="xl">
       <Box sx={{ py: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          프로젝트 상세 - ID: {projectId}
-        </Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+          <Typography variant="h4" component="h1">
+            프로젝트 상세 - ID: {projectId}
+          </Typography>
+          <Button
+            variant="outlined"
+            startIcon={<DownloadIcon />}
+            onClick={() => setExportDialogOpen(true)}
+          >
+            익스포트
+          </Button>
+        </Box>
 
         <Box sx={{ borderBottom: 1, borderColor: 'divider', mt: 3 }}>
           <Tabs value={tabValue} onChange={handleTabChange} aria-label="프로젝트 탭">
@@ -102,6 +116,7 @@ const ProjectDetail = () => {
             <Tab label="간트 차트" />
             <Tab label="캘린더" />
             <Tab label="의존성" />
+            <Tab label="리포트" />
           </Tabs>
         </Box>
 
@@ -127,6 +142,20 @@ const ProjectDetail = () => {
           </Box>
           <DependencyMatrix tasks={tasks} />
         </TabPanel>
+        <TabPanel value={tabValue} index={5}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            <CriticalPath tasks={tasks} dependencies={dependencies} />
+            <ProgressReport tasks={tasks} />
+            <DelayAnalysis tasks={tasks} />
+          </Box>
+        </TabPanel>
+
+        {/* Export Dialog */}
+        <ExportDialog
+          open={exportDialogOpen}
+          onClose={() => setExportDialogOpen(false)}
+          tasks={tasks}
+        />
       </Box>
     </Container>
   );
