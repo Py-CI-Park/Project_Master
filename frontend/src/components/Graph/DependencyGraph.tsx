@@ -43,7 +43,7 @@ const DependencyGraph = ({ tasks, onNodeClick, showCriticalPath = true }: Depend
   const [circularDeps, setCircularDeps] = useState<number[]>([]);
 
   // 커스텀 노드 타입 정의
-  const nodeTypes = useMemo(() => ({ custom: CustomNode }), []);
+  const nodeTypes = useMemo(() => ({ custom: CustomNode as any }), []);
 
   // 그래프 데이터 초기화 및 레이아웃 적용
   useEffect(() => {

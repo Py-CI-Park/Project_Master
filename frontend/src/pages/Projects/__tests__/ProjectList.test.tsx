@@ -4,7 +4,7 @@
  * ProjectList 컴포넌트 테스트
  */
 
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { render, screen, waitFor } from '../../../test/utils';
 import userEvent from '@testing-library/user-event';
 import ProjectList from '../ProjectList';

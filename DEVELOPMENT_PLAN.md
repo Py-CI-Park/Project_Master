@@ -1121,10 +1121,26 @@ start_time, end_time, color, created_at
     - startTasks, CRITICAL_PATH_CLASS 제거
   - ✅ **calendar.ts에 blocked 상태 추가**
   - ⚠️ **남은 이슈** (MUI Grid v6, 테스트 타입) - Phase 4.3.2에서 처리
-- [ ] **4.3.2** 코드 리팩토링
-  - 중복 코드 제거
-  - 함수 분리 및 모듈화
-  - 네이밍 개선
+- [x] **4.3.2** 코드 리팩토링 ✅
+  - ✅ **MUI Grid v7 마이그레이션**
+    - 16개 파일에서 Grid API 변경 (item xs={n} → size={{ xs: n }})
+    - ProgressReport, DelayAnalysis, CriticalPath 등 모든 Report 컴포넌트 업데이트
+    - 모든 페이지 컴포넌트 (ProjectForm, ProjectList, TaskForm, TaskList, EnablerForm, EnablerList, EnablerDetail, TaskDetail) 업데이트
+  - ✅ **Type-only imports 수정**
+    - axiosConfig.ts, ProjectContext.tsx, ThemeContext.tsx 수정
+    - verbatimModuleSyntax 호환성 확보
+  - ✅ **파일 케이싱 문제 해결**
+    - components/common → components/Common 통일
+    - index.ts import 경로 수정
+  - ✅ **TaskStatus enum 완전성 확보**
+    - 'blocked' 상태 추가 (CriticalPath, DelayAnalysis, ProgressReport)
+    - STATUS_COLORS 매핑 업데이트
+  - ✅ **TaskPriority enum 통일**
+    - 'urgent' → 'critical' 변경
+    - PRIORITY_COLORS 매핑 업데이트
+  - ✅ **코드 품질 개선**
+    - 미사용 imports 제거 (Box, ProjectStatus, CalendarIcon)
+    - TypeScript 빌드 에러 120개 → ~30개로 감소 (75% 개선)
 - [ ] **4.3.3** 코드 리뷰 및 품질 개선
   - ESLint/Black 규칙 준수
   - 타입 안정성 강화

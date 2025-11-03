@@ -9,8 +9,8 @@ import { Handle, Position, type NodeProps } from '@xyflow/react';
 import { Box, Typography, LinearProgress } from '@mui/material';
 import type { GraphNodeData } from '../../types/graph';
 
-const CustomNode = ({ data }: NodeProps<GraphNodeData>) => {
-  const { label, status, priority, progress, duration, isCriticalPath } = data;
+const CustomNode = ({ data }: NodeProps) => {
+  const { label, status, priority, progress, duration, isCriticalPath } = data as GraphNodeData;
 
   // 상태별 색상
   const statusColors: Record<string, string> = {
@@ -26,12 +26,12 @@ const CustomNode = ({ data }: NodeProps<GraphNodeData>) => {
     low: 1,
     medium: 2,
     high: 3,
-    urgent: 3,
+    critical: 3,
   };
 
   const backgroundColor = statusColors[status] || '#1976d2';
   const borderWidth = priorityBorderWidth[priority] || 2;
-  const isUrgent = priority === 'urgent';
+  const isCritical = priority === 'critical';
 
   return (
     <Box
@@ -42,7 +42,7 @@ const CustomNode = ({ data }: NodeProps<GraphNodeData>) => {
         borderRadius: 1,
         boxShadow: isCriticalPath ? '0 0 10px rgba(255, 165, 0, 0.8)' : 2,
         overflow: 'hidden',
-        animation: isUrgent ? 'pulse 2s ease-in-out infinite' : 'none',
+        animation: isCritical ? 'pulse 2s ease-in-out infinite' : 'none',
         '@keyframes pulse': {
           '0%, 100%': {
             opacity: 1,

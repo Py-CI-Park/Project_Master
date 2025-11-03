@@ -45,27 +45,27 @@ const ProgressReport = ({ tasks }: ProgressReportProps) => {
       // 상태별 분포 계산
       const statusDist: StatusDistribution[] = [
         {
-          status: 'not_started',
+          status: 'not_started' as Task['status'],
           count: progressStats.notStartedTasks,
           percentage: (progressStats.notStartedTasks / progressStats.totalTasks) * 100,
         },
         {
-          status: 'in_progress',
+          status: 'in_progress' as Task['status'],
           count: progressStats.inProgressTasks,
           percentage: (progressStats.inProgressTasks / progressStats.totalTasks) * 100,
         },
         {
-          status: 'completed',
+          status: 'completed' as Task['status'],
           count: progressStats.completedTasks,
           percentage: (progressStats.completedTasks / progressStats.totalTasks) * 100,
         },
         {
-          status: 'on_hold',
+          status: 'on_hold' as Task['status'],
           count: progressStats.onHoldTasks,
           percentage: (progressStats.onHoldTasks / progressStats.totalTasks) * 100,
         },
         {
-          status: 'cancelled',
+          status: 'cancelled' as Task['status'],
           count: progressStats.cancelledTasks,
           percentage: (progressStats.cancelledTasks / progressStats.totalTasks) * 100,
         },
@@ -210,7 +210,7 @@ const ProgressReport = ({ tasks }: ProgressReportProps) => {
                 cx="50%"
                 cy="50%"
                 labelLine={false}
-                label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                label={(entry: any) => `${entry.name}: ${(entry.percent * 100).toFixed(0)}%`}
                 outerRadius={80}
                 fill="#8884d8"
                 dataKey="value"
