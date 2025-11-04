@@ -9,11 +9,13 @@ from app.api.v1.endpoints.dependencies import router as dependencies_router
 from app.api.v1.endpoints.enablers import router as enablers_router
 from app.api.v1.endpoints.projects import router as projects_router
 from app.api.v1.endpoints.tasks import router as tasks_router
+from app.api.v1.endpoints.users import router as users_router
 
 __all__ = [
     "auth_router",
     "projects_router",
     "tasks_router",
     "enablers_router",
-    "dependencies_router"
+    "dependencies_router",
+    "users_router"
 ]

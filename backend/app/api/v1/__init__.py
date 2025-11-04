@@ -12,6 +12,7 @@ from app.api.v1.endpoints import (
     enablers_router,
     projects_router,
     tasks_router,
+    users_router,
 )
 
 api_router = APIRouter()
@@ -21,6 +22,13 @@ api_router.include_router(
     auth_router,
     prefix="/auth",
     tags=["authentication"],
+)
+
+# Users 엔드포인트 등록 (v2.0)
+api_router.include_router(
+    users_router,
+    prefix="/users",
+    tags=["users"],
 )
 
 # Projects 엔드포인트 등록
