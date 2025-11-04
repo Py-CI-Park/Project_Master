@@ -864,37 +864,57 @@ class TokenData(BaseModel):
 
 ### Phase 10: 실시간 통신 (2주)
 
-**상태**: 🔴 미시작
-**시작일**: TBD
+**상태**: 🟡 진행중
+**시작일**: 2025-11-05
 **완료일**: TBD
 **의존성**: Phase 7 완료
 
-#### 10.1 WebSocket 백엔드
+#### 10.1 WebSocket 백엔드 ✅
 
 **목표**: 실시간 통신 인프라 구축
 
 **작업 항목**:
-- [ ] **10.1.1** Socket.IO 서버 설정
-  - `backend/app/websocket/__init__.py`
+- [x] **10.1.1** Socket.IO 서버 설정
+  - `backend/app/websocket/__init__.py` ✅ (2025-11-05)
   - FastAPI + python-socketio 통합
+  - AsyncServer 생성 및 ASGI 통합
+  - CORS 설정 (개발 환경 "*")
 
-- [ ] **10.1.2** WebSocket 이벤트 핸들러
-  - `backend/app/websocket/handlers.py`
-  - 연결/연결 해제
-  - 방(room) 관리 (프로젝트별)
-  - 인증 검증
+- [x] **10.1.2** WebSocket 이벤트 핸들러
+  - `backend/app/websocket/handlers.py` ✅ (2025-11-05)
+  - 연결/연결 해제 (`connect`, `disconnect`)
+  - 방(room) 관리 (`join_project`, `leave_project`)
+  - JWT 토큰 인증 검증 (`verify_token` 통합)
+  - 사용자 세션 관리 (`connected_users` 딕셔너리)
+  - 헬퍼 함수 (`get_connected_users`, `get_users_in_project`)
 
-- [ ] **10.1.3** 실시간 이벤트 브로드캐스트
-  - `backend/app/websocket/events.py`
-  - `task_created`, `task_updated`, `task_deleted`
-  - `project_updated`
-  - `user_joined`, `user_left`
+- [x] **10.1.3** 실시간 이벤트 브로드캐스트
+  - `backend/app/websocket/events.py` ✅ (2025-11-05)
+  - Task 이벤트: `task_created`, `task_updated`, `task_deleted`
+  - Project 이벤트: `project_updated`
+  - Dependency 이벤트: `dependency_created`, `dependency_deleted`
+  - Attachment 이벤트: `attachment_uploaded`, `attachment_deleted`
+  - 프로젝트별 room 기반 브로드캐스팅 (`project_{project_id}`)
 
-- [ ] **10.1.4** Redis 백엔드 (선택)
+- [x] **10.1.4** main.py 통합
+  - `backend/app/main.py` ✅ (2025-11-05)
+  - WebSocket 서버 초기화 (`init_socketio`)
+  - 이벤트 핸들러 임포트 및 등록
+  - API 버전 2.0.0으로 업그레이드
+
+- [ ] **10.1.5** Redis 백엔드 (선택)
   - 다중 서버 환경 지원
   - Socket.IO Redis 어댑터
 
+**구현 파일**:
+- `backend/requirements.txt` - python-socketio==5.11.0, python-engineio==4.9.0 추가
+- `backend/app/websocket/__init__.py` - Socket.IO 서버 초기화 (43 lines)
+- `backend/app/websocket/handlers.py` - 이벤트 핸들러 (268 lines)
+- `backend/app/websocket/events.py` - 브로드캐스트 함수 (235 lines)
+- `backend/app/main.py` - WebSocket 통합 (modified)
+
 **추정 시간**: 5일
+**실제 소요 시간**: 1일
 
 #### 10.2 WebSocket 프론트엔드
 

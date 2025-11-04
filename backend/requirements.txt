@@ -19,3 +19,7 @@ python-dateutil==2.8.2
 # Authentication (v2.0)
 python-jose[cryptography]==3.3.0  # JWT 토큰 생성/검증
 passlib[bcrypt]==1.7.4  # 비밀번호 해싱
+
+# WebSocket (v2.0 - Phase 10)
+python-socketio==5.11.0  # Socket.IO 서버
+python-engineio==4.9.0  # Engine.IO 기반 (python-socketio 의존성)
