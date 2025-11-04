@@ -468,12 +468,12 @@ Phase 17: 최종 검증 및 릴리스   [1주] ░░░░░░░░░░░
   - bcrypt를 이용한 해싱
   - 비밀번호 검증 함수
 
-- [ ] **6.1.3** 인증 미들웨어 (`backend/app/api/deps.py`)
+- [x] **6.1.3** 인증 미들웨어 (`backend/app/api/deps.py`)
   - JWT 토큰 검증 미들웨어
   - 현재 사용자 추출 함수
   - 옵셔널 인증 (공개 API용)
 
-- [ ] **6.1.4** 인증 API 엔드포인트 (`backend/app/api/v1/endpoints/auth.py`)
+- [x] **6.1.4** 인증 API 엔드포인트 (`backend/app/api/v1/endpoints/auth.py`)
   - `POST /api/v1/auth/register` - 사용자 등록
   - `POST /api/v1/auth/login` - 로그인
   - `POST /api/v1/auth/refresh` - 토큰 갱신
@@ -569,7 +569,7 @@ class TokenData(BaseModel):
   - 비밀번호 제외 로직
   - 인증 관련 스키마 (UserRegister, UserLogin, Token)
 
-- [ ] **7.1.3** User CRUD (`backend/app/crud/user.py`)
+- [x] **7.1.3** User CRUD (`backend/app/crud/user.py`)
   - create_user()
   - get_user_by_id()
   - get_user_by_username()
@@ -577,6 +577,9 @@ class TokenData(BaseModel):
   - update_user()
   - delete_user()
   - list_users() (페이지네이션)
+  - authenticate_user() (로그인 검증)
+  - update_last_login()
+  - count_users()
 
 - [ ] **7.1.4** User API 엔드포인트 (`backend/app/api/v1/endpoints/users.py`)
   - `GET /api/v1/users` - 사용자 목록 (관리자만)
@@ -1215,8 +1218,8 @@ def migrate_v1_to_v2():
 
 | Phase | 상태 | 시작일 | 완료일 | 진행률 |
 |-------|------|--------|--------|--------|
-| Phase 6: 인증 시스템 | 🟡 진행중 | 2025-11-04 | - | 30% |
-| Phase 7: 사용자 관리 | 🟡 진행중 | 2025-11-04 | - | 15% |
+| Phase 6: 인증 시스템 | 🟡 진행중 | 2025-11-04 | - | 60% |
+| Phase 7: 사용자 관리 | 🟡 진행중 | 2025-11-04 | - | 30% |
 | Phase 8: 권한 관리 | 🔴 미시작 | - | - | 0% |
 | Phase 9: 파일 시스템 | 🔴 미시작 | - | - | 0% |
 | Phase 10: 실시간 통신 | 🔴 미시작 | - | - | 0% |
@@ -1231,9 +1234,9 @@ def migrate_v1_to_v2():
 ### 12.2 전체 진행률
 
 ```
-전체 진행률: 4% (0/12 Phase 완료, 2개 Phase 진행중)
+전체 진행률: 8% (0/12 Phase 완료, 2개 Phase 진행중)
 
-██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 4%
+████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 8%
 ```
 
 ---
