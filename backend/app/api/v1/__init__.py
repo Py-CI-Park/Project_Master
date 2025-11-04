@@ -11,6 +11,7 @@ from app.api.v1.endpoints import (
     dependencies_router,
     enablers_router,
     projects_router,
+    roles_router,
     tasks_router,
     users_router,
 )
@@ -29,6 +30,13 @@ api_router.include_router(
     users_router,
     prefix="/users",
     tags=["users"],
+)
+
+# Roles 엔드포인트 등록 (v2.0 - RBAC)
+api_router.include_router(
+    roles_router,
+    prefix="/roles",
+    tags=["roles"],
 )
 
 # Projects 엔드포인트 등록

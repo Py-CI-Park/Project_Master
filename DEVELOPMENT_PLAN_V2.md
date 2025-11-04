@@ -664,7 +664,7 @@ class TokenData(BaseModel):
 **완료일**: TBD
 **의존성**: Phase 7 완료
 
-#### 8.1 RBAC 백엔드 (진행중)
+#### 8.1 RBAC 백엔드 (완료)
 
 **목표**: 역할 기반 접근 제어 구현
 
@@ -674,6 +674,7 @@ class TokenData(BaseModel):
   - UserRole 모델: user_id, role_id, project_id (nullable), assigned_at
   - has_permission() 메서드 구현
   - Relationship 설정 완료
+  - models/__init__.py에 export 추가
 
 - [x] **8.1.2** Role 스키마 (`backend/app/schemas/role.py`)
   - RoleCreate, RoleUpdate, RolePublic
@@ -693,26 +694,35 @@ class TokenData(BaseModel):
   - get_user_permissions_dep() 의존성
   - 슈퍼유저 자동 권한 부여 로직
 
-- [ ] **8.1.5** Role API 엔드포인트 (다음 작업)
+- [x] **8.1.5** Role API 엔드포인트 (`backend/app/api/v1/endpoints/roles.py`)
   - `GET /api/v1/roles` - 역할 목록
-  - `POST /api/v1/roles` - 역할 생성
+  - `POST /api/v1/roles` - 역할 생성 (관리자 전용)
   - `GET /api/v1/roles/{id}` - 역할 상세
-  - `PUT /api/v1/roles/{id}` - 역할 수정
-  - `DELETE /api/v1/roles/{id}` - 역할 삭제
-  - `POST /api/v1/roles/{id}/assign` - 사용자에게 역할 할당
-  - `DELETE /api/v1/roles/{id}/revoke` - 역할 제거
-  - `GET /api/v1/users/{id}/roles` - 사용자 역할 조회
-  - `GET /api/v1/users/me/permissions` - 내 권한 조회
+  - `PUT /api/v1/roles/{id}` - 역할 수정 (관리자 전용)
+  - `DELETE /api/v1/roles/{id}` - 역할 삭제 (관리자 전용)
+  - `POST /api/v1/roles/{id}/assign` - 사용자에게 역할 할당 (관리자 전용)
+  - `DELETE /api/v1/roles/{id}/revoke` - 역할 제거 (관리자 전용)
+  - `GET /api/v1/roles/users/{id}/roles` - 사용자 역할 조회
+  - `GET /api/v1/roles/users/me/permissions` - 내 권한 조회
+  - `POST /api/v1/roles/check-permission` - 권한 확인
+  - `GET /api/v1/roles/projects/{id}/members` - 프로젝트 멤버 조회
+  - API 라우터 등록 완료 (`backend/app/api/v1/__init__.py`)
 
-- [ ] **8.1.6** 기본 역할 초기화 스크립트
-  - Admin, Project Manager, Team Member, Viewer 역할 자동 생성
+- [x] **8.1.6** 기본 역할 초기화 스크립트 (`backend/app/core/init_roles.py`)
+  - init_default_roles() 함수: DEFAULT_ROLES 자동 생성
+  - init_roles_on_startup() 함수: 시작 시 호출
+  - 멱등성 보장 (이미 존재하는 역할은 건너뜀)
+  - 실패 시에도 애플리케이션 계속 실행
 
-- [ ] **8.1.7** 데이터베이스 마이그레이션
-  - roles, user_roles 테이블 생성
-  - Alembic 마이그레이션 스크립트
+- [x] **8.1.7** 데이터베이스 마이그레이션
+  - Alembic 마이그레이션 생성: `1b89f8956d22_add_roles_and_user_roles_tables`
+  - roles 테이블 생성 (id, name, description, permissions, created_at)
+  - user_roles 테이블 생성 (user_id, role_id, project_id, assigned_at)
+  - 인덱스 및 외래 키 설정 완료
+  - 마이그레이션 적용 완료 (`alembic upgrade head`)
 
 **추정 시간**: 3일
-**실제 소요 시간**: 2시간 (진행중)
+**실제 소요 시간**: 3시간
 
 #### 8.2 권한 UI
 
