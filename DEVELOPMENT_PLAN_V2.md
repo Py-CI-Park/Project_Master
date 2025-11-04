@@ -659,37 +659,60 @@ class TokenData(BaseModel):
 
 ### Phase 8: 권한 관리 (1주)
 
-**상태**: 🔴 미시작
-**시작일**: TBD
+**상태**: 🟡 진행중
+**시작일**: 2025-11-04
 **완료일**: TBD
 **의존성**: Phase 7 완료
 
-#### 8.1 RBAC 백엔드
+#### 8.1 RBAC 백엔드 (진행중)
 
 **목표**: 역할 기반 접근 제어 구현
 
 **작업 항목**:
-- [ ] **8.1.1** Role 및 Permission 모델
-  - `backend/app/models/role.py`
-  - `backend/app/models/permission.py`
+- [x] **8.1.1** Role 및 UserRole 모델 (`backend/app/models/role.py`)
+  - Role 모델: id, name, description, permissions (JSON), created_at
+  - UserRole 모델: user_id, role_id, project_id (nullable), assigned_at
+  - has_permission() 메서드 구현
+  - Relationship 설정 완료
 
-- [ ] **8.1.2** 권한 체크 데코레이터
-  - `backend/app/api/deps.py`
-  - `@require_permission("project:read")`
-  - `@require_role("admin")`
+- [x] **8.1.2** Role 스키마 (`backend/app/schemas/role.py`)
+  - RoleCreate, RoleUpdate, RolePublic
+  - UserRoleCreate, UserRolePublic, UserRoleWithDetails
+  - PermissionCheck, PermissionCheckResponse
+  - DEFAULT_ROLES 정의 (Admin, Project Manager, Team Member, Viewer)
 
-- [ ] **8.1.3** 기본 역할 정의
-  - Admin: 모든 권한
-  - Project Manager: 프로젝트 관리
-  - Team Member: 태스크 관리
-  - Viewer: 읽기 전용
+- [x] **8.1.3** Role CRUD 함수 (`backend/app/crud/role.py`)
+  - Role CRUD: create_role(), get_role(), list_roles(), update_role(), delete_role()
+  - UserRole CRUD: assign_role_to_user(), remove_role_from_user(), get_user_roles()
+  - 권한 체크: user_has_role(), user_has_permission(), get_user_permissions()
+  - 프로젝트 멤버: get_project_members()
 
-- [ ] **8.1.4** 프로젝트별 권한
-  - 프로젝트 소유자
-  - 프로젝트 멤버
-  - 초대 시스템
+- [x] **8.1.4** 권한 체크 데코레이터 (`backend/app/api/deps.py`)
+  - require_permission(permission, project_id) 팩토리 함수
+  - require_role(role_name, project_id) 팩토리 함수
+  - get_user_permissions_dep() 의존성
+  - 슈퍼유저 자동 권한 부여 로직
+
+- [ ] **8.1.5** Role API 엔드포인트 (다음 작업)
+  - `GET /api/v1/roles` - 역할 목록
+  - `POST /api/v1/roles` - 역할 생성
+  - `GET /api/v1/roles/{id}` - 역할 상세
+  - `PUT /api/v1/roles/{id}` - 역할 수정
+  - `DELETE /api/v1/roles/{id}` - 역할 삭제
+  - `POST /api/v1/roles/{id}/assign` - 사용자에게 역할 할당
+  - `DELETE /api/v1/roles/{id}/revoke` - 역할 제거
+  - `GET /api/v1/users/{id}/roles` - 사용자 역할 조회
+  - `GET /api/v1/users/me/permissions` - 내 권한 조회
+
+- [ ] **8.1.6** 기본 역할 초기화 스크립트
+  - Admin, Project Manager, Team Member, Viewer 역할 자동 생성
+
+- [ ] **8.1.7** 데이터베이스 마이그레이션
+  - roles, user_roles 테이블 생성
+  - Alembic 마이그레이션 스크립트
 
 **추정 시간**: 3일
+**실제 소요 시간**: 2시간 (진행중)
 
 #### 8.2 권한 UI
 

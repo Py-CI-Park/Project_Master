@@ -13,6 +13,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.core.security import verify_token
 from app.crud import user as user_crud
+from app.crud import role as role_crud
 from app.models.user import User
 
 
@@ -158,3 +159,112 @@ def get_current_user_optional(
         return None
 
     return user
+
+
+# ============================================================================
+# RBAC (Role-Based Access Control) Dependencies
+# ============================================================================
+
+def require_permission(permission: str, project_id: Optional[int] = None):
+    """
+    특정 권한을 가진 사용자만 허용하는 의존성 팩토리
+
+    사용 예:
+        @app.get("/projects")
+        def list_projects(
+            current_user: User = Depends(require_permission("project:read"))
+        ):
+            ...
+
+    Args:
+        permission: 필요한 권한 (예: "project:create")
+        project_id: 프로젝트 ID (프로젝트별 권한 확인 시)
+
+    Returns:
+        의존성 함수
+    """
+    def permission_checker(
+        current_user: User = Depends(get_current_active_user),
+        db: Session = Depends(get_db)
+    ) -> User:
+        # 슈퍼유저는 모든 권한 보유
+        if current_user.is_superuser:
+            return current_user
+
+        # 권한 확인
+        has_permission = role_crud.user_has_permission(
+            db, current_user.id, permission, project_id
+        )
+
+        if not has_permission:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Permission denied: {permission} is required"
+            )
+
+        return current_user
+
+    return permission_checker
+
+
+def require_role(role_name: str, project_id: Optional[int] = None):
+    """
+    특정 역할을 가진 사용자만 허용하는 의존성 팩토리
+
+    사용 예:
+        @app.get("/admin/stats")
+        def get_stats(
+            current_user: User = Depends(require_role("Admin"))
+        ):
+            ...
+
+    Args:
+        role_name: 필요한 역할 이름 (예: "Admin", "Project Manager")
+        project_id: 프로젝트 ID (프로젝트별 역할 확인 시)
+
+    Returns:
+        의존성 함수
+    """
+    def role_checker(
+        current_user: User = Depends(get_current_active_user),
+        db: Session = Depends(get_db)
+    ) -> User:
+        # 슈퍼유저는 모든 역할 보유로 간주
+        if current_user.is_superuser:
+            return current_user
+
+        # 역할 확인
+        has_role = role_crud.user_has_role(
+            db, current_user.id, role_name, project_id
+        )
+
+        if not has_role:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Role denied: {role_name} role is required"
+            )
+
+        return current_user
+
+    return role_checker
+
+
+def get_user_permissions_dep(
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db)
+) -> dict:
+    """
+    현재 사용자의 모든 권한 조회 (의존성)
+
+    Args:
+        current_user: 현재 인증된 사용자
+        db: 데이터베이스 세션
+
+    Returns:
+        사용자의 권한 딕셔너리
+    """
+    # 슈퍼유저는 모든 권한 보유
+    if current_user.is_superuser:
+        return {"*": True}  # 모든 권한
+
+    return role_crud.get_user_permissions(db, current_user.id)

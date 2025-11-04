@@ -10,6 +10,8 @@ from app.models.enabler import Enabler
 from app.models.enabler_impact import EnablerImpact
 from app.models.project import Project
 from app.models.task import Task
+from app.models.user import User
+from app.models.role import Role, UserRole
 
 __all__ = [
     "Project",
@@ -18,4 +20,7 @@ __all__ = [
     "Dependency",
     "EnablerImpact",
     "CalendarEvent",
+    "User",
+    "Role",
+    "UserRole",
 ]
