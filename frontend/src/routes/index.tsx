@@ -8,6 +8,7 @@ import { lazy, Suspense } from 'react';
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 import { MainLayout } from '../components/Layout';
 import { LoadingFallback } from '../components/Common';
+import ProtectedRoute from '../components/ProtectedRoute';
 
 // Lazy-loaded page components
 const Dashboard = lazy(() => import('../pages/Dashboard'));
@@ -21,6 +22,10 @@ const EnablerList = lazy(() => import('../pages/Enablers/EnablerList'));
 const EnablerForm = lazy(() => import('../pages/Enablers/EnablerForm'));
 const EnablerDetail = lazy(() => import('../pages/Enablers/EnablerDetail'));
 
+// Auth pages
+const Login = lazy(() => import('../pages/Auth/Login'));
+const Register = lazy(() => import('../pages/Auth/Register'));
+
 /**
  * Suspense Wrapper Component
  */
@@ -32,12 +37,33 @@ const SuspenseWrapper = ({ children }: { children: React.ReactNode }) => {
  * 라우터 설정
  */
 export const router = createBrowserRouter([
+  // 인증 라우트 (보호되지 않음)
+  {
+    path: '/login',
+    element: (
+      <SuspenseWrapper>
+        <Login />
+      </SuspenseWrapper>
+    ),
+  },
+  {
+    path: '/register',
+    element: (
+      <SuspenseWrapper>
+        <Register />
+      </SuspenseWrapper>
+    ),
+  },
+
+  // 보호된 라우트 (인증 필요)
   {
     path: '/',
     element: (
-      <MainLayout>
-        <Outlet />
-      </MainLayout>
+      <ProtectedRoute>
+        <MainLayout>
+          <Outlet />
+        </MainLayout>
+      </ProtectedRoute>
     ),
     children: [
       {

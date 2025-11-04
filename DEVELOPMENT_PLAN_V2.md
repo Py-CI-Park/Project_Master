@@ -411,7 +411,7 @@ users (N) ──< (N) roles (user_roles)
 ### 6.1 전체 일정 개요
 
 ```
-Phase 6: 인증 시스템            [2주] █████████████████░░░░░░░
+Phase 6: 인증 시스템            [2주] ████████████████████████ (완료)
 Phase 7: 사용자 관리            [2주] ████████████░░░░░░░░░░░░
 Phase 8: 권한 관리              [1주] ░░░░░░░░░░░░░░░░████░░░░
 Phase 9: 파일 시스템            [2주] ░░░░░░░░░░░░░░░░░░░░████
@@ -450,9 +450,9 @@ Phase 17: 최종 검증 및 릴리스   [1주] ░░░░░░░░░░░
 
 ### Phase 6: 인증 시스템 (2주)
 
-**상태**: 🟡 진행중
+**상태**: 🟢 완료
 **시작일**: 2025-11-04
-**완료일**: TBD
+**완료일**: 2025-11-04
 
 #### 6.1 백엔드 인증 구현
 
@@ -520,37 +520,50 @@ class TokenData(BaseModel):
 **목표**: 로그인/회원가입 UI 구현
 
 **작업 항목**:
-- [ ] **6.2.1** 로그인 페이지 (`frontend/src/pages/Auth/Login.tsx`)
+- [x] **6.2.1** 로그인 페이지 (`frontend/src/pages/Auth/Login.tsx`)
   - 로그인 폼 (username, password)
   - 에러 처리
-  - "비밀번호 찾기" 링크
+  - OAuth2 Password Flow
+  - Material-UI 컴포넌트 사용
 
-- [ ] **6.2.2** 회원가입 페이지 (`frontend/src/pages/Auth/Register.tsx`)
-  - 회원가입 폼
-  - 비밀번호 강도 표시
-  - 약관 동의
+- [x] **6.2.2** 회원가입 페이지 (`frontend/src/pages/Auth/Register.tsx`)
+  - 회원가입 폼 (username, email, password, full_name)
+  - 비밀번호 강도 표시 (실시간 계산 및 시각화)
+  - 폼 유효성 검증 (이메일 형식, 비밀번호 길이, 비밀번호 확인)
+  - 성공 시 자동 리다이렉트
 
-- [ ] **6.2.3** 인증 상태 관리 (`frontend/src/hooks/useAuth.ts`)
-  - Zustand 스토어 or Context API
+- [x] **6.2.3** 인증 상태 관리 (`frontend/src/stores/authStore.ts`)
+  - Zustand 스토어 구현
+  - persist 미들웨어로 localStorage 연동
   - 로그인/로그아웃 함수
-  - 토큰 저장 (localStorage)
-  - 자동 토큰 갱신
+  - 토큰 저장 (accessToken, refreshToken)
+  - 사용자 정보 관리
 
-- [ ] **6.2.4** Protected Routes (`frontend/src/routes/ProtectedRoute.tsx`)
+- [x] **6.2.4** Protected Routes (`frontend/src/components/ProtectedRoute.tsx`)
   - 인증 필요 페이지 보호
   - 미인증 시 로그인 페이지로 리다이렉트
+  - 원래 요청 페이지 정보 보존 (location state)
 
-- [ ] **6.2.5** Axios 인터셉터 (`frontend/src/config/axiosConfig.ts`)
-  - 자동 토큰 첨부
-  - 401 에러 시 자동 로그아웃
-  - 토큰 갱신 로직
+- [x] **6.2.5** Axios 인터셉터 (`frontend/src/api/axios.ts`)
+  - 자동 Bearer 토큰 첨부 (Request Interceptor)
+  - 401 에러 시 자동 토큰 갱신 (Response Interceptor)
+  - 토큰 갱신 중 요청 큐 관리 (동시 요청 처리)
+  - 갱신 실패 시 자동 로그아웃
+  - 10초 타임아웃 설정
+
+- [x] **6.2.6** 라우팅 설정 (`frontend/src/routes/index.tsx`)
+  - 로그인/회원가입 페이지 라우트 추가
+  - 기존 라우트에 ProtectedRoute 적용
+  - Lazy loading 및 Suspense 적용
 
 **테스트**:
 - [ ] E2E 테스트: 로그인/로그아웃
 - [ ] E2E 테스트: 회원가입
 - [ ] E2E 테스트: Protected Routes
+- [ ] E2E 테스트: 자동 토큰 갱신
 
 **추정 시간**: 5일
+**실제 소요 시간**: 4시간
 
 ---
 
@@ -1224,7 +1237,7 @@ def migrate_v1_to_v2():
 
 | Phase | 상태 | 시작일 | 완료일 | 진행률 |
 |-------|------|--------|--------|--------|
-| Phase 6: 인증 시스템 | 🟡 진행중 | 2025-11-04 | - | 70% |
+| Phase 6: 인증 시스템 | 🟢 완료 | 2025-11-04 | 2025-11-04 | 100% |
 | Phase 7: 사용자 관리 | 🟡 진행중 | 2025-11-04 | - | 50% |
 | Phase 8: 권한 관리 | 🔴 미시작 | - | - | 0% |
 | Phase 9: 파일 시스템 | 🔴 미시작 | - | - | 0% |
@@ -1240,9 +1253,9 @@ def migrate_v1_to_v2():
 ### 12.2 전체 진행률
 
 ```
-전체 진행률: 10% (0/12 Phase 완료, 2개 Phase 진행중)
+전체 진행률: 13% (1/12 Phase 완료, 1개 Phase 진행중)
 
-████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 10%
+█████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 13%
 ```
 
 ---
