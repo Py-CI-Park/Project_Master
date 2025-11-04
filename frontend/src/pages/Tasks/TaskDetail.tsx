@@ -25,7 +25,7 @@ import {
   CalendarToday as CalendarIcon,
   Person as PersonIcon,
 } from '@mui/icons-material';
-import { Loading } from '../../components/Common';
+import { Loading, FileUpload, AttachmentList } from '../../components/Common';
 import { getTask, deleteTask } from '../../services/taskService';
 import type { Task } from '../../types';
 import { TaskStatusLabels, TaskStatusColors, TaskPriorityLabels, TaskPriorityColors } from '../../types';
@@ -36,6 +36,7 @@ const TaskDetail = () => {
   const [task, setTask] = useState<Task | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [attachmentRefreshTrigger, setAttachmentRefreshTrigger] = useState(0);
 
   useEffect(() => {
     if (projectId && taskId) {
@@ -85,6 +86,16 @@ const TaskDetail = () => {
 
   const formatDateTime = (dateString: string) => {
     return new Date(dateString).toLocaleString('ko-KR');
+  };
+
+  const handleAttachmentUploadComplete = () => {
+    // 첨부파일 목록 새로고침
+    setAttachmentRefreshTrigger(prev => prev + 1);
+  };
+
+  const handleAttachmentDeleteComplete = () => {
+    // 첨부파일 목록 새로고침
+    setAttachmentRefreshTrigger(prev => prev + 1);
   };
 
   if (loading) {
@@ -303,6 +314,41 @@ const TaskDetail = () => {
                 </Typography>
                 <Typography variant="body2">{formatDateTime(task.updated_at)}</Typography>
               </Box>
+            </Box>
+          </Paper>
+        </Grid>
+
+        {/* 첨부파일 섹션 */}
+        <Grid size={{ xs: 12 }}>
+          <Paper sx={{ p: 3 }}>
+            <Typography variant="h6" gutterBottom>
+              첨부파일
+            </Typography>
+            <Divider sx={{ mb: 3 }} />
+
+            {/* 파일 업로드 */}
+            <Box sx={{ mb: 4 }}>
+              <Typography variant="subtitle1" gutterBottom fontWeight="medium">
+                파일 업로드
+              </Typography>
+              <FileUpload
+                entityType="task"
+                entityId={Number(taskId)}
+                onUploadComplete={handleAttachmentUploadComplete}
+              />
+            </Box>
+
+            {/* 첨부파일 목록 */}
+            <Box>
+              <Typography variant="subtitle1" gutterBottom fontWeight="medium">
+                첨부파일 목록
+              </Typography>
+              <AttachmentList
+                entityType="task"
+                entityId={Number(taskId)}
+                refreshTrigger={attachmentRefreshTrigger}
+                onDeleteComplete={handleAttachmentDeleteComplete}
+              />
             </Box>
           </Paper>
         </Grid>

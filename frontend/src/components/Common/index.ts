@@ -7,3 +7,6 @@ export { default as Modal } from '../Common/Modal';
 export { default as Loading } from '../Common/Loading';
 export { default as LoadingFallback } from '../Common/LoadingFallback';
 export { default as ErrorBoundary } from '../Common/ErrorBoundary';
+export { default as FileUpload } from '../Common/FileUpload';
+export { default as AttachmentList } from '../Common/AttachmentList';
+export type { Attachment } from '../Common/AttachmentList';

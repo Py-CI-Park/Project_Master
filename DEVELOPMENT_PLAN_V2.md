@@ -764,9 +764,9 @@ class TokenData(BaseModel):
 
 ### Phase 9: 파일 시스템 (2주)
 
-**상태**: 🟡 진행중
+**상태**: ✅ 완료
 **시작일**: 2025-11-04
-**완료일**: TBD
+**완료일**: 2025-11-04
 **의존성**: Phase 7 완료
 
 #### 9.1 파일 저장소 백엔드 (완료)
@@ -815,26 +815,50 @@ class TokenData(BaseModel):
 **추정 시간**: 5일
 **실제 소요 시간**: 3시간
 
-#### 9.2 파일 업로드 UI
+#### 9.2 파일 업로드 UI (완료)
 
 **목표**: 파일 첨부 UI 구현
 
 **작업 항목**:
-- [ ] **9.2.1** 파일 업로드 컴포넌트
-  - `frontend/src/components/Common/FileUpload.tsx`
-  - 드래그 앤 드롭
-  - 진행 표시
-  - 미리보기 (이미지)
+- [x] **9.2.1** 파일 업로드 컴포넌트 (`frontend/src/components/Common/FileUpload.tsx`)
+  - 드래그 앤 드롭 파일 업로드 지원
+  - 업로드 진행률 표시 (LinearProgress)
+  - 이미지 파일 미리보기 기능
+  - 파일 크기 및 확장자 검증
+  - 백엔드 API 연동 (multipart/form-data)
 
-- [ ] **9.2.2** 첨부파일 목록 컴포넌트
-  - 파일 목록 표시
-  - 다운로드 버튼
-  - 삭제 버튼
+- [x] **9.2.2** 첨부파일 목록 컴포넌트 (`frontend/src/components/Common/AttachmentList.tsx`)
+  - 테이블 형식 파일 목록 표시
+  - 파일 타입별 아이콘 표시
+  - 파일 크기 포맷팅 (MB 단위)
+  - 다운로드 버튼 (Blob URL 생성)
+  - 삭제 버튼 (확인 대화상자 포함)
+  - 업로드 일시 표시
 
-- [ ] **9.2.3** 태스크/프로젝트에 첨부파일 통합
-  - 상세 페이지에 첨부파일 섹션 추가
+- [x] **9.2.3** 파일 유틸리티 (`frontend/src/utils/fileUtils.ts`)
+  - 파일 크기 포맷팅 함수
+  - 파일 확장자 추출
+  - 파일 타입 판별 (이미지, 비디오, 오디오, 문서 등)
+  - 파일 아이콘 매핑
+  - 허용된 확장자 검증
+  - MIME 타입 변환
+
+- [x] **9.2.4** 태스크 상세 페이지 통합 (`frontend/src/pages/Tasks/TaskDetail.tsx`)
+  - 첨부파일 섹션 추가 (파일 업로드 + 목록)
+  - 업로드 완료 시 목록 자동 새로고침
+  - entity_type="task", entity_id=taskId로 연결
+
+- [x] **9.2.5** 프로젝트 상세 페이지 통합 (`frontend/src/pages/ProjectDetail/ProjectDetail.tsx`)
+  - "첨부파일" 탭 추가 (7번째 탭)
+  - 파일 업로드 + 목록 컴포넌트 통합
+  - entity_type="project", entity_id=projectId로 연결
+
+- [x] **9.2.6** Common 컴포넌트 export (`frontend/src/components/Common/index.ts`)
+  - FileUpload, AttachmentList 컴포넌트 export
+  - Attachment 타입 export
 
 **추정 시간**: 5일
+**실제 소요 시간**: 2시간
 
 ---
 

@@ -5,12 +5,13 @@
  */
 
 import { useParams } from 'react-router-dom';
-import { Box, Typography, Container, Tabs, Tab, Button } from '@mui/material';
+import { Box, Typography, Container, Tabs, Tab, Button, Paper, Divider } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { GanttChart } from '../../components/Gantt';
 import { DependencyGraph, DependencyMatrix } from '../../components/Graph';
 import { CalendarView } from '../../components/Calendar';
 import { CriticalPath, ProgressReport, DelayAnalysis, ExportDialog } from '../../components/Report';
+import { FileUpload, AttachmentList } from '../../components/Common';
 import { useTasks, useDependencies } from '../../hooks';
 import { transformTasksToGantt } from '../../utils/ganttTransformer';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -45,6 +46,7 @@ const ProjectDetail = () => {
   const { dependencies, fetchDependencies } = useDependencies(Number(projectId));
   const [ganttTasks, setGanttTasks] = useState<GanttTask[]>([]);
   const [exportDialogOpen, setExportDialogOpen] = useState(false);
+  const [attachmentRefreshTrigger, setAttachmentRefreshTrigger] = useState(0);
 
   useEffect(() => {
     if (projectId) {
@@ -93,6 +95,16 @@ const ProjectDetail = () => {
     }
   };
 
+  const handleAttachmentUploadComplete = () => {
+    // 첨부파일 목록 새로고침
+    setAttachmentRefreshTrigger(prev => prev + 1);
+  };
+
+  const handleAttachmentDeleteComplete = () => {
+    // 첨부파일 목록 새로고침
+    setAttachmentRefreshTrigger(prev => prev + 1);
+  };
+
   return (
     <Container maxWidth="xl">
       <Box sx={{ py: 4 }}>
@@ -117,6 +129,7 @@ const ProjectDetail = () => {
             <Tab label="캘린더" />
             <Tab label="의존성" />
             <Tab label="리포트" />
+            <Tab label="첨부파일" />
           </Tabs>
         </Box>
 
@@ -148,6 +161,36 @@ const ProjectDetail = () => {
             <ProgressReport tasks={tasks} />
             <DelayAnalysis tasks={tasks} />
           </Box>
+        </TabPanel>
+        <TabPanel value={tabValue} index={6}>
+          <Paper sx={{ p: 3 }}>
+            {/* 파일 업로드 */}
+            <Box sx={{ mb: 4 }}>
+              <Typography variant="h6" gutterBottom>
+                파일 업로드
+              </Typography>
+              <Divider sx={{ mb: 3 }} />
+              <FileUpload
+                entityType="project"
+                entityId={Number(projectId)}
+                onUploadComplete={handleAttachmentUploadComplete}
+              />
+            </Box>
+
+            {/* 첨부파일 목록 */}
+            <Box>
+              <Typography variant="h6" gutterBottom>
+                첨부파일 목록
+              </Typography>
+              <Divider sx={{ mb: 3 }} />
+              <AttachmentList
+                entityType="project"
+                entityId={Number(projectId)}
+                refreshTrigger={attachmentRefreshTrigger}
+                onDeleteComplete={handleAttachmentDeleteComplete}
+              />
+            </Box>
+          </Paper>
         </TabPanel>
 
         {/* Export Dialog */}
