@@ -26,6 +26,14 @@ const EnablerDetail = lazy(() => import('../pages/Enablers/EnablerDetail'));
 const Login = lazy(() => import('../pages/Auth/Login'));
 const Register = lazy(() => import('../pages/Auth/Register'));
 
+// Profile pages
+const MyProfile = lazy(() => import('../pages/Profile/MyProfile'));
+
+// User management pages (Admin only)
+const UserList = lazy(() => import('../pages/Users/UserList'));
+const UserDetail = lazy(() => import('../pages/Users/UserDetail'));
+const UserForm = lazy(() => import('../pages/Users/UserForm'));
+
 /**
  * Suspense Wrapper Component
  */
@@ -198,6 +206,43 @@ export const router = createBrowserRouter([
           </SuspenseWrapper>
         ),
       },
+
+      // Profile routes
+      {
+        path: 'profile',
+        element: (
+          <SuspenseWrapper>
+            <MyProfile />
+          </SuspenseWrapper>
+        ),
+      },
+
+      // User management routes (Admin only)
+      {
+        path: 'users',
+        element: (
+          <SuspenseWrapper>
+            <UserList />
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'users/:userId',
+        element: (
+          <SuspenseWrapper>
+            <UserDetail />
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'users/:userId/edit',
+        element: (
+          <SuspenseWrapper>
+            <UserForm />
+          </SuspenseWrapper>
+        ),
+      },
+
       {
         path: '*',
         element: <Navigate to="/" replace />,
