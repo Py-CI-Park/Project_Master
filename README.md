@@ -97,9 +97,9 @@
 ```
 React 18 + JavaScript (ES6+)
 ├── UI: Material-UI (MUI) v5
-├── 간트 차트: DHTMLX Gantt (계획)
-├── 캘린더: FullCalendar (계획)
-├── 그래프: React-Flow + Recharts (계획)
+├── 간트 차트: Frappe Gantt
+├── 캘린더: FullCalendar
+├── 그래프: React-Flow + Recharts
 ├── 빌드: Vite
 ├── 상태 관리: Zustand
 └── HTTP 클라이언트: Axios
