@@ -1261,11 +1261,11 @@ start_time, end_time, color, created_at
   - 설치 단계 (Windows/Linux)
   - 초기 설정
   - 문제 해결 (7가지 시나리오)
-- [ ] **5.3.2** 사용자 매뉴얼 (`docs/user-manual.md`)
-  - 기능별 사용 방법
-  - 화면 설명 (스크린샷)
-  - 워크플로우 예시
-  - FAQ
+- [x] **5.3.2** 사용자 매뉴얼 (`docs/user-manual.md`) ✅ 2025-11-04
+  - 기능별 사용 방법 (10개 챕터)
+  - 화면 설명 및 사용법
+  - 워크플로우 예시 및 절차
+  - FAQ 10개, 문제 해결 6개 시나리오
 - [x] **5.3.3** API 문서 (`docs/api-documentation.md`) ✅ 2025-11-04
   - 모든 엔드포인트 문서화 (Projects, Tasks, Enablers)
   - 요청/응답 예시 (cURL, Python, JavaScript)
@@ -1301,9 +1301,10 @@ start_time, end_time, color, created_at
   - 주요 기능, 기술 스택, 엔드포인트 목록
   - 알려진 제한사항 명시
   - 향후 계획 (v2.0, v1.1)
-- [ ] **5.4.4** 배포 패키지 압축
-  - 최종 배포 ZIP 파일 생성 (필요시)
-  - 체크섬 생성 (필요시)
+- [x] **5.4.4** 배포 패키지 압축 ✅ 2025-11-04
+  - 최종 배포 tar.gz 파일 생성 완료 (15MB, 388 files)
+  - SHA256 체크섬 생성 완료
+  - 위치: `/mnt/c/Programming/project-master-v1.0.0.tar.gz`
 
 #### 완료 기준
 - ✅ 폐쇄망 환경에서 설치 및 실행 성공

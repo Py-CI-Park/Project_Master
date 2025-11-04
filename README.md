@@ -342,13 +342,10 @@ main (또는 master)
 - [API 문서](docs/api-documentation.md) - REST API 레퍼런스
 
 ### 사용자 문서
+- [사용자 매뉴얼](docs/user-manual.md) - 기능별 사용 방법, FAQ, 문제 해결
 - [설치 가이드](docs/installation-guide.md) - Windows/Linux 설치 방법 및 문제 해결
 - [배포 가이드](deployment/README.md) - 폐쇄망 배포 상세 정보
 - [보안 문서](backend/SECURITY.md) - 보안 취약점 분석 및 대응 방안
-
-### 추가 문서 (개발 예정)
-- 사용자 매뉴얼 - 기능별 사용 방법
-- 문제 해결 가이드 - FAQ 및 트러블슈팅
 
 ---
 
