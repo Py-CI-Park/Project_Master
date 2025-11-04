@@ -450,8 +450,8 @@ Phase 17: 최종 검증 및 릴리스   [1주] ░░░░░░░░░░░
 
 ### Phase 6: 인증 시스템 (2주)
 
-**상태**: 🔴 미시작
-**시작일**: TBD
+**상태**: 🟡 진행중
+**시작일**: 2025-11-04
 **완료일**: TBD
 
 #### 6.1 백엔드 인증 구현
@@ -459,12 +459,12 @@ Phase 17: 최종 검증 및 릴리스   [1주] ░░░░░░░░░░░
 **목표**: JWT 기반 인증 시스템 구축
 
 **작업 항목**:
-- [ ] **6.1.1** JWT 토큰 생성 및 검증 (`backend/app/core/security.py`)
+- [x] **6.1.1** JWT 토큰 생성 및 검증 (`backend/app/core/security.py`)
   - JWT 토큰 생성 함수
   - 토큰 검증 및 디코딩
   - 리프레시 토큰 구현
 
-- [ ] **6.1.2** 비밀번호 해싱 (`backend/app/core/security.py`)
+- [x] **6.1.2** 비밀번호 해싱 (`backend/app/core/security.py`)
   - bcrypt를 이용한 해싱
   - 비밀번호 검증 함수
 
@@ -550,8 +550,8 @@ class TokenData(BaseModel):
 
 ### Phase 7: 사용자 관리 (2주)
 
-**상태**: 🔴 미시작
-**시작일**: TBD
+**상태**: 🟡 진행중 (부분 완료)
+**시작일**: 2025-11-04
 **완료일**: TBD
 **의존성**: Phase 6 완료
 
@@ -560,13 +560,14 @@ class TokenData(BaseModel):
 **목표**: 사용자 관리 백엔드 구현
 
 **작업 항목**:
-- [ ] **7.1.1** User 모델 (`backend/app/models/user.py`)
+- [x] **7.1.1** User 모델 (`backend/app/models/user.py`)
   - SQLAlchemy 모델 정의
   - 관계 설정 (projects, tasks 등)
 
-- [ ] **7.1.2** User 스키마 (`backend/app/schemas/user.py`)
+- [x] **7.1.2** User 스키마 (`backend/app/schemas/user.py`, `backend/app/schemas/auth.py`)
   - UserCreate, UserUpdate, UserInDB, UserPublic
   - 비밀번호 제외 로직
+  - 인증 관련 스키마 (UserRegister, UserLogin, Token)
 
 - [ ] **7.1.3** User CRUD (`backend/app/crud/user.py`)
   - create_user()
@@ -1214,8 +1215,8 @@ def migrate_v1_to_v2():
 
 | Phase | 상태 | 시작일 | 완료일 | 진행률 |
 |-------|------|--------|--------|--------|
-| Phase 6: 인증 시스템 | 🔴 미시작 | - | - | 0% |
-| Phase 7: 사용자 관리 | 🔴 미시작 | - | - | 0% |
+| Phase 6: 인증 시스템 | 🟡 진행중 | 2025-11-04 | - | 30% |
+| Phase 7: 사용자 관리 | 🟡 진행중 | 2025-11-04 | - | 15% |
 | Phase 8: 권한 관리 | 🔴 미시작 | - | - | 0% |
 | Phase 9: 파일 시스템 | 🔴 미시작 | - | - | 0% |
 | Phase 10: 실시간 통신 | 🔴 미시작 | - | - | 0% |
@@ -1230,9 +1231,9 @@ def migrate_v1_to_v2():
 ### 12.2 전체 진행률
 
 ```
-전체 진행률: 0% (0/12 Phase 완료)
+전체 진행률: 4% (0/12 Phase 완료, 2개 Phase 진행중)
 
-████████████████████░░░░░░░░░░░░░░░░░░░░ 0%
+██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 4%
 ```
 
 ---
