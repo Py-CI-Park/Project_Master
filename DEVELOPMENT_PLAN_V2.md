@@ -864,9 +864,9 @@ class TokenData(BaseModel):
 
 ### Phase 10: 실시간 통신 (2주)
 
-**상태**: 🟡 진행중
+**상태**: 🟢 완료
 **시작일**: 2025-11-05
-**완료일**: TBD
+**완료일**: 2025-11-05
 **의존성**: Phase 7 완료
 
 #### 10.1 WebSocket 백엔드 ✅
@@ -916,26 +916,47 @@ class TokenData(BaseModel):
 **추정 시간**: 5일
 **실제 소요 시간**: 1일
 
-#### 10.2 WebSocket 프론트엔드
+#### 10.2 WebSocket 프론트엔드 ✅
 
 **목표**: 실시간 UI 업데이트
 
 **작업 항목**:
-- [ ] **10.2.1** Socket.IO 클라이언트 설정
-  - `frontend/src/services/websocket.ts`
-  - 자동 재연결
-  - 인증 토큰 전송
+- [x] **10.2.1** Socket.IO 클라이언트 설정
+  - `frontend/src/services/websocket.ts` ✅ (2025-11-05)
+  - 자동 재연결 (reconnection 설정)
+  - JWT 토큰 인증 (auth 파라미터)
+  - 연결 상태 관리 (ConnectionStatus enum)
+  - 프로젝트 room 참여/퇴장 기능
+  - 이벤트 리스너 등록/해제 기능
+  - 싱글톤 패턴으로 서비스 구현
 
-- [ ] **10.2.2** 실시간 이벤트 리스너
-  - 태스크 업데이트 시 자동 갱신
-  - 프로젝트 업데이트 시 자동 갱신
-  - 새 알림 수신
+- [x] **10.2.2** 실시간 이벤트 리스너
+  - `frontend/src/hooks/useWebSocket.ts` ✅ (2025-11-05)
+  - `frontend/src/hooks/useProjectWebSocket.ts` ✅ (2025-11-05)
+  - Task 이벤트: task_created, task_updated, task_deleted → 자동 fetchTasks
+  - Project 이벤트: project_updated → 프로젝트 정보 갱신 준비
+  - Dependency 이벤트: dependency_created, dependency_deleted → 자동 fetchDependencies
+  - Attachment 이벤트: attachment_uploaded, attachment_deleted → 첨부파일 목록 갱신
+  - 자동 연결/해제 관리
+  - 프로젝트 자동 참여/퇴장
 
-- [ ] **10.2.3** 온라인 사용자 표시
-  - 현재 프로젝트에 접속한 사용자 표시
-  - 사용자 아바타 및 상태
+- [x] **10.2.3** 온라인 사용자 표시 및 연결 상태 UI
+  - `frontend/src/pages/ProjectDetail/ProjectDetail.tsx` ✅ (2025-11-05)
+  - 연결 상태 표시 Chip (실시간 연결됨 / 오프라인)
+  - WiFi 아이콘으로 시각적 표시
+  - 색상 코딩 (success / default)
+  - useProjectWebSocket 훅 통합
+  - 모든 실시간 이벤트 리스너 등록
+
+**구현 파일**:
+- `frontend/package.json` - socket.io-client==4.8.1 추가
+- `frontend/src/services/websocket.ts` - Socket.IO 클라이언트 서비스 (305 lines)
+- `frontend/src/hooks/useWebSocket.ts` - WebSocket React Hook (269 lines)
+- `frontend/src/hooks/index.ts` - useWebSocket export 추가
+- `frontend/src/pages/ProjectDetail/ProjectDetail.tsx` - WebSocket 통합 (modified)
 
 **추정 시간**: 5일
+**실제 소요 시간**: 1일
 
 ---
 

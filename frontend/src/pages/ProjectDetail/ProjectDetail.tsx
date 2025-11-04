@@ -5,16 +5,18 @@
  */
 
 import { useParams } from 'react-router-dom';
-import { Box, Typography, Container, Tabs, Tab, Button, Paper, Divider } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { Box, Typography, Container, Tabs, Tab, Button, Paper, Divider, Chip } from '@mui/material';
+import { useState, useEffect, useCallback } from 'react';
 import { GanttChart } from '../../components/Gantt';
 import { DependencyGraph, DependencyMatrix } from '../../components/Graph';
 import { CalendarView } from '../../components/Calendar';
 import { CriticalPath, ProgressReport, DelayAnalysis, ExportDialog } from '../../components/Report';
 import { FileUpload, AttachmentList } from '../../components/Common';
-import { useTasks, useDependencies } from '../../hooks';
+import { useTasks, useDependencies, useProjectWebSocket } from '../../hooks';
 import { transformTasksToGantt } from '../../utils/ganttTransformer';
 import DownloadIcon from '@mui/icons-material/Download';
+import WifiIcon from '@mui/icons-material/Wifi';
+import WifiOffIcon from '@mui/icons-material/WifiOff';
 import type { GanttTask } from '../../types';
 
 interface TabPanelProps {
@@ -47,6 +49,59 @@ const ProjectDetail = () => {
   const [ganttTasks, setGanttTasks] = useState<GanttTask[]>([]);
   const [exportDialogOpen, setExportDialogOpen] = useState(false);
   const [attachmentRefreshTrigger, setAttachmentRefreshTrigger] = useState(0);
+
+  // WebSocket 실시간 업데이트 설정
+  const { isConnected } = useProjectWebSocket(projectId ? Number(projectId) : null, {
+    onTaskCreated: useCallback((data) => {
+      console.log('[ProjectDetail] Task created:', data);
+      if (projectId && data.project_id === Number(projectId)) {
+        fetchTasks(Number(projectId));
+      }
+    }, [projectId, fetchTasks]),
+
+    onTaskUpdated: useCallback((data) => {
+      console.log('[ProjectDetail] Task updated:', data);
+      if (projectId && data.project_id === Number(projectId)) {
+        fetchTasks(Number(projectId));
+      }
+    }, [projectId, fetchTasks]),
+
+    onTaskDeleted: useCallback((data) => {
+      console.log('[ProjectDetail] Task deleted:', data);
+      if (projectId && data.project_id === Number(projectId)) {
+        fetchTasks(Number(projectId));
+      }
+    }, [projectId, fetchTasks]),
+
+    onProjectUpdated: useCallback((data) => {
+      console.log('[ProjectDetail] Project updated:', data);
+      // 프로젝트 정보 갱신 로직 추가 가능
+    }, []),
+
+    onDependencyCreated: useCallback((data) => {
+      console.log('[ProjectDetail] Dependency created:', data);
+      if (projectId && data.project_id === Number(projectId)) {
+        fetchDependencies(Number(projectId));
+      }
+    }, [projectId, fetchDependencies]),
+
+    onDependencyDeleted: useCallback((data) => {
+      console.log('[ProjectDetail] Dependency deleted:', data);
+      if (projectId && data.project_id === Number(projectId)) {
+        fetchDependencies(Number(projectId));
+      }
+    }, [projectId, fetchDependencies]),
+
+    onAttachmentUploaded: useCallback((data) => {
+      console.log('[ProjectDetail] Attachment uploaded:', data);
+      setAttachmentRefreshTrigger(prev => prev + 1);
+    }, []),
+
+    onAttachmentDeleted: useCallback((data) => {
+      console.log('[ProjectDetail] Attachment deleted:', data);
+      setAttachmentRefreshTrigger(prev => prev + 1);
+    }, []),
+  });
 
   useEffect(() => {
     if (projectId) {
@@ -109,9 +164,17 @@ const ProjectDetail = () => {
     <Container maxWidth="xl">
       <Box sx={{ py: 4 }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-          <Typography variant="h4" component="h1">
-            프로젝트 상세 - ID: {projectId}
-          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Typography variant="h4" component="h1">
+              프로젝트 상세 - ID: {projectId}
+            </Typography>
+            <Chip
+              icon={isConnected ? <WifiIcon /> : <WifiOffIcon />}
+              label={isConnected ? '실시간 연결됨' : '오프라인'}
+              color={isConnected ? 'success' : 'default'}
+              size="small"
+            />
+          </Box>
           <Button
             variant="outlined"
             startIcon={<DownloadIcon />}
