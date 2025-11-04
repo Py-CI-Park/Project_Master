@@ -12,6 +12,7 @@ from app.models.project import Project
 from app.models.task import Task
 from app.models.user import User
 from app.models.role import Role, UserRole
+from app.models.attachment import Attachment
 
 __all__ = [
     "Project",
@@ -23,4 +24,5 @@ __all__ = [
     "User",
     "Role",
     "UserRole",
+    "Attachment",
 ]

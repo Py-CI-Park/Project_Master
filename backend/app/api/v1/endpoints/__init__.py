@@ -11,6 +11,7 @@ from app.api.v1.endpoints.projects import router as projects_router
 from app.api.v1.endpoints.roles import router as roles_router
 from app.api.v1.endpoints.tasks import router as tasks_router
 from app.api.v1.endpoints.users import router as users_router
+from app.api.v1.endpoints.attachments import router as attachments_router
 
 __all__ = [
     "auth_router",
@@ -20,4 +21,5 @@ __all__ = [
     "dependencies_router",
     "users_router",
     "roles_router",
+    "attachments_router",
 ]

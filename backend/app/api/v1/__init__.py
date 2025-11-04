@@ -7,6 +7,7 @@ v1 API의 모든 엔드포인트를 통합하는 라우터
 from fastapi import APIRouter
 
 from app.api.v1.endpoints import (
+    attachments_router,
     auth_router,
     dependencies_router,
     enablers_router,
@@ -37,6 +38,13 @@ api_router.include_router(
     roles_router,
     prefix="/roles",
     tags=["roles"],
+)
+
+# Attachments 엔드포인트 등록 (v2.0 - File Upload)
+api_router.include_router(
+    attachments_router,
+    prefix="/attachments",
+    tags=["attachments"],
 )
 
 # Projects 엔드포인트 등록

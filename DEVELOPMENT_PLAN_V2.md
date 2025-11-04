@@ -764,33 +764,56 @@ class TokenData(BaseModel):
 
 ### Phase 9: 파일 시스템 (2주)
 
-**상태**: 🔴 미시작
-**시작일**: TBD
+**상태**: 🟡 진행중
+**시작일**: 2025-11-04
 **완료일**: TBD
 **의존성**: Phase 7 완료
 
-#### 9.1 파일 저장소 백엔드
+#### 9.1 파일 저장소 백엔드 (완료)
 
 **목표**: 파일 업로드/다운로드/관리 시스템
 
 **작업 항목**:
-- [ ] **9.1.1** Attachment 모델
-  - `backend/app/models/attachment.py`
+- [x] **9.1.1** Attachment 모델 (`backend/app/models/attachment.py`)
+  - SQLAlchemy 모델 정의: id, filename, stored_filename, file_path, file_size, content_type
+  - entity_type, entity_id로 엔티티 연결
+  - uploaded_by 외래 키로 User 연결
+  - file_size_mb, file_extension 프로퍼티 메서드 구현
 
-- [ ] **9.1.2** 파일 저장소 서비스
-  - `backend/app/services/file_storage.py`
-  - 로컬 파일 시스템 저장
-  - 파일 크기 제한 (기본 10MB)
-  - 허용 파일 타입 검증
-  - 바이러스 스캔 (선택)
+- [x] **9.1.2** 파일 저장소 서비스 (`backend/app/services/file_storage.py`)
+  - FileStorageService 클래스 구현
+  - 로컬 파일 시스템 저장 (`./data/uploads`)
+  - 파일 크기 제한 (기본 10MB) 검증
+  - 허용 파일 타입 검증 (pdf, doc, docx, xls, xlsx, ppt, pptx, txt, csv, md, png, jpg, jpeg, gif, svg, webp, zip 등)
+  - UUID 기반 안전한 파일명 생성
+  - MIME 타입 자동 감지 (mimetypes 모듈)
+  - 파일 카테고리 분류 (image, document, archive, other)
 
-- [ ] **9.1.3** 파일 API 엔드포인트
-  - `POST /api/v1/attachments/upload` - 파일 업로드
-  - `GET /api/v1/attachments/{id}` - 파일 다운로드
-  - `DELETE /api/v1/attachments/{id}` - 파일 삭제
-  - `GET /api/v1/attachments?entity_type=task&entity_id=123` - 엔티티별 파일 목록
+- [x] **9.1.3** Attachment 스키마 (`backend/app/schemas/attachment.py`)
+  - AttachmentCreate, AttachmentUpdate, AttachmentPublic
+  - AttachmentListResponse, AttachmentUploadResponse
+  - 파일 메타데이터 검증 및 직렬화
+
+- [x] **9.1.4** Attachment CRUD (`backend/app/crud/attachment.py`)
+  - create_attachment(), get_attachment(), get_attachment_by_stored_filename()
+  - get_attachments_by_entity(), count_attachments_by_entity()
+  - get_attachments_by_user(), update_attachment(), delete_attachment()
+  - get_all_attachments(), count_all_attachments()
+
+- [x] **9.1.5** 파일 API 엔드포인트 (`backend/app/api/v1/endpoints/attachments.py`)
+  - `POST /api/v1/attachments/upload` - 파일 업로드 (Multipart Form)
+  - `GET /api/v1/attachments/{id}` - 파일 메타데이터 조회
+  - `GET /api/v1/attachments/{id}/download` - 파일 다운로드 (FileResponse)
+  - `GET /api/v1/attachments` - 엔티티별 파일 목록 (쿼리 파라미터: entity_type, entity_id)
+  - `PATCH /api/v1/attachments/{id}` - 파일 설명 수정
+  - `DELETE /api/v1/attachments/{id}` - 파일 및 메타데이터 삭제
+
+- [x] **9.1.6** API 라우터 등록
+  - `app/api/v1/__init__.py`에 attachments_router 등록
+  - `/api/v1/attachments` prefix로 엔드포인트 노출
 
 **추정 시간**: 5일
+**실제 소요 시간**: 3시간
 
 #### 9.2 파일 업로드 UI
 
