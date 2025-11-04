@@ -15,11 +15,15 @@ import {
   Toolbar,
   Divider,
   Box,
+  Typography,
 } from '@mui/material';
 import {
   Dashboard as DashboardIcon,
   Folder as ProjectIcon,
+  People as PeopleIcon,
+  Security as SecurityIcon,
 } from '@mui/icons-material';
+import { useAuthStore } from '../../stores/authStore';
 
 const DRAWER_WIDTH = 240;
 
@@ -47,9 +51,23 @@ const menuItems: MenuItem[] = [
   },
 ];
 
+const adminMenuItems: MenuItem[] = [
+  {
+    text: '사용자 관리',
+    icon: <PeopleIcon />,
+    path: '/users',
+  },
+  {
+    text: '역할 관리',
+    icon: <SecurityIcon />,
+    path: '/roles',
+  },
+];
+
 const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onClose }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user } = useAuthStore();
 
   const handleNavigate = (path: string) => {
     navigate(path);
@@ -74,6 +92,31 @@ const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onClose }) => {
         ))}
       </List>
       <Divider />
+
+      {/* 관리자 전용 메뉴 */}
+      {user?.is_superuser && (
+        <>
+          <Box sx={{ px: 2, py: 1 }}>
+            <Typography variant="caption" color="text.secondary">
+              관리자
+            </Typography>
+          </Box>
+          <List>
+            {adminMenuItems.map((item) => (
+              <ListItem key={item.path} disablePadding>
+                <ListItemButton
+                  selected={location.pathname === item.path}
+                  onClick={() => handleNavigate(item.path)}
+                >
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+          <Divider />
+        </>
+      )}
     </>
   );
 

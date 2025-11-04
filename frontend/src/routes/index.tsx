@@ -34,6 +34,10 @@ const UserList = lazy(() => import('../pages/Users/UserList'));
 const UserDetail = lazy(() => import('../pages/Users/UserDetail'));
 const UserForm = lazy(() => import('../pages/Users/UserForm'));
 
+// Role management pages (Admin only)
+const RoleList = lazy(() => import('../pages/Roles/RoleList'));
+const RoleForm = lazy(() => import('../pages/Roles/RoleForm'));
+
 /**
  * Suspense Wrapper Component
  */
@@ -239,6 +243,32 @@ export const router = createBrowserRouter([
         element: (
           <SuspenseWrapper>
             <UserForm />
+          </SuspenseWrapper>
+        ),
+      },
+
+      // Role management routes (Admin only)
+      {
+        path: 'roles',
+        element: (
+          <SuspenseWrapper>
+            <RoleList />
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'roles/new',
+        element: (
+          <SuspenseWrapper>
+            <RoleForm />
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: 'roles/:roleId/edit',
+        element: (
+          <SuspenseWrapper>
+            <RoleForm />
           </SuspenseWrapper>
         ),
       },

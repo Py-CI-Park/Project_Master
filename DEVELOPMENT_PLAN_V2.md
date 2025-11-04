@@ -659,9 +659,9 @@ class TokenData(BaseModel):
 
 ### Phase 8: 권한 관리 (1주)
 
-**상태**: 🟡 진행중
+**상태**: 🟢 완료
 **시작일**: 2025-11-04
-**완료일**: TBD
+**완료일**: 2025-11-04
 **의존성**: Phase 7 완료
 
 #### 8.1 RBAC 백엔드 (완료)
@@ -724,22 +724,41 @@ class TokenData(BaseModel):
 **추정 시간**: 3일
 **실제 소요 시간**: 3시간
 
-#### 8.2 권한 UI
+#### 8.2 권한 UI (완료)
 
 **목표**: 권한 관리 UI
 
 **작업 항목**:
-- [ ] **8.2.1** 역할 관리 페이지
-  - 역할 목록
-  - 역할 생성/수정/삭제
-  - 권한 할당
+- [x] **8.2.1** 역할 관리 페이지 (`frontend/src/pages/Roles/`)
+  - RoleList.tsx: 역할 목록 테이블 (관리자 전용)
+  - RoleForm.tsx: 역할 생성/수정 폼
+  - 역할별 아이콘 및 색상 표시 (Admin, Project Manager, Team Member, Viewer)
+  - 역할 삭제 확인 다이얼로그
+  - 권한 개수 표시 및 생성일 표시
 
-- [ ] **8.2.2** 프로젝트 멤버 관리
-  - 멤버 추가/제거
-  - 역할 할당
-  - 초대 링크 생성
+- [x] **8.2.2** 권한 편집기 (`frontend/src/components/Roles/PermissionEditor.tsx`)
+  - 5개 권한 카테고리별 체크박스 (프로젝트, 태스크, 이네이블러, 사용자, 역할)
+  - 카테고리별 전체 선택/해제 기능
+  - 전체 권한 선택/해제 버튼
+  - 선택된 권한 개수 요약 표시
+  - Indeterminate 체크박스 지원
+
+- [x] **8.2.3** 프로젝트 멤버 관리 (`frontend/src/components/Projects/ProjectMembers.tsx`)
+  - 프로젝트별 멤버 목록 테이블
+  - 멤버 추가 다이얼로그 (사용자 선택 + 역할 선택)
+  - 멤버 역할 제거 기능
+  - 중복 멤버 추가 방지
+  - 관리자 전용 멤버 추가/제거 버튼
+
+- [x] **8.2.4** 라우팅 및 네비게이션 (`frontend/src/routes/index.tsx`, `frontend/src/components/Layout/Sidebar.tsx`)
+  - /roles - 역할 목록
+  - /roles/new - 역할 생성
+  - /roles/:roleId/edit - 역할 수정
+  - 사이드바에 관리자 전용 메뉴 섹션 추가 (사용자 관리, 역할 관리)
+  - useAuthStore.is_superuser로 관리자 메뉴 표시 제어
 
 **추정 시간**: 2일
+**실제 소요 시간**: 4시간
 
 ---
 
