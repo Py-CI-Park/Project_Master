@@ -26,6 +26,7 @@ from app.models import (
     Project,
     Task,
 )
+from app.models.user import User
 
 target_metadata = Base.metadata
 
