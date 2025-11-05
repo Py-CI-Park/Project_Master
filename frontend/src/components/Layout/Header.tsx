@@ -1,7 +1,7 @@
 /**
  * Header Component
  *
- * 앱 바, 네비게이션, 다크 모드 토글을 포함하는 헤더 컴포넌트
+ * 앱 바, 네비게이션, 다크 모드 토글, 알림을 포함하는 헤더 컴포넌트
  */
 
 import { AppBar, Toolbar, Typography, IconButton, Box } from '@mui/material';
@@ -11,6 +11,7 @@ import {
   Brightness7 as LightModeIcon,
 } from '@mui/icons-material';
 import { useTheme } from '../../context/ThemeContext';
+import NotificationDropdown from './NotificationDropdown';
 
 interface HeaderProps {
   onMenuClick: () => void;
@@ -37,6 +38,11 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
         <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
           프로젝트 관리 시스템
         </Typography>
+
+        {/* 알림 드롭다운 */}
+        <Box sx={{ mr: 1 }}>
+          <NotificationDropdown />
+        </Box>
 
         {/* 다크 모드 토글 */}
         <Box>

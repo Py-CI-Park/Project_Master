@@ -962,9 +962,9 @@ class TokenData(BaseModel):
 
 ### Phase 11: 알림 시스템 (1주)
 
-**상태**: 🟡 진행중
+**상태**: ✅ 완료
 **시작일**: 2025-11-05
-**완료일**: TBD
+**완료일**: 2025-11-05
 **의존성**: Phase 10 완료
 
 #### 11.1 알림 백엔드 ✅
@@ -1017,22 +1017,53 @@ class TokenData(BaseModel):
 **추정 시간**: 3일
 **실제 소요 시간**: 1일
 
-#### 11.2 알림 UI
+#### 11.2 알림 UI ✅
 
 **목표**: 알림 UI 구현
 
 **작업 항목**:
-- [ ] **11.2.1** 알림 드롭다운
-  - `frontend/src/components/Layout/NotificationDropdown.tsx`
-  - 헤더에 알림 아이콘
-  - 읽지 않은 알림 개수 표시
+- [x] **11.2.1** 알림 타입 정의
+  - `frontend/src/types/notification.ts` ✅ (2025-11-05)
+  - Notification, NotificationList, NotificationUpdate 인터페이스
 
-- [ ] **11.2.2** 알림 목록
-  - 알림 목록 표시
-  - 읽음/읽지 않음 구분
-  - 클릭 시 관련 페이지로 이동
+- [x] **11.2.2** 알림 API 클라이언트
+  - `frontend/src/services/notificationService.ts` ✅ (2025-11-05)
+  - getNotifications: 알림 목록 조회
+  - getUnreadCount: 읽지 않은 개수 조회
+  - markAsRead: 단일 알림 읽음 처리
+  - markAllAsRead: 전체 읽음 처리
+  - deleteNotification: 알림 삭제
+
+- [x] **11.2.3** 알림 훅
+  - `frontend/src/hooks/useNotifications.ts` ✅ (2025-11-05)
+  - 알림 상태 관리 (notifications, unreadCount, loading, error)
+  - 알림 조회, 읽음 처리, 삭제 기능
+
+- [x] **11.2.4** 알림 드롭다운
+  - `frontend/src/components/Layout/NotificationDropdown.tsx` ✅ (2025-11-05)
+  - 헤더에 알림 아이콘 및 Badge (읽지 않은 알림 개수 표시)
+  - Popover 기반 드롭다운
+  - 최근 10개 알림 표시
+  - 읽음/읽지 않음 구분 (배경색, 폰트 굵기)
+  - 알림 클릭 시 읽음 처리 및 관련 페이지 이동
+  - 전체 읽음, 개별 삭제 기능
+  - 로딩 및 에러 상태 표시
+  - 시간 포맷팅 (방금 전, N분 전, N시간 전, N일 전)
+
+- [x] **11.2.5** Header 통합
+  - `frontend/src/components/Layout/Header.tsx` ✅ (2025-11-05)
+  - NotificationDropdown 컴포넌트 통합
+
+**구현 파일**:
+- `frontend/src/types/notification.ts` - 알림 타입 정의 (28 lines)
+- `frontend/src/services/notificationService.ts` - API 클라이언트 (76 lines)
+- `frontend/src/hooks/useNotifications.ts` - 알림 상태 관리 (140 lines)
+- `frontend/src/components/Layout/NotificationDropdown.tsx` - 드롭다운 UI (263 lines)
+- `frontend/src/components/Layout/Header.tsx` - 헤더 통합 (수정)
+- `frontend/src/services/index.ts` - notificationService export 추가
 
 **추정 시간**: 2일
+**실제 소요 시간**: 1일
 
 ---
 
