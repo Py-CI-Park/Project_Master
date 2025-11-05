@@ -1151,46 +1151,85 @@ class TokenData(BaseModel):
 
 ### Phase 13: UI/UX 개선 (2주)
 
-**상태**: 🔴 미시작
-**시작일**: TBD
+**상태**: 🟡 진행중
+**시작일**: 2025-11-05
 **완료일**: TBD
 **의존성**: Phase 12 완료
 
-#### 13.1 모바일 반응형
+#### 13.1 모바일 반응형 ✅
 
 **목표**: 태블릿, 모바일 최적화
 
 **작업 항목**:
-- [ ] **13.1.1** 반응형 레이아웃
-  - 모든 페이지 모바일 최적화
-  - 햄버거 메뉴
-  - 터치 제스처 지원
+- [x] **13.1.1** 반응형 레이아웃
+  - `frontend/src/components/Layout/MainLayout.tsx` (기존 구현 확인) ✅
+    - Flexbox 기반 반응형 레이아웃
+    - 모바일/데스크톱 분기 처리 (sx props 활용)
+  - `frontend/src/components/Layout/Sidebar.tsx` (기존 구현 확인) ✅
+    - Temporary Drawer (모바일용, xs/sm)
+    - Permanent Drawer (데스크톱용, md 이상)
+  - `frontend/src/components/Layout/Header.tsx` (기존 구현 확인) ✅
+    - 햄버거 메뉴 버튼 (모바일 전용, display: { sm: 'none' })
+    - AppBar 고정 배치
 
 - [ ] **13.1.2** 간트 차트 모바일 최적화
   - 스와이프 네비게이션
   - 확대/축소
+  - *Phase 6 간트 차트 구현 시 작업 예정*
 
 - [ ] **13.1.3** 캘린더 모바일 최적화
+  - *Phase 6 캘린더 구현 시 작업 예정*
+
+**구현 파일** (기존):
+- `frontend/src/components/Layout/MainLayout.tsx` - 반응형 메인 레이아웃 (50 lines)
+- `frontend/src/components/Layout/Sidebar.tsx` - 반응형 사이드바 (160 lines)
+- `frontend/src/components/Layout/Header.tsx` - 반응형 헤더 (67 lines)
 
 **추정 시간**: 5일
+**실제 소요 시간**: 0일 (기존 구현 활용)
 
 #### 13.2 UX 개선
 
 **목표**: 사용성 개선
 
 **작업 항목**:
-- [ ] **13.2.1** 로딩 상태 개선
-  - 스켈레톤 UI
-  - 프로그레스 바
+- [x] **13.2.1** 로딩 상태 개선
+  - `frontend/src/components/Common/TableSkeleton.tsx` ✅ (2025-11-05)
+    - 테이블 형태 스켈레톤 UI
+    - 행/열 개수 커스터마이징
+    - 프로젝트 목록, 작업 목록 등에 사용
+  - `frontend/src/components/Common/CardSkeleton.tsx` ✅ (2025-11-05)
+    - 카드 형태 스켈레톤 UI
+    - Grid 레이아웃 지원
+    - 헤더, 이미지 영역 옵션
+    - 대시보드, 프로젝트 카드 뷰 등에 사용
+  - `frontend/src/components/Common/ProgressBar.tsx` ✅ (2025-11-05)
+    - 진행률 표시 컴포넌트
+    - 파일 업로드, 긴 작업 진행 상태 시각화
+    - 퍼센트 라벨, 버퍼 프로그레스 지원
+    - 다국어 지원 (useTranslation)
 
-- [ ] **13.2.2** 에러 처리 개선
-  - 사용자 친화적 에러 메시지
-  - 재시도 버튼
+- [x] **13.2.2** 에러 처리 개선 (일부 완료)
+  - `frontend/src/components/Common/ErrorBoundary.tsx` ✅ (2025-11-05, Phase 12에서 작업)
+    - 전역 에러 바운더리
+    - 사용자 친화적 에러 메시지 (다국어 지원)
+    - 재시도 버튼
+  - `frontend/src/App.tsx` ✅ (2025-11-05, Phase 12에서 작업)
+    - ErrorBoundary 적용
 
 - [ ] **13.2.3** 키보드 단축키
   - 자주 사용하는 작업에 단축키
+  - *추후 작업 예정*
+
+**구현 파일**:
+- `frontend/src/components/Common/TableSkeleton.tsx` - 테이블 스켈레톤 (75 lines)
+- `frontend/src/components/Common/CardSkeleton.tsx` - 카드 스켈레톤 (86 lines)
+- `frontend/src/components/Common/ProgressBar.tsx` - 진행률 표시 (85 lines)
+- `frontend/src/components/Common/ErrorBoundary.tsx` - 에러 바운더리 (120 lines, Phase 12)
+- `frontend/src/App.tsx` - ErrorBoundary 적용 (23 lines, Phase 12)
 
 **추정 시간**: 5일
+**실제 소요 시간**: 1일 (스켈레톤 UI, 프로그레스 바, 에러 처리 완료)
 
 ---
 
