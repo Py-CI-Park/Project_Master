@@ -6,6 +6,7 @@
 
 import { useState, useEffect, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   IconButton,
   Badge,
@@ -31,6 +32,7 @@ import type { Notification } from '../../types/notification';
 
 const NotificationDropdown = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const {
     notifications,
     unreadCount,
@@ -112,11 +114,11 @@ const NotificationDropdown = () => {
     const diffInHours = Math.floor(diffInMs / 3600000);
     const diffInDays = Math.floor(diffInMs / 86400000);
 
-    if (diffInMinutes < 1) return '방금 전';
-    if (diffInMinutes < 60) return `${diffInMinutes}분 전`;
-    if (diffInHours < 24) return `${diffInHours}시간 전`;
-    if (diffInDays < 7) return `${diffInDays}일 전`;
-    return date.toLocaleDateString('ko-KR');
+    if (diffInMinutes < 1) return t('notification.timeAgo.justNow');
+    if (diffInMinutes < 60) return t('notification.timeAgo.minutesAgo', { count: diffInMinutes });
+    if (diffInHours < 24) return t('notification.timeAgo.hoursAgo', { count: diffInHours });
+    if (diffInDays < 7) return t('notification.timeAgo.daysAgo', { count: diffInDays });
+    return date.toLocaleDateString();
   };
 
   const open = Boolean(anchorEl);
@@ -129,7 +131,7 @@ const NotificationDropdown = () => {
         color="inherit"
         onClick={handleClick}
         aria-describedby={id}
-        aria-label={`${unreadCount}개의 읽지 않은 알림`}
+        aria-label={t('header.unreadNotifications', { count: unreadCount })}
       >
         <Badge badgeContent={unreadCount} color="error">
           <NotificationsIcon />
@@ -161,7 +163,7 @@ const NotificationDropdown = () => {
         {/* 헤더 */}
         <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography variant="h6" component="div">
-            알림
+            {t('notification.title')}
           </Typography>
           {unreadCount > 0 && (
             <Button
@@ -170,7 +172,7 @@ const NotificationDropdown = () => {
               onClick={handleMarkAllAsRead}
               disabled={loading}
             >
-              전체 읽음
+              {t('notification.markAllAsRead')}
             </Button>
           )}
         </Box>
@@ -192,7 +194,7 @@ const NotificationDropdown = () => {
           ) : notifications.length === 0 ? (
             <Box sx={{ p: 4, textAlign: 'center' }}>
               <Typography variant="body2" color="text.secondary">
-                알림이 없습니다
+                {t('notification.noNotifications')}
               </Typography>
             </Box>
           ) : (
@@ -203,7 +205,7 @@ const NotificationDropdown = () => {
                 secondaryAction={
                   <MuiIconButton
                     edge="end"
-                    aria-label="삭제"
+                    aria-label={t('notification.delete')}
                     size="small"
                     onClick={(e) => handleDelete(notification.id, e)}
                   >
@@ -263,7 +265,7 @@ const NotificationDropdown = () => {
                   handleClose();
                 }}
               >
-                모든 알림 보기
+                {t('notification.viewAll')}
               </Button>
             </Box>
           </>

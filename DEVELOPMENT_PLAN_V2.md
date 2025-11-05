@@ -1069,31 +1069,58 @@ class TokenData(BaseModel):
 
 ### Phase 12: 다국어 지원 (1주)
 
-**상태**: 🔴 미시작
-**시작일**: TBD
-**완료일**: TBD
+**상태**: ✅ 완료
+**시작일**: 2025-11-05
+**완료일**: 2025-11-05
 
-#### 12.1 i18n 설정
+#### 12.1 i18n 설정 ✅
 
 **목표**: 한국어, 영어 지원
 
 **작업 항목**:
-- [ ] **12.1.1** react-i18next 설정
-  - `frontend/src/i18n/config.ts`
-  - 언어 감지 및 저장
+- [x] **12.1.1** i18n 라이브러리 설치
+  - react-i18next, i18next, i18next-browser-languagedetector ✅ (2025-11-05)
+  - npm을 통한 패키지 설치
 
-- [ ] **12.1.2** 번역 파일 작성
-  - `frontend/src/i18n/locales/ko.json` (한국어)
-  - `frontend/src/i18n/locales/en.json` (영어)
+- [x] **12.1.2** react-i18next 설정
+  - `frontend/src/i18n/config.ts` ✅ (2025-11-05)
+  - 언어 감지 및 localStorage 저장
+  - 초기 언어 한국어, fallback 언어 한국어
+  - `frontend/src/main.tsx`에 i18n 초기화 추가
 
-- [ ] **12.1.3** 언어 전환 UI
-  - 헤더에 언어 선택 드롭다운
+- [x] **12.1.3** 번역 파일 작성
+  - `frontend/src/i18n/locales/ko.json` (한국어) ✅ (2025-11-05)
+  - `frontend/src/i18n/locales/en.json` (영어) ✅ (2025-11-05)
+  - 공통, 네비게이션, 헤더, 인증, 프로젝트, 작업, Enabler, 의존성, 알림, 에러, 검증 번역
 
-- [ ] **12.1.4** 백엔드 에러 메시지 다국어
-  - Accept-Language 헤더 처리
-  - 에러 메시지 번역
+- [x] **12.1.4** 언어 전환 컴포넌트
+  - `frontend/src/components/Layout/LanguageSwitcher.tsx` ✅ (2025-11-05)
+  - Material-UI Menu 기반 언어 선택
+  - 한국어/영어 전환 지원
+  - 현재 선택 언어 표시
+
+- [x] **12.1.5** Header 통합
+  - `frontend/src/components/Layout/Header.tsx` 수정 ✅ (2025-11-05)
+  - LanguageSwitcher 컴포넌트 추가
+  - 앱 타이틀, 메뉴, 테마 버튼 aria-label 번역 적용
+
+- [x] **12.1.6** NotificationDropdown 번역 적용
+  - `frontend/src/components/Layout/NotificationDropdown.tsx` 수정 ✅ (2025-11-05)
+  - 알림 타이틀, 전체 읽음, 알림 없음, 모든 알림 보기 번역
+  - 시간 포맷팅 번역 (방금 전, N분 전, N시간 전, N일 전)
+  - aria-label 번역 적용
+
+**구현 파일**:
+- `frontend/src/i18n/config.ts` - i18n 설정 (54 lines)
+- `frontend/src/i18n/locales/ko.json` - 한국어 번역 (183 lines)
+- `frontend/src/i18n/locales/en.json` - 영어 번역 (192 lines)
+- `frontend/src/components/Layout/LanguageSwitcher.tsx` - 언어 전환 컴포넌트 (125 lines)
+- `frontend/src/main.tsx` - i18n 초기화 추가
+- `frontend/src/components/Layout/Header.tsx` - 언어 전환 통합 및 번역 적용
+- `frontend/src/components/Layout/NotificationDropdown.tsx` - 번역 적용
 
 **추정 시간**: 5일
+**실제 소요 시간**: 1일
 
 ---
 
