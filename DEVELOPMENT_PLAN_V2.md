@@ -962,32 +962,60 @@ class TokenData(BaseModel):
 
 ### Phase 11: 알림 시스템 (1주)
 
-**상태**: 🔴 미시작
-**시작일**: TBD
+**상태**: 🟡 진행중
+**시작일**: 2025-11-05
 **완료일**: TBD
 **의존성**: Phase 10 완료
 
-#### 11.1 알림 백엔드
+#### 11.1 알림 백엔드 ✅
 
 **목표**: 알림 생성 및 관리
 
 **작업 항목**:
-- [ ] **11.1.1** Notification 모델
-  - `backend/app/models/notification.py`
+- [x] **11.1.1** Notification 모델
+  - `backend/app/models/notification.py` ✅ (2025-11-05)
+  - SQLAlchemy 2.0 스타일로 구현
+  - User, Project와 relationship 설정
+  - 알림 타입, 제목, 메시지, 읽음 상태, 관련 엔티티 정보 필드
 
-- [ ] **11.1.2** 알림 서비스
-  - `backend/app/services/notification.py`
-  - 알림 생성
-  - 알림 읽음 처리
-  - 알림 삭제
+- [x] **11.1.2** 알림 서비스
+  - `backend/app/services/notification.py` ✅ (2025-11-05)
+  - create_notification: 알림 생성
+  - get_user_notifications: 사용자 알림 목록 조회 (페이지네이션, 필터링)
+  - mark_as_read: 단일 알림 읽음 처리
+  - mark_all_as_read: 전체 알림 읽음 처리
+  - delete_notification: 알림 삭제
+  - get_unread_count: 읽지 않은 알림 개수 조회
 
-- [ ] **11.1.3** 알림 API
-  - `GET /api/v1/notifications` - 내 알림 목록
+- [x] **11.1.3** 알림 스키마
+  - `backend/app/schemas/notification.py` ✅ (2025-11-05)
+  - NotificationBase, NotificationCreate, NotificationUpdate
+  - NotificationPublic, NotificationList
+
+- [x] **11.1.4** 알림 API
+  - `backend/app/api/v1/notifications.py` ✅ (2025-11-05)
+  - `GET /api/v1/notifications` - 내 알림 목록 (페이지네이션, 필터링)
+  - `GET /api/v1/notifications/unread-count` - 읽지 않은 알림 개수
   - `PUT /api/v1/notifications/{id}/read` - 읽음 처리
-  - `DELETE /api/v1/notifications/{id}` - 삭제
   - `PUT /api/v1/notifications/read-all` - 전체 읽음
+  - `DELETE /api/v1/notifications/{id}` - 삭제
+
+- [x] **11.1.5** DB 마이그레이션
+  - Alembic migration 생성 및 적용 ✅ (2025-11-05)
+  - `7a13842ed23f_add_notifications_table.py`
+
+**구현 파일**:
+- `backend/app/models/notification.py` - Notification 모델 (82 lines)
+- `backend/app/schemas/notification.py` - Pydantic 스키마 (56 lines)
+- `backend/app/services/notification.py` - 알림 서비스 (236 lines)
+- `backend/app/api/v1/notifications.py` - FastAPI 엔드포인트 (142 lines)
+- `backend/app/models/__init__.py` - Notification export 추가
+- `backend/app/models/user.py` - notifications relationship 추가
+- `backend/app/models/project.py` - notifications relationship 추가
+- `backend/app/main.py` - notifications router 등록
 
 **추정 시간**: 3일
+**실제 소요 시간**: 1일
 
 #### 11.2 알림 UI
 

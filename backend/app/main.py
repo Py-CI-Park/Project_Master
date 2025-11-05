@@ -46,9 +46,13 @@ async def health_check():
     return {"status": "healthy"}
 
 
-# API 라우터는 나중에 추가 예정
-# from app.api import projects, tasks, enablers
-# app.include_router(projects.router, prefix="/api/projects", tags=["projects"])
+# API 라우터 (v2.0 - Phase 11.1: Notifications)
+from app.api.v1 import notifications
+app.include_router(
+    notifications.router,
+    prefix="/api/v1/notifications",
+    tags=["notifications"]
+)
 
 
 # WebSocket 서버와 FastAPI 통합 (v2.0 - Phase 10.1)

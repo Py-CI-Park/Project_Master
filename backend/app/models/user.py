@@ -4,6 +4,7 @@ v2.0에서 추가된 사용자 인증 및 관리를 위한 모델
 """
 from datetime import datetime
 from sqlalchemy import Boolean, Column, DateTime, Integer, String
+from sqlalchemy.orm import relationship
 from app.database import Base
 
 
@@ -23,6 +24,9 @@ class User(Base):
         updated_at: 수정 일시
         last_login: 마지막 로그인 일시
         avatar_url: 프로필 이미지 URL (선택)
+
+    Relationships:
+        notifications: 사용자가 받은 알림 목록
     """
     __tablename__ = "users"
 
@@ -37,6 +41,9 @@ class User(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
     last_login = Column(DateTime, nullable=True)
     avatar_url = Column(String(255), nullable=True)
+
+    # Relationships
+    notifications = relationship("Notification", back_populates="user", cascade="all, delete-orphan")
 
     def __repr__(self):
         return f"<User(id={self.id}, username='{self.username}', email='{self.email}')>"

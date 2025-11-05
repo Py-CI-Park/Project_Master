@@ -33,6 +33,7 @@ class Project(Base):
         tasks: 프로젝트에 속한 태스크 목록
         enablers: 프로젝트에 속한 Key Enabler 목록
         calendar_events: 프로젝트에 속한 캘린더 이벤트 목록
+        notifications: 프로젝트와 관련된 알림 목록
     """
 
     __tablename__ = "projects"
@@ -65,6 +66,9 @@ class Project(Base):
     )
     calendar_events: Mapped[List["CalendarEvent"]] = relationship(
         "CalendarEvent", back_populates="project", cascade="all, delete-orphan"
+    )
+    notifications: Mapped[List["Notification"]] = relationship(
+        "Notification", back_populates="project", cascade="all, delete-orphan"
     )
 
     def __repr__(self) -> str:
