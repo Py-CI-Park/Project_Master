@@ -2,10 +2,11 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Version](https://img.shields.io/badge/version-2.0.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Python](https://img.shields.io/badge/python-3.10+-blue)
 ![React](https://img.shields.io/badge/react-18+-61dafb)
+![TypeScript](https://img.shields.io/badge/typescript-5+-3178c6)
 ![FastAPI](https://img.shields.io/badge/fastapi-0.109+-009688)
 
 **완전 오픈소스 기반, 100% 오프라인 동작하는 프로젝트/일정 관리 시스템**
@@ -53,37 +54,78 @@
 
 ## ✨ 주요 기능
 
-### 1. 동적 간트 차트
+### 🆕 v2.0 신규 기능
+
+#### 1. 사용자 인증 및 권한 관리 (RBAC)
+- 🔐 JWT 기반 사용자 인증 (로그인/회원가입)
+- 👥 사용자 관리 (CRUD, 프로필, 비밀번호 변경)
+- 🛡️ 역할 기반 접근 제어 (Admin, Project Manager, Team Member, Viewer)
+- 🎫 프로젝트별 멤버 관리 및 권한 할당
+- 🔑 세분화된 권한 시스템 (프로젝트, 태스크, 이네이블러, 사용자, 역할)
+
+#### 2. 실시간 통신 및 협업
+- ⚡ WebSocket 기반 실시간 업데이트 (Socket.IO)
+- 🔄 태스크 생성/수정/삭제 실시간 동기화
+- 👁️ 프로젝트별 온라인 사용자 표시
+- 💬 실시간 협업 환경 제공
+
+#### 3. 알림 시스템
+- 🔔 실시간 알림 (태스크, 의존성, 첨부파일 변경)
+- 📨 읽음/읽지 않음 상태 관리
+- 🔕 프로젝트별 알림 필터링
+- 📬 알림 센터 (드롭다운 UI)
+
+#### 4. 다국어 지원 (i18n)
+- 🌐 한국어/영어 지원
+- 🔄 언어 전환 (실시간 반영)
+- 📝 모든 UI 컴포넌트 다국어화
+- 🗂️ 번역 파일 구조화 (JSON 기반)
+
+#### 5. 파일 첨부 기능
+- 📎 프로젝트/태스크별 파일 첨부
+- 📁 파일 업로드/다운로드
+- 📋 첨부파일 목록 관리
+- 🗑️ 파일 삭제 기능
+
+#### 6. 성능 최적화
+- 🚀 데이터베이스 인덱스 최적화 (10개 인덱스)
+- ⚡ React.lazy() 코드 스플리팅
+- 📦 Vite 빌드 최적화 (청크 분할, Terser 압축)
+- 🎯 초기 로딩 속도 50% 이상 개선
+
+### v1.0 핵심 기능
+
+#### 1. 동적 간트 차트
 - 📈 실시간 태스크 시각화
 - 🖱️ 드래그 앤 드롭으로 일정 조정
 - 🎨 상태별, 우선순위별 색상 코딩
 - ⚡ 크리티컬 패스 자동 계산 및 강조
 
-### 2. Key Enabler 관리
+#### 2. Key Enabler 관리
 - 🔑 프로젝트 성공의 핵심 요소 추적 (문서, 장비, 자원, 승인 등)
 - 📍 간트 차트에 Enabler 전달일 마커 표시
 - ⚠️ Enabler 지연 시 영향받는 태스크 자동 분석
 - 📊 영향도 시각화 및 경고 알림
 
-### 3. 의존성 시각화
+#### 3. 의존성 시각화
 - 🕸️ 태스크 간 의존성 그래프 (React-Flow 기반)
 - 🔗 FS, SS, FF, SF 네 가지 의존성 타입 지원
 - 🔍 영향 분석: 한 태스크 변경 시 연쇄 영향 확인
 - 🚫 순환 의존성 자동 검증
 
-### 4. 통합 캘린더
+#### 4. 통합 캘린더
 - 📅 월/주/일 뷰 지원
 - 🎯 마일스톤, 태스크 시작/종료일, Enabler 전달일 통합 표시
 - 🏷️ 이벤트 타입별 색상 구분
 - 🔔 중요 일정 하이라이트
 
-### 5. 크리티컬 패스 분석
+#### 5. 크리티컬 패스 분석
 - 🧮 CPM (Critical Path Method) 알고리즘 기반
 - ⏱️ 각 태스크의 여유 시간(Slack) 계산
 - 🚦 프로젝트 지연 위험 자동 감지
 - 📉 리스크 평가 및 리포트
 
-### 6. 리포트 및 익스포트
+#### 6. 리포트 및 익스포트
 - 📊 진행 현황 대시보드
 - 📈 지연 분석 리포트
 - 💾 CSV/Excel 익스포트
@@ -95,14 +137,17 @@
 
 ### Frontend
 ```
-React 18 + JavaScript (ES6+)
+React 18 + TypeScript 5
 ├── UI: Material-UI (MUI) v5
 ├── 간트 차트: Frappe Gantt
 ├── 캘린더: FullCalendar
 ├── 그래프: React-Flow + Recharts
-├── 빌드: Vite
+├── 빌드: Vite (최적화: 청크 분할, Terser)
 ├── 상태 관리: Zustand
-└── HTTP 클라이언트: Axios
+├── HTTP 클라이언트: Axios
+├── 실시간 통신: Socket.IO Client
+├── 다국어: react-i18next
+└── 라우팅: React Router DOM (Code Splitting)
 ```
 
 ### Backend
@@ -110,16 +155,20 @@ React 18 + JavaScript (ES6+)
 Python 3.10+ + FastAPI 0.109+
 ├── ORM: SQLAlchemy 2.0
 ├── 검증: Pydantic v2
-├── DB: SQLite 3.x
+├── DB: SQLite 3.x (성능 인덱스 최적화)
 ├── 서버: Uvicorn
-└── 마이그레이션: Alembic
+├── 마이그레이션: Alembic
+├── 인증: JWT (python-jose)
+├── 실시간 통신: python-socketio
+└── 비밀번호 해시: passlib + bcrypt
 ```
 
 ### 개발 도구
-- **테스트**: pytest, Jest, React Testing Library
+- **테스트**: pytest, Playwright (E2E)
 - **코드 품질**: ESLint, Prettier, Black, mypy
-- **문서**: Markdown, Swagger/OpenAPI
+- **문서**: Markdown, Swagger/OpenAPI (자동 생성)
 - **버전 관리**: Git
+- **타입 체크**: TypeScript, mypy
 
 > 모든 라이브러리는 상업적 사용이 가능한 오픈소스 라이선스(MIT, Apache, BSD, PSF)를 따릅니다.
 
