@@ -27,7 +27,10 @@
     "notifications": "알림",
     "settings": "설정",
     "profile": "프로필",
-    "logout": "로그아웃"
+    "logout": "로그아웃",
+    "users": "사용자 관리",
+    "roles": "역할 관리",
+    "admin": "관리자"
   },
   "header": {
     "menu": "메뉴 열기",
@@ -150,7 +153,10 @@
     "forbidden": "권한이 없습니다",
     "notFound": "찾을 수 없습니다",
     "serverError": "서버 오류가 발생했습니다",
-    "validationError": "입력값을 확인해주세요"
+    "validationError": "입력값을 확인해주세요",
+    "errorOccurred": "오류가 발생했습니다",
+    "unexpectedError": "죄송합니다. 예상치 못한 오류가 발생했습니다.",
+    "retry": "다시 시도"
   },
   "validation": {
     "required": "필수 항목입니다",

@@ -27,7 +27,10 @@
     "notifications": "Notifications",
     "settings": "Settings",
     "profile": "Profile",
-    "logout": "Logout"
+    "logout": "Logout",
+    "users": "User Management",
+    "roles": "Role Management",
+    "admin": "Admin"
   },
   "header": {
     "menu": "Open menu",
@@ -154,7 +157,10 @@
     "forbidden": "Access denied",
     "notFound": "Not found",
     "serverError": "Server error occurred",
-    "validationError": "Please check your input"
+    "validationError": "Please check your input",
+    "errorOccurred": "An Error Occurred",
+    "unexpectedError": "We're sorry. An unexpected error has occurred.",
+    "retry": "Retry"
   },
   "validation": {
     "required": "This field is required",

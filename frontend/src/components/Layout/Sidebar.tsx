@@ -5,6 +5,7 @@
  */
 
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   Drawer,
   List,
@@ -33,19 +34,19 @@ interface SidebarProps {
 }
 
 interface MenuItem {
-  text: string;
+  textKey: string;
   icon: React.ReactElement;
   path: string;
 }
 
 const menuItems: MenuItem[] = [
   {
-    text: '대시보드',
+    textKey: 'navigation.dashboard',
     icon: <DashboardIcon />,
     path: '/',
   },
   {
-    text: '프로젝트',
+    textKey: 'navigation.projects',
     icon: <ProjectIcon />,
     path: '/projects',
   },
@@ -53,12 +54,12 @@ const menuItems: MenuItem[] = [
 
 const adminMenuItems: MenuItem[] = [
   {
-    text: '사용자 관리',
+    textKey: 'navigation.users',
     icon: <PeopleIcon />,
     path: '/users',
   },
   {
-    text: '역할 관리',
+    textKey: 'navigation.roles',
     icon: <SecurityIcon />,
     path: '/roles',
   },
@@ -67,6 +68,7 @@ const adminMenuItems: MenuItem[] = [
 const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onClose }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
   const { user } = useAuthStore();
 
   const handleNavigate = (path: string) => {
@@ -86,7 +88,7 @@ const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onClose }) => {
               onClick={() => handleNavigate(item.path)}
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
+              <ListItemText primary={t(item.textKey)} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -98,7 +100,7 @@ const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onClose }) => {
         <>
           <Box sx={{ px: 2, py: 1 }}>
             <Typography variant="caption" color="text.secondary">
-              관리자
+              {t('navigation.admin')}
             </Typography>
           </Box>
           <List>
@@ -109,7 +111,7 @@ const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, onClose }) => {
                   onClick={() => handleNavigate(item.path)}
                 >
                   <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText primary={item.text} />
+                  <ListItemText primary={t(item.textKey)} />
                 </ListItemButton>
               </ListItem>
             ))}

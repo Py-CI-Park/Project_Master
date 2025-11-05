@@ -5,12 +5,16 @@
  */
 
 import { Box, CircularProgress, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 export interface LoadingFallbackProps {
   message?: string;
 }
 
-const LoadingFallback = ({ message = '로딩 중...' }: LoadingFallbackProps) => {
+const LoadingFallback = ({ message }: LoadingFallbackProps) => {
+  const { t } = useTranslation();
+  const displayMessage = message || t('common.loading');
+
   return (
     <Box
       sx={{
@@ -24,7 +28,7 @@ const LoadingFallback = ({ message = '로딩 중...' }: LoadingFallbackProps) =>
     >
       <CircularProgress size={48} />
       <Typography variant="body1" color="text.secondary">
-        {message}
+        {displayMessage}
       </Typography>
     </Box>
   );

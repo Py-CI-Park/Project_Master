@@ -8,8 +8,10 @@ import { Component } from 'react';
 import type { ErrorInfo, ReactNode } from 'react';
 import { Box, Typography, Button, Paper } from '@mui/material';
 import { Error as ErrorIcon } from '@mui/icons-material';
+import { withTranslation } from 'react-i18next';
+import type { WithTranslation } from 'react-i18next';
 
-interface Props {
+interface Props extends WithTranslation {
   children: ReactNode;
 }
 
@@ -55,6 +57,8 @@ class ErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
+      const { t } = this.props;
+
       return (
         <Box
           sx={{
@@ -75,10 +79,10 @@ class ErrorBoundary extends Component<Props, State> {
           >
             <ErrorIcon color="error" sx={{ fontSize: 64, mb: 2 }} />
             <Typography variant="h5" gutterBottom>
-              오류가 발생했습니다
+              {t('error.errorOccurred')}
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-              죄송합니다. 예상치 못한 오류가 발생했습니다.
+              {t('error.unexpectedError')}
             </Typography>
 
             {this.state.error && (
@@ -101,7 +105,7 @@ class ErrorBoundary extends Component<Props, State> {
             )}
 
             <Button variant="contained" onClick={this.handleReset}>
-              다시 시도
+              {t('error.retry')}
             </Button>
           </Paper>
         </Box>
@@ -112,4 +116,4 @@ class ErrorBoundary extends Component<Props, State> {
   }
 }
 
-export default ErrorBoundary;
+export default withTranslation()(ErrorBoundary);

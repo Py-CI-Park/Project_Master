@@ -5,13 +5,17 @@
  */
 
 import { Box, CircularProgress, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 interface LoadingProps {
   message?: string;
   size?: number;
 }
 
-const Loading: React.FC<LoadingProps> = ({ message = '로딩 중...', size = 40 }) => {
+const Loading: React.FC<LoadingProps> = ({ message, size = 40 }) => {
+  const { t } = useTranslation();
+  const displayMessage = message || t('common.loading');
+
   return (
     <Box
       sx={{
@@ -24,9 +28,9 @@ const Loading: React.FC<LoadingProps> = ({ message = '로딩 중...', size = 40 
       }}
     >
       <CircularProgress size={size} />
-      {message && (
+      {displayMessage && (
         <Typography variant="body2" color="text.secondary">
-          {message}
+          {displayMessage}
         </Typography>
       )}
     </Box>

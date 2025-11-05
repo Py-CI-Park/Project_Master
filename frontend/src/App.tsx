@@ -7,12 +7,15 @@
 import { RouterProvider } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { router } from './routes';
+import ErrorBoundary from './components/Common/ErrorBoundary';
 
 function App() {
   return (
-    <ThemeProvider>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <ErrorBoundary>
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </ErrorBoundary>
   );
 }
 

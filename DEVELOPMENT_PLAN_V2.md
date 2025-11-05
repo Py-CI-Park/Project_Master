@@ -1110,11 +1110,36 @@ class TokenData(BaseModel):
   - 시간 포맷팅 번역 (방금 전, N분 전, N시간 전, N일 전)
   - aria-label 번역 적용
 
+- [x] **12.1.7** 누락된 컴포넌트 번역 적용 (추가 작업)
+  - `frontend/src/components/Layout/Sidebar.tsx` 수정 ✅ (2025-11-05)
+    - 메뉴 항목 번역 키로 변경 (dashboard, projects, users, roles, admin)
+    - useTranslation 훅 적용
+  - `frontend/src/components/Common/Loading.tsx` 수정 ✅ (2025-11-05)
+    - 로딩 메시지 번역 적용
+  - `frontend/src/components/Common/LoadingFallback.tsx` 수정 ✅ (2025-11-05)
+    - 로딩 메시지 번역 적용
+  - `frontend/src/components/Common/ErrorBoundary.tsx` 수정 ✅ (2025-11-05)
+    - withTranslation HOC 적용
+    - 에러 메시지 번역 (errorOccurred, unexpectedError, retry)
+  - `frontend/src/App.tsx` 수정 ✅ (2025-11-05)
+    - ErrorBoundary 컴포넌트 적용
+  - `frontend/src/i18n/locales/ko.json` 업데이트 ✅ (2025-11-05)
+    - navigation 섹션: users, roles, admin 추가
+    - error 섹션: errorOccurred, unexpectedError, retry 추가
+  - `frontend/src/i18n/locales/en.json` 업데이트 ✅ (2025-11-05)
+    - navigation 섹션: users, roles, admin 추가
+    - error 섹션: errorOccurred, unexpectedError, retry 추가
+
 **구현 파일**:
 - `frontend/src/i18n/config.ts` - i18n 설정 (54 lines)
-- `frontend/src/i18n/locales/ko.json` - 한국어 번역 (183 lines)
-- `frontend/src/i18n/locales/en.json` - 영어 번역 (192 lines)
+- `frontend/src/i18n/locales/ko.json` - 한국어 번역 (169 lines)
+- `frontend/src/i18n/locales/en.json` - 영어 번역 (171 lines)
 - `frontend/src/components/Layout/LanguageSwitcher.tsx` - 언어 전환 컴포넌트 (125 lines)
+- `frontend/src/components/Layout/Sidebar.tsx` - 사이드바 번역 적용
+- `frontend/src/components/Common/Loading.tsx` - 로딩 번역 적용 (41 lines)
+- `frontend/src/components/Common/LoadingFallback.tsx` - 로딩 번역 적용 (38 lines)
+- `frontend/src/components/Common/ErrorBoundary.tsx` - 에러 바운더리 번역 적용 (120 lines)
+- `frontend/src/App.tsx` - ErrorBoundary 적용 (23 lines)
 - `frontend/src/main.tsx` - i18n 초기화 추가
 - `frontend/src/components/Layout/Header.tsx` - 언어 전환 통합 및 번역 적용
 - `frontend/src/components/Layout/NotificationDropdown.tsx` - 번역 적용
