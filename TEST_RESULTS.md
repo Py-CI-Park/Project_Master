@@ -273,3 +273,36 @@ npm run dev
 
 **테스트 완료 날짜**: 2025-11-06
 **테스트 성공**: ✅ 모든 주요 기능 정상 동작
+
+---
+
+## 🔧 추가 수정 사항 (2025-11-06)
+
+### Frontend Import 경로 오류 수정
+
+**증상**: Vite 서버 실행 시 모듈 import 오류 발생
+```
+[plugin:vite:import-analysis] Failed to resolve import "../../api/axiosInstance" from "src/components/Common/AttachmentList.tsx". Does the file exist?
+```
+
+**원인**:
+- `AttachmentList.tsx`와 `FileUpload.tsx`에서 존재하지 않는 파일을 import
+- 실제 파일 이름: `axios.ts`
+- 잘못된 import: `../../api/axiosInstance`
+
+**해결**:
+- `frontend/src/components/Common/AttachmentList.tsx:33` - import 경로 수정
+- `frontend/src/components/Common/FileUpload.tsx:22` - import 경로 수정
+- 수정 내용: `import axiosInstance from '../../api/axiosInstance'` → `import axiosInstance from '../../api/axios'`
+
+**결과**:
+- ✅ Frontend 서버 정상 실행 (http://localhost:3000)
+- ✅ Vite 빌드 시간: 1.4초
+- ✅ 모든 import 오류 해결
+- ✅ Backend/Frontend 모두 정상 작동
+
+**최종 시스템 상태**:
+- Backend API: ✅ http://localhost:8000
+- Frontend Web: ✅ http://localhost:3000
+- 모든 배치 파일: ✅ 설치 및 실행 가능
+- 사용 가이드: ✅ `배치파일_사용법.md` 생성 완료

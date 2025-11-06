@@ -30,7 +30,7 @@ import {
   Archive as ArchiveIcon,
   Code as CodeIcon,
 } from '@mui/icons-material';
-import axiosInstance from '../../api/axiosInstance';
+import axiosInstance from '../../api/axios';
 import { getFileIcon, formatFileSize } from '../../utils/fileUtils';
 
 export interface Attachment {

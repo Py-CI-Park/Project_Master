@@ -19,7 +19,7 @@ import {
   Close as CloseIcon,
   Image as ImageIcon,
 } from '@mui/icons-material';
-import axiosInstance from '../../api/axiosInstance';
+import axiosInstance from '../../api/axios';
 
 // 허용된 파일 확장자 (백엔드와 동일)
 const ALLOWED_EXTENSIONS = [
