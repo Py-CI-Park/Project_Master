@@ -79,6 +79,12 @@ export const useAuthStore = create<AuthState>()(
 
       // 로그인
       login: (accessToken, refreshToken, user) => {
+        console.log('🔐 authStore.login called:', {
+          hasAccessToken: !!accessToken,
+          hasRefreshToken: !!refreshToken,
+          userId: user?.id,
+          username: user?.username,
+        });
         set({
           accessToken,
           refreshToken,

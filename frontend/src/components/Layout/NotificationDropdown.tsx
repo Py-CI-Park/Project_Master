@@ -50,8 +50,12 @@ const NotificationDropdown = () => {
 
   // 컴포넌트 마운트 시 알림 목록 조회 (인증된 경우에만)
   useEffect(() => {
+    console.log('🔔 NotificationDropdown useEffect:', { isAuthenticated });
     if (isAuthenticated) {
+      console.log('🔔 Fetching notifications...');
       fetchNotifications(0, 10, false);
+    } else {
+      console.log('🔔 Skipping notifications fetch - not authenticated');
     }
   }, [isAuthenticated, fetchNotifications]);
 
