@@ -92,9 +92,13 @@ axiosInstance.interceptors.response.use(
           console.error('400 Bad Request:', error.response.data);
           break;
         case 401:
-          console.error('401 Unauthorized: 인증이 필요합니다.');
-          // 향후 로그인 페이지로 리다이렉트 처리
-          // window.location.href = '/login';
+          console.error('401 Unauthorized: 토큰이 만료되었습니다. 로그아웃합니다.');
+          // 토큰 만료 시 자동 로그아웃
+          useAuthStore.getState().logout();
+          // 로그인 페이지로 리다이렉트
+          if (typeof window !== 'undefined' && !window.location.pathname.includes('/login')) {
+            window.location.href = '/login';
+          }
           break;
         case 403:
           console.error('403 Forbidden: 권한이 없습니다.');
