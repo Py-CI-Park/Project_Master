@@ -22,7 +22,10 @@ app = FastAPI(
 # CORS 설정 (프론트엔드와 통신을 위해)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Vite 개발 서버
+    allow_origins=[
+        "http://localhost:3000",  # Frontend 개발 서버 (실제 포트)
+        "http://localhost:5173",  # Vite 개발 서버 (대체 포트)
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -46,7 +49,14 @@ async def health_check():
     return {"status": "healthy"}
 
 
-# API 라우터 (v2.0 - Phase 11.1: Notifications)
+# API v1 라우터 등록 (v2.0 - 모든 엔드포인트 포함)
+from app.api.v1 import api_router
+app.include_router(
+    api_router,
+    prefix="/api/v1"
+)
+
+# Notifications 라우터 (v2.0 - Phase 11.1)
 from app.api.v1 import notifications
 app.include_router(
     notifications.router,

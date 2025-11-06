@@ -6,7 +6,7 @@ Socket.IO 연결, 방(room) 관리, 인증 검증 등의 이벤트 핸들러를 
 
 from typing import Dict, Optional
 from app.websocket import sio
-from app.core.auth import verify_token
+from app.core.security import decode_token
 from jose import JWTError
 import logging
 
@@ -40,7 +40,11 @@ async def connect(sid: str, environ: dict, auth: Optional[dict] = None):
 
     try:
         # JWT 토큰 검증
-        payload = verify_token(token)
+        payload = decode_token(token)
+        if not payload:
+            logger.warning(f"Connection rejected: Invalid token (sid: {sid})")
+            return False
+
         user_id = payload.get("sub")
         username = payload.get("username")
 
