@@ -58,14 +58,14 @@ export default defineConfig({
 
   // 개발 서버 설정
   server: {
-    port: 3000,
+    port: 3099,
     strictPort: false,
     host: true,
   },
 
   // 프리뷰 서버 설정
   preview: {
-    port: 3000,
+    port: 3099,
     strictPort: false,
     host: true,
   },

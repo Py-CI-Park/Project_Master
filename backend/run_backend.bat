@@ -45,20 +45,20 @@ if %errorLevel% neq 0 (
     exit /b 1
 )
 
-:: 포트 8000 사용 중 확인
-echo 포트 8000 확인 중...
-netstat -ano | findstr ":8000" | findstr "LISTENING" >nul 2>&1
+:: 포트 8099 사용 중 확인
+echo 포트 8099 확인 중...
+netstat -ano | findstr ":8099" | findstr "LISTENING" >nul 2>&1
 if %errorLevel% equ 0 (
     echo.
-    echo [경고] 포트 8000이 이미 사용 중입니다.
+    echo [경고] 포트 8099이 이미 사용 중입니다.
     echo.
-    netstat -ano | findstr ":8000"
+    netstat -ano | findstr ":8099"
     echo.
     choice /C YN /M "기존 프로세스를 종료하고 계속하시겠습니까"
     if errorlevel 2 exit /b 1
     if errorlevel 1 (
         echo 프로세스 종료 중...
-        for /f "tokens=5" %%a in ('netstat -ano ^| findstr ":8000" ^| findstr "LISTENING"') do (
+        for /f "tokens=5" %%a in ('netstat -ano ^| findstr ":8099" ^| findstr "LISTENING"') do (
             taskkill /F /PID %%a >nul 2>&1
         )
         timeout /t 2 /nobreak >nul
@@ -80,16 +80,16 @@ echo  Backend 서버를 시작합니다
 echo ========================================
 echo.
 echo 접속 정보:
-echo   - API 서버: http://localhost:8000
-echo   - Swagger UI: http://localhost:8000/docs
-echo   - Health Check: http://localhost:8000/health
+echo   - API 서버: http://localhost:8099
+echo   - Swagger UI: http://localhost:8099/docs
+echo   - Health Check: http://localhost:8099/health
 echo.
 echo 서버를 종료하려면 Ctrl+C를 누르세요.
 echo ========================================
 echo.
 
 :: uvicorn 서버 실행
-python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8099
 
 :: 서버 종료 시
 echo.

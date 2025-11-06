@@ -32,20 +32,20 @@ if %errorLevel% neq 0 (
     exit /b 1
 )
 
-:: 포트 3000 사용 중 확인
-echo 포트 3000 확인 중...
-netstat -ano | findstr ":3000" | findstr "LISTENING" >nul 2>&1
+:: 포트 3099 사용 중 확인
+echo 포트 3099 확인 중...
+netstat -ano | findstr ":3099" | findstr "LISTENING" >nul 2>&1
 if %errorLevel% equ 0 (
     echo.
-    echo [경고] 포트 3000이 이미 사용 중입니다.
+    echo [경고] 포트 3099이 이미 사용 중입니다.
     echo.
-    netstat -ano | findstr ":3000"
+    netstat -ano | findstr ":3099"
     echo.
     choice /C YN /M "기존 프로세스를 종료하고 계속하시겠습니까"
     if errorlevel 2 exit /b 1
     if errorlevel 1 (
         echo 프로세스 종료 중...
-        for /f "tokens=5" %%a in ('netstat -ano ^| findstr ":3000" ^| findstr "LISTENING"') do (
+        for /f "tokens=5" %%a in ('netstat -ano ^| findstr ":3099" ^| findstr "LISTENING"') do (
             taskkill /F /PID %%a >nul 2>&1
         )
         timeout /t 2 /nobreak >nul
@@ -65,7 +65,7 @@ if %errorLevel% equ 0 (
 
 :: Backend 서버 확인
 echo Backend 서버 연결 확인 중...
-curl -s http://localhost:8000/health >nul 2>&1
+curl -s http://localhost:8099/health >nul 2>&1
 if %errorLevel% neq 0 (
     echo.
     echo [경고] Backend 서버가 실행 중이지 않습니다.
@@ -87,9 +87,9 @@ echo  Frontend 개발 서버를 시작합니다
 echo ========================================
 echo.
 echo 접속 정보:
-echo   - Frontend: http://localhost:3000
-echo   - Backend API: http://localhost:8000
-echo   - Swagger UI: http://localhost:8000/docs
+echo   - Frontend: http://localhost:3099
+echo   - Backend API: http://localhost:8099
+echo   - Swagger UI: http://localhost:8099/docs
 echo.
 echo 브라우저가 자동으로 열립니다...
 echo 서버를 종료하려면 Ctrl+C를 누르세요.
