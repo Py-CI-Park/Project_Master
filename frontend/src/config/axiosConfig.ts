@@ -44,6 +44,8 @@ axiosInstance.interceptors.request.use(
         method: config.method?.toUpperCase(),
         url: config.url,
         data: config.data,
+        hasToken: !!accessToken,
+        token: accessToken ? `${accessToken.substring(0, 20)}...` : 'NO TOKEN',
       });
     }
 

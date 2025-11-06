@@ -11,7 +11,7 @@
 import { io, Socket } from 'socket.io-client';
 
 // WebSocket 서버 URL (환경 변수로 설정 가능)
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:8000';
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:8099';
 
 /**
  * WebSocket 이벤트 타입 정의

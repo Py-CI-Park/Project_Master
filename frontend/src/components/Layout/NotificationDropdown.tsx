@@ -28,11 +28,13 @@ import {
   CheckCircle as CheckCircleIcon,
 } from '@mui/icons-material';
 import { useNotifications } from '../../hooks/useNotifications';
+import { useAuthStore } from '../../stores/authStore';
 import type { Notification } from '../../types/notification';
 
 const NotificationDropdown = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { isAuthenticated } = useAuthStore();
   const {
     notifications,
     unreadCount,
@@ -46,10 +48,12 @@ const NotificationDropdown = () => {
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
-  // 컴포넌트 마운트 시 알림 목록 조회
+  // 컴포넌트 마운트 시 알림 목록 조회 (인증된 경우에만)
   useEffect(() => {
-    fetchNotifications(0, 10, false);
-  }, [fetchNotifications]);
+    if (isAuthenticated) {
+      fetchNotifications(0, 10, false);
+    }
+  }, [isAuthenticated, fetchNotifications]);
 
   // Popover 열기
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
