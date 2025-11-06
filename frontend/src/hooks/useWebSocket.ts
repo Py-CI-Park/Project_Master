@@ -8,7 +8,8 @@
  */
 
 import { useEffect, useState, useCallback, useRef } from 'react';
-import websocketService, { ConnectionStatus, WebSocketEvents } from '../services/websocket';
+import websocketService, { ConnectionStatus } from '../services/websocket';
+import type { WebSocketEvents } from '../services/websocket';
 import { useAuthStore } from '../stores/authStore';
 
 /**
