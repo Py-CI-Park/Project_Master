@@ -58,7 +58,7 @@ export const useAuthStore = create<AuthState>()(
       accessToken: null,
       refreshToken: null,
       isAuthenticated: false,
-      isLoading: true, // 초기 로딩 상태를 true로 설정 (localStorage 확인 중)
+      isLoading: false, // 초기 로딩 상태 (persist가 자동으로 처리)
 
       // 토큰 설정
       setTokens: (accessToken, refreshToken) => {
@@ -118,14 +118,8 @@ export const useAuthStore = create<AuthState>()(
         accessToken: state.accessToken,
         refreshToken: state.refreshToken,
         user: state.user,
+        isAuthenticated: state.isAuthenticated,
       }),
-      // localStorage에서 상태를 복원한 후 isAuthenticated 플래그 업데이트
-      onRehydrateStorage: () => (state) => {
-        if (state) {
-          state.isAuthenticated = !!state.accessToken;
-          state.isLoading = false;
-        }
-      },
     }
   )
 );
