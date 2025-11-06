@@ -8,16 +8,16 @@
  */
 
 import axios, { AxiosError } from 'axios';
-import type { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse } from 'axios';
+import { useAuthStore } from '../stores/authStore';
 
 // 환경 변수에서 API Base URL 가져오기 (없으면 기본값 사용)
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
 
 /**
  * Axios 인스턴스 생성
  */
-export const axiosInstance: AxiosInstance = axios.create({
-  baseURL: API_BASE_URL,
+export const axiosInstance = axios.create({
+  baseURL: `${API_BASE_URL}/api/v1`,
   timeout: 10000, // 10초
   headers: {
     'Content-Type': 'application/json',
@@ -30,12 +30,12 @@ export const axiosInstance: AxiosInstance = axios.create({
  * - 인증 토큰 추가 등
  */
 axiosInstance.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
-    // 로컬 스토리지에서 토큰 가져오기 (향후 인증 기능 구현 시 사용)
-    const token = localStorage.getItem('access_token');
+  (config: any) => {
+    // authStore에서 토큰 가져오기
+    const { accessToken } = useAuthStore.getState();
 
-    if (token && config.headers) {
-      config.headers.Authorization = `Bearer ${token}`;
+    if (accessToken && config.headers) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
 
     // 요청 로깅 (개발 환경에서만)
@@ -61,7 +61,7 @@ axiosInstance.interceptors.request.use(
  * - 에러 핸들링
  */
 axiosInstance.interceptors.response.use(
-  (response: AxiosResponse) => {
+  (response: any) => {
     // 응답 로깅 (개발 환경에서만)
     if (import.meta.env.DEV) {
       console.log('✅ Response:', {
