@@ -8,14 +8,20 @@
 
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
+import { LoadingFallback } from './Common';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, isLoading } = useAuthStore();
   const location = useLocation();
+
+  // localStorage에서 인증 상태를 복원하는 중이면 로딩 표시
+  if (isLoading) {
+    return <LoadingFallback />;
+  }
 
   // 인증되지 않은 경우 로그인 페이지로 리다이렉트
   // 로그인 후 원래 페이지로 돌아오기 위해 현재 위치를 state로 전달

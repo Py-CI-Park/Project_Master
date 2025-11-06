@@ -52,13 +52,13 @@ interface AuthState {
  */
 export const useAuthStore = create<AuthState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       // 초기 상태
       user: null,
       accessToken: null,
       refreshToken: null,
       isAuthenticated: false,
-      isLoading: false,
+      isLoading: true, // 초기 로딩 상태를 true로 설정 (localStorage 확인 중)
 
       // 토큰 설정
       setTokens: (accessToken, refreshToken) => {
@@ -119,6 +119,13 @@ export const useAuthStore = create<AuthState>()(
         refreshToken: state.refreshToken,
         user: state.user,
       }),
+      // localStorage에서 상태를 복원한 후 isAuthenticated 플래그 업데이트
+      onRehydrateStorage: () => (state) => {
+        if (state) {
+          state.isAuthenticated = !!state.accessToken;
+          state.isLoading = false;
+        }
+      },
     }
   )
 );
