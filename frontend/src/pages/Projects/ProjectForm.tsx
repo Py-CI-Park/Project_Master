@@ -78,14 +78,19 @@ const ProjectForm = () => {
         const updateData: ProjectUpdate = {
           name: formData.name,
           description: formData.description,
-          start_date: formData.start_date,
-          end_date: formData.end_date,
+          start_date: `${formData.start_date}T00:00:00`,
+          end_date: `${formData.end_date}T23:59:59`,
           status: formData.status,
         };
         await updateProject(Number(projectId), updateData);
         navigate(`/projects/${projectId}`);
       } else {
-        const newProject = await createProject(formData);
+        const createData: ProjectCreate = {
+          ...formData,
+          start_date: `${formData.start_date}T00:00:00`,
+          end_date: `${formData.end_date}T23:59:59`,
+        };
+        const newProject = await createProject(createData);
         navigate(`/projects/${newProject.id}`);
       }
     } catch (err) {
