@@ -7,7 +7,7 @@
  * - 갱신 실패 시 자동 로그아웃
  */
 
-import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { useAuthStore } from '../stores/authStore';
 
 // API 기본 URL
@@ -57,7 +57,7 @@ const processQueue = (error: any, token: string | null = null) => {
  * - Access Token을 Authorization 헤더에 자동 첨부
  */
 axiosInstance.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
+  (config: AxiosRequestConfig) => {
     const { accessToken } = useAuthStore.getState();
 
     if (accessToken && config.headers) {
@@ -82,7 +82,7 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async (error: AxiosError) => {
-    const originalRequest = error.config as InternalAxiosRequestConfig & {
+    const originalRequest = error.config as AxiosRequestConfig & {
       _retry?: boolean;
     };
 
