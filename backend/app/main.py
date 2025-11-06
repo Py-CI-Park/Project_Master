@@ -24,6 +24,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3099",  # Frontend 개발 서버 (포트 3099)
+        "http://localhost:3100",  # Frontend 개발 서버 (포트 3100)
         "http://localhost:3000",  # Frontend 개발 서버 (예비 포트)
         "http://localhost:5173",  # Vite 개발 서버 (대체 포트)
     ],
