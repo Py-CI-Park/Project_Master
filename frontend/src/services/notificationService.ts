@@ -20,7 +20,7 @@ export const getNotifications = async (
   limit = 50,
   unread_only = false
 ): Promise<NotificationList> => {
-  const response = await axiosInstance.get<NotificationList>('/api/v1/notifications/', {
+  const response = await axiosInstance.get<NotificationList>('/notifications/', {
     params: { skip, limit, unread_only },
   });
   return response.data;
@@ -33,7 +33,7 @@ export const getNotifications = async (
  */
 export const getUnreadCount = async (): Promise<{ unread_count: number }> => {
   const response = await axiosInstance.get<{ unread_count: number }>(
-    '/api/v1/notifications/unread-count'
+    '/notifications/unread-count'
   );
   return response.data;
 };
@@ -46,7 +46,7 @@ export const getUnreadCount = async (): Promise<{ unread_count: number }> => {
  */
 export const markAsRead = async (notificationId: number): Promise<Notification> => {
   const response = await axiosInstance.put<Notification>(
-    `/api/v1/notifications/${notificationId}/read`
+    `/notifications/${notificationId}/read`
   );
   return response.data;
 };
@@ -58,7 +58,7 @@ export const markAsRead = async (notificationId: number): Promise<Notification> 
  */
 export const markAllAsRead = async (): Promise<{ count: number; message: string }> => {
   const response = await axiosInstance.put<{ count: number; message: string }>(
-    '/api/v1/notifications/read-all'
+    '/notifications/read-all'
   );
   return response.data;
 };
@@ -70,5 +70,5 @@ export const markAllAsRead = async (): Promise<{ count: number; message: string 
  * @returns Promise<void>
  */
 export const deleteNotification = async (notificationId: number): Promise<void> => {
-  await axiosInstance.delete(`/api/v1/notifications/${notificationId}`);
+  await axiosInstance.delete(`/notifications/${notificationId}`);
 };
